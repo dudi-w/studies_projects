@@ -11,10 +11,7 @@ def latest_ID_Jobs():
 def get_dedails_jobs( ID_jobs_list):
     with open('dateJobs.csv', 'w', encoding='UTF8', newline='') as jobs_date:
         writer = csv.writer(jobs_date)
-        
         for ID_jobs in ID_jobs_list:
-            print (ID_jobs)
-
             with urlopen(f"https://hacker-news.firebaseio.com/v0/item/{ID_jobs}.json?print=pretty") as date_job:
                 temp=json.loads( date_job.read())
             details_jobs=[]
@@ -23,13 +20,10 @@ def get_dedails_jobs( ID_jobs_list):
             details_jobs.append( temp.get("url"))
             writer.writerow( details_jobs)
     print ("Your file is ready")
-    #return dedails_jobs
     
 
 def main():
-    #ododo latest_Jobs()
-    print(get_dedails_jobs(latest_ID_Jobs()))
-    #print (latest_ID_Jobs())
+    get_dedails_jobs(latest_ID_Jobs())
 
 if __name__ == "__main__":
     main()
