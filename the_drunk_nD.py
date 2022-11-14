@@ -13,12 +13,10 @@ class Drunk_steps:
 		MainArray= [0]*self.dim
 		for i in range(self.dim):
 			MainArray[i]= [0]*self.steps
-			print(MainArray[i])
 		return MainArray
 	
 	def get_dim_to_go(self):
 		num_dim=(random.randint(0 , self.dim-1))
-		print(num_dim)
 		return num_dim
 
 	def get_step(self):
@@ -33,35 +31,48 @@ class Drunk_steps:
 	def stepsForward(self):
 		for i in range(self.steps):
 			self.matrix[self.get_dim_to_go()][i]=self.get_step()
-		print(self.matrix)
-		#print (range(()-2))
 		for i in range(1 , self.steps):
 			for j in range(self.dim):
-				print (f"j=+{j} i={i}")
 				self.matrix[j][i]+=self.matrix[j][i-1]
 		return self.matrix
 
 
 	def print1D(self):
-		plt.plot(slef.matrix[0])
+		plt.plot(self.matrix[0],[0]*len(self.matrix[0]))
 		plt.show()
 	
-	def prin0t2D(self):
-		plt.plot(slef.matrix[0],self.matrix[1])
+	def print2D(self):
+		plt.plot(self.matrix[0],self.matrix[1])
 		plt.show()
 
 	def print3D(self):
 		fig = plt.figure()
 		ax = fig.add_subplot(projection='3d')    
-		ax.plot3D(slef.matrix[0],self.matrix[1],slef.matrix[2])
+		ax.plot3D(self.matrix[0],self.matrix[1],self.matrix[2])
 		plt.show()
 
-	#def printnD(self):
+	def printnD(self):
+		if self.dim == 1:
+			self.print1D()
+		elif self.dim == 2:
+			self.print2D()
+		elif self.dim == 3:
+			self.print3D()
+		else:
+			print(self.matrix)
+	
 
 def main():
-	drunk_steps = Drunk_steps(3,50)
-	ppp=drunk_steps.stepsForward()
-	print (ppp)
+	dimation=22
+	steps =50000
+	##### check if the input is velid
+	if dimation<=0 or steps <=0 or dimation!=int(dimation) or steps!=int(steps):
+		print ("error")
+		return
+		
+	drunk_steps = Drunk_steps(dimation , steps)
+	drunk_steps.stepsForward()
+	drunk_steps.printnD()
 	
 	
 if __name__ == "__main__":

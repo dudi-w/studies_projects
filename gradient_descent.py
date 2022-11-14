@@ -6,79 +6,118 @@ def extract_file(file_to_extract):
 	array_data=[]
 	for key in data:
 		array_data.append(data[key])
+	print(array_data[0])
 	return array_data
 	
-def calculation_partial_derivative(array_data_x , array_data_y , results_array):
-	#print(array_data_y , results_array)
-	gradient_for_Theta1= np.sum(results_array-array_data_y)
-	#print(gradient_for_Theta1)
-	gradient_for_Theta2=  np.sum((results_array-array_data_y)*array_data_x)
-	
+def calculation_partial_derivative(array_data_x ,array_data_y ,results_array ,weight=1):
+	weight=weight
+	gradient_for_Theta1= np.sum((results_array-array_data_y)*weight)
+	gradient_for_Theta2=  np.sum(((results_array-array_data_y)*array_data_x)*weight)
 	return gradient_for_Theta1 , gradient_for_Theta2
 
-def calculation_error_OLS(array_data , results_array):
-	n = np.size(results_array)
-	error = (np.sum((results_array-array_data)**2))/n
-	print (error)
+def calculation_error_OLS(array_data ,results_array):	#@@@
+	weight= np.size(results_array)
+	error= (np.sum(results_array-array_data)**2)/weight
+	print(error)
+	return(error)
+
+def calculation_error_OLS(array_data ,results_array, weight):	#@@@
+	error= (np.sum(((results_array-array_data)**2)/weight))
+	print(error)
+	return(error)
 
 def results_y_hat(Theta1 , Theta2,  array_data):
 	#create Array of results according to the test line
 	results_array=[]
 	for x_value in array_data:
 		results_array.append(Theta1 + Theta2*x_value)
-	return np.array(results_array)
+	return results_array							#return np.array(results_array)
 	
+def weighted_gradient_calculation2(array_data_x):
+	n = np.size(array_data_x)
+	m= np.median(array_data_x)
+	s=0
+	weighting= (-(array_data_x-m)**2)
+	while  (weighting[0] <=0.1) or (weighting[n-1] <=0.1):
+		print(weighting[0] , weighting[n-1] , m , n, s)
+		s+=0.1
+		weighting=(-(array_data_x-m)**2)+s
+	weighting= weighting/np.sum(weighting)
+	#plt.plot(array_data_x, weighting , color = "g")
+	#plt.show()
+	return weighting
+
+def weighted_gradient_calculation(array_data_x):
+	n = np.size(array_data_x)
+	m= np.median(array_data_x)
+	#array_data_x=np.array(array_data_x)
+	s=min(-(array_data_x[0]-m)**2 , -(array_data_x[n-1]-m)**2)
+	weighting= (-(array_data_x-m)**2)-s+0.1
+	#sum_array= np.sum(weighting)
+	weighting= weighting/np.sum(weighting)
+	#plt.plot(array_data_x, weighting , color = "c")
+	#plt.show()
+	return weighting	
+
+
 def plot_regression_line(x, y, Theta2 ,Theta1):
 	# plotting the actual points as scatter plot
 	plt.scatter(x, y)
 	# predicted response vector
 	y_pred = Theta1 + Theta2*x
-	#print ("y_pred")
-	#print( y_pred)
 	# plotting the regression line
 	plt.plot(x, y_pred , color = "c")
-
 	# function to show plot
 	plt.show()
+
 	
+def plot_error(grad1, grad2 , error):
+	# plotting the actual points as scatter plot
+	plt.scatter(grad1, error)
+	# plotting the regression line
+	plt.plot(grad1 ,error  , color = "c")
+	plt.plot(grad2 , error , color = "y")
+	# function to show plot
+	plt.show()
 
 
 def main():
-	#array_data = extract_file("XYdata.npz")
-	array_data=[0]*2
-	array_data[0]=np.array([1,2,3,4])
-	array_data[1]=np.array([2,1,5,2])
-	Theta1= 0		#undepnded velue in ecvition 
-	Theta2= 2		#corfition to the slupe
-	counter=100000		#number to iteration 
-	epsilon= 0.001
+	array_data = extract_file("XYdata.npz")
+	Theta1= 2		#undepnded velue in ecvition 
+	Theta2= 1		#corfition to the slope
+	counter=50000	#number to iteration 
+	epsilon= 0.0001
 	gradient_Theta1=1
 	gradient_Theta2=1
-	#print(array_data)
-	#results_array = results_y_hat(Theta1 , Theta2,  array_data[0])
-	#Theta1 , Theta2 = calculation_partial_derivative (array_data[1] , results_array)
-	i=0
-	while(i < counter):
+	array_gradient_Theta1=[]
+	array_gradient_Theta2=[]
+	array_error=[]
+	weight = weighted_gradient_calculation(array_data[0])
+	limit=0
+	while(limit < counter):
 		if (abs(gradient_Theta1)>epsilon or  abs(gradient_Theta2)>epsilon ):
 			results_array = results_y_hat(Theta1 , Theta2,  array_data[0])		
-			#plot_regression_line(array_data[0] ,array_data[1] ,Theta2 , Theta1)
-			gradient_Theta1 , gradient_Theta2 = calculation_partial_derivative(array_data[0] , array_data[1] , results_array)
-			#print(gradient_Theta1 , gradient_Theta2)
-			#print(results_array)
-			calculation_error_OLS(array_data[1] , results_array)
+			gradient_Theta1 , gradient_Theta2 = calculation_partial_derivative(array_data[0] , array_data[1] , results_array , weight)
+			error= calculation_error_OLS(array_data[1] , results_array, weight)	
+			#add velue to array in order to check it
+			array_gradient_Theta1.append(gradient_Theta1)
+			array_gradient_Theta2.append(gradient_Theta2)
+			array_error.append(error)
+			#depind the new theta's	
 			Theta1= Theta1-epsilon*gradient_Theta1
 			Theta2= Theta2-epsilon*gradient_Theta2
-		
-			#print (Theta1 , Theta2 , gradient_Theta1 , gradient_Theta2)
 		else:
 			print (Theta1 , Theta2 , gradient_Theta1 , gradient_Theta2)
+			plot_error(array_gradient_Theta1 ,array_gradient_Theta2, array_error)
+			plot_regression_line(array_data[0] ,array_data[1] ,Theta2 , Theta1)
 			return
-		i+=1
-		print (i)
+		limit+=1
+		print (limit)
 	else:
+		print(Theta1 , Theta2 , gradient_Theta1 , gradient_Theta2)
+		plot_error(array_gradient_Theta1 ,array_gradient_Theta2, array_error)
+		plot_regression_line(array_data[0] ,array_data[1] ,Theta2 , Theta1)
 		return
 	
-	#print( calculation_error(  ,array_data[1] ))
-
 if __name__ == "__main__":
     main()
