@@ -31,10 +31,25 @@ def results_y_hat(Theta1 , Theta2,  array_data):
 	results_array=[]
 	for x_value in array_data:
 		results_array.append(Theta1 + Theta2*x_value)
-	return results_array							#return np.array(results_array)
+	return results_array				#return np.array(results_array)
+
+def standard_deviation(array_x):
+	average= np.average(array_x)
+	n=np.size(array_x)
+	sd= ((np.sum((array_x-average)**2)/n)**0.5)
+	return sd
+	
+def weighted_gradient_calculation3(array_data_x):
+	sd= standard_deviation(array_data_x)
+	x=4
+	m= np.median(array_data_x)
+	weighting= (2.71828182846*x)**(-(((array_data_x-m)**2)/2*sd**2))
+	weighting= weighting/np.sum(weighting)
+	plt.plot(array_data_x, weighting , color = "g")
+	plt.show()
 	
 def weighted_gradient_calculation2(array_data_x):
-	n = np.size(array_data_x)
+	n = np.size(array_data_x)      #???
 	m= np.median(array_data_x)
 	s=0
 	weighting= (-(array_data_x-m)**2)
@@ -92,7 +107,7 @@ def main():
 	array_gradient_Theta1=[]
 	array_gradient_Theta2=[]
 	array_error=[]
-	weight = weighted_gradient_calculation(array_data[0])
+	weight = weighted_gradient_calculation3(array_data[0])
 	limit=0
 	while(limit < counter):
 		if (abs(gradient_Theta1)>epsilon or  abs(gradient_Theta2)>epsilon ):
