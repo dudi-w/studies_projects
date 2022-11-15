@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import math
+
+
 
 def extract_file(file_to_extract):
 	data = np.load( file_to_extract )
@@ -19,12 +22,12 @@ def calculation_error_OLS(array_data ,results_array):	#@@@
 	weight= np.size(results_array)
 	error= (np.sum(results_array-array_data)**2)/weight
 	print(error)
-	return(error)
+	return error
 
 def calculation_error_OLS(array_data ,results_array, weight):	#@@@
 	error= (np.sum(((results_array-array_data)**2)/weight))
 	print(error)
-	return(error)
+	return error
 
 def results_y_hat(Theta1 , Theta2,  array_data):
 	#create Array of results according to the test line
@@ -41,12 +44,16 @@ def standard_deviation(array_x):
 	
 def weighted_gradient_calculation3(array_data_x):
 	sd= standard_deviation(array_data_x)
-	x=4
 	m= np.median(array_data_x)
-	weighting= (2.71828182846*x)**(-(((array_data_x-m)**2)/2*sd**2))
+	#weighting= x*(2.71828182845904**(-(((array_data_x-m)**2)/(2*(sd**2))))
+	weighting=(np.exp((-(((array_data_x-m)**2)/(2*sd**2)))))
+	print (weighting)
 	weighting= weighting/np.sum(weighting)
+	print (weighting)
 	plt.plot(array_data_x, weighting , color = "g")
 	plt.show()
+	return weighting
+	
 	
 def weighted_gradient_calculation2(array_data_x):
 	n = np.size(array_data_x)      #???
@@ -98,9 +105,9 @@ def plot_error(grad1, grad2 , error):
 
 def main():
 	array_data = extract_file("XYdata.npz")
-	Theta1= 2		#undepnded velue in ecvition 
-	Theta2= 1		#corfition to the slope
-	counter=50000	#number to iteration 
+	Theta1= 2		#independent parameter in the equation
+	Theta2= 1		#corfition to the slope	
+	limit=5000		#slope coefficient
 	epsilon= 0.0001
 	gradient_Theta1=1
 	gradient_Theta2=1
@@ -108,8 +115,7 @@ def main():
 	array_gradient_Theta2=[]
 	array_error=[]
 	weight = weighted_gradient_calculation3(array_data[0])
-	limit=0
-	while(limit < counter):
+	while(limit > 0 ):
 		if (abs(gradient_Theta1)>epsilon or  abs(gradient_Theta2)>epsilon ):
 			results_array = results_y_hat(Theta1 , Theta2,  array_data[0])		
 			gradient_Theta1 , gradient_Theta2 = calculation_partial_derivative(array_data[0] , array_data[1] , results_array , weight)
@@ -126,7 +132,7 @@ def main():
 			plot_error(array_gradient_Theta1 ,array_gradient_Theta2, array_error)
 			plot_regression_line(array_data[0] ,array_data[1] ,Theta2 , Theta1)
 			return
-		limit+=1
+		limit-=1
 		print (limit)
 	else:
 		print(Theta1 , Theta2 , gradient_Theta1 , gradient_Theta2)

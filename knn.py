@@ -57,12 +57,8 @@ def main():
 	for point in test_data:
 		vactor_dist = distance_check(point , trean_data)
 		result = label_prediction( vactor_dist , threshold)
-		if result == point[4]:
-			count+=1
-			print ("\033[3;32;51mtrue\033[0m")
-		else:
-			print ("\033[30;41;6mfalse\033[0m")
-	print(f"{count}/{len(test_data)}")
+		print("\033[48;2;0;225;0mtrue\033[0m" if result == point[4] else "\033[30;41;6mfalse\033[0m")
+		count+=1 if result == point[4] else 0
 	print(f"{round(count/len(test_data)*100,2)}%")
 if __name__ == '__main__':
 	main()
