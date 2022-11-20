@@ -2,18 +2,14 @@ import csv
 import random
 import matplotlib.pyplot as plt
 
-def extract_file():
-	with open('iris.csv', 'r', newline='') as data:
+def extract_file(file_name):
+	with open(file_name, 'r', newline='') as data:
 		csvreader = csv.reader(data)
 		#data = [row for row in csvreader]
 		data= list(csvreader)
-		'''
-		for arr in data:
-			for j in range(len(arr)-1):
-				arr[j]= float(arr[j])
-		'''
-		data=[[float(i) if str(i).replace('.','',1).isdigit() else i for i in arr] for arr in data]
-	print (data)
+		#for arr in data:
+		#	for j in range(len(arr)-1):
+		#		arr[j]= float(arr[j])
 	return data
 
 
@@ -22,9 +18,10 @@ def mix_and_split(data):
 	random.shuffle(data)
 	trean_data= data[:int(len(data)*0.8)]
 	test_data= data[int(len(data)*0.8):]
+	print(test_data , len(test_data))
 	return trean_data , test_data
 	
-def distance_check(new_point , trean_data):
+'''def distance_check(new_point , trean_data):
 	array_dist=[]
 	for i in range(len(trean_data)):
 		sum_dis=0
@@ -100,6 +97,10 @@ def main():
 	#	print("\033[48;2;0;225;0mtrue\033[0m" if result == point[4] else "\033[30;41;6mfalse\033[0m")
 	#	count+=1 if result == point[4] else 0
 	#print(f"{round(count/len(test_data)*100,2)}%")
+	'''
+def main():
+	file_name="agaricus-lepiota.data"
+	trean_data , test_data = mix_and_split(extract_file(file_name))
 	
 	
 	
