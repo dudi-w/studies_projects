@@ -28,9 +28,7 @@ def chooses_short_distance(point_to_sheck , points):
 	return index_of_short_dis
 
 def correlating_points_to_clusters(data ,mean_points, k):
-	arr_clusters=[]
-	for i in range(k):
-		arr_clusters.append([])
+	arr_clusters=[[] for i in range(k)]
 	for point in data:
 		clusters= chooses_short_distance(point , mean_points)
 		arr_clusters[clusters].append(point)
