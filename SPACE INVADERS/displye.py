@@ -1,15 +1,20 @@
 import sys, pygame
 import spaceship
-import shoot2 , alien
+import shoot2 , alien, collide
 import game_seting as gs
 pygame.init()
 
 size = gs.width, gs.height
 screen = pygame.display.set_mode(size)
-spaceship= spaceship.Spaceship(size)
-group1=pygame.sprite.Group()
-aliens_group= alien.Aliens(size)
 IMAGE1=pygame.image.load(gs.beck_ground_image)
+
+ship_group= spaceship.Spaceship_and_shoot(size)
+clock = pygame.time.Clock()
+
+#spaceship= spaceship.Spaceship(size, ship_group)
+aliens_group= alien.Aliens(size)
+
+s = collide.Collide_and_scor(aliens_group , ship_group)
 
 while True:
 	
@@ -18,15 +23,17 @@ while True:
 	else:
 		key_input = pygame.key.get_pressed()
 		if key_input[pygame.K_SPACE]:
-			if not group1:
-				shoot2.Shooting(spaceship, group1)
+			if len(ship_group)==1:
+				ship_group.create_shot()
 				
-	spaceship.move_spaceship(key_input ,size)
+	ship_group.sprites()[0].move_spaceship(key_input ,size)
 	screen.blit(IMAGE1 , (0,0))
-	group1.update()
+	s.update(aliens_group , ship_group)
+	ship_group.update()
 	aliens_group.update()
 	aliens_group.draw(screen)
-	group1.draw(screen)
-	screen.blit(spaceship.image, spaceship.image_rect)
+	ship_group.draw(screen)
+	#screen.blit(spaceship.image, spaceship.image_rect)
 	pygame.display.update()
 	pygame.display.flip()
+	clock.tick(30)
