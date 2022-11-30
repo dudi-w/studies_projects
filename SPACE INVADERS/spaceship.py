@@ -1,4 +1,6 @@
-import pygame , shoot2
+import sys, pygame
+import spaceship
+import shoot2 , alien, collide , event
 import game_seting as gs
 
 
@@ -7,10 +9,16 @@ class Spaceship_and_shoot(pygame.sprite.Group):
 	def __init__(self, screen_size):
 		super(self.__class__ , self).__init__()
 		self.add(Spaceship(screen_size))
-	
+		
+		
 	def create_shot(self):
 		self.add( shoot2.Shooting(self.sprites()[0] , gs.ship_shot_image , gs.paceship_shoot_direction) )
-
+	
+	def move_spaceship(self, key_input, screen_size):
+		for i in self:
+			if type(i) is Spaceship:
+				 i.move_spaceship( key_input, screen_size)
+				 
 
 class Spaceship(pygame.sprite.Sprite):
 	def __init__(self, screen_size):
@@ -41,3 +49,6 @@ class Spaceship(pygame.sprite.Sprite):
 				speed[0] = -gs.ship_speed
 			
 		self.rect = self.rect.move(speed)
+		
+	#def update(self):
+	#	self.move_spaceship()
