@@ -21,10 +21,12 @@ void printList(struct Node* head)
 {
     printf("The linked list is:\n");
     struct Node* temp = head;
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
         printf("%d ->", temp->data);
         temp = temp->next;
-}   printf("NULL\n");
+    }
+    printf("NULL\n");
 }
 void revers(struct Node** head_ref)
 {
