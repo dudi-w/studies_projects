@@ -35,13 +35,20 @@ class Player:
 		self.current=-1
 	
 	def __next__(self):
-		if len(self.current)==0:
+		if len(self.clips)==0:
 			raise ValueError ('your player is empty')
-		if self.current==len(self.current)-1:
+		if self.current==len(self.clips)-1:
 			self.current=-1
 		self.clips[self.current].stop()
 		self.current+=1
-		self.clips[self.current].flay()
+		self.clips[self.current].play()
+		return self.clips[self.current]
+	
+	def __repr__(self):
+		return self.clips
+	
+	def __iter__(self):
+		return self
 		
 	def shuffle(self):
 		self.clips = [self.clips.pop(randint(0, len(self.clips)-1)) for i in range(len(self.clips))]
@@ -60,9 +67,11 @@ def main():
 	clip3 = ArtClip("thenks you h'shem" , "2022" , 5)
 	
 	player1 = Player([clip1, clip2 , clip3])
-	print(player1.clips)
+	#print(player1)
 	player1.shuffle()
 	print(player1.clips)
+	for i in player1:
+		print(i)
 	
 if __name__ == '__main__':
 	main()
