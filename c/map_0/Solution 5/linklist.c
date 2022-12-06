@@ -19,20 +19,23 @@ void insert(struct Node** head_ref, int new_data)
 // Function to print linked list
 void printList(struct Node* head)
 {
+    printf("The linked list is:\n");
     struct Node* temp = head;
     while (temp != NULL) {
-        printf("%d ", temp->data);
+        printf("%d ->", temp->data);
         temp = temp->next;
-}
+}   printf("NULL\n");
 }
 void revers(struct Node** head_ref)
 {
     struct Node* first = *head_ref;
+    struct Node* tmp=NULL;
     while (first->next != NULL)
     {
-        *(head_ref)= first->next;
+        tmp = first->next;
         first->next = first->next->next;
-        (*head_ref)->next=first;
+        tmp->next=(*head_ref);
+        (*head_ref)=tmp;
     }
 }
 int main()
@@ -43,6 +46,7 @@ insert(&head, 20);
 insert(&head, 4);
 insert(&head, 15);
 insert(&head, 85);
-printf("The linked list is:\n");
+printList(head);
+revers(&head);
 printList(head);
 }
