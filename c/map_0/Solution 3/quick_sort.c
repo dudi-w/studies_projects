@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SIZE 3000000
+#define SIZE 3000
 #define MAX 1000000
 int array[SIZE];
 
@@ -15,24 +15,16 @@ int main()
 {
     srand(time(NULL));
     init();
-    //printArray();
-    //partition(array , 30, 29);
+    printArray();
     quickSort(array , SIZE);
-    //printArray();
+    printArray();
     return 0;
-}
-
-void swap(int *a, int *b) {
-    int tmp;
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
 }
 
 void init() {
     int i;
     for(i=0; i<SIZE; ++i)
-        array[i] = random()%SIZE+1;
+        array[i] = random()%MAX;
 }
 
 void printArray() {
@@ -42,20 +34,24 @@ void printArray() {
     printf("\n");
     
 }
+
+void swap(int *a, int *b) {
+    int tmp;
+    tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
 int partition( int arr[], int len , int axisNember ){
     int pointer=0;
     swap(&arr[0], &arr[axisNember]);
     for(int i=1 ; i<len ; i++){
-        //printArray();
         if (arr[i] < arr[0]){
             pointer++;
             swap(&arr[pointer], &arr[i]);
         }
     }
     swap(&arr[pointer], &arr[0]);
-    //printArray();
-    //printf("%dpointer\n" , pointer );
-    //printf("end run\n" );
     return pointer;
 }
 
