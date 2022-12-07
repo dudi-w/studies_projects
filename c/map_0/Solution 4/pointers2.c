@@ -16,5 +16,5 @@ int main()
 	int* a = arr_a;
 	int* b = arr_b;
 	swap(&a, &b);
-	printf("%d", *(b+1)) ;
+	//printf("%d", *(b+1)) ;
 }
