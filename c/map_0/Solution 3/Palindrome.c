@@ -10,7 +10,6 @@ printf("%d\n", checkIfPalindrome);
 
 int isPalindrome(char str[], int startFrom,  int n)
 {
-	printf("fdsadfews\n");
 	int checkIfPalindrome = 1;
 	while (!isalpha(str[startFrom]))
 		startFrom++;
@@ -20,10 +19,8 @@ int isPalindrome(char str[], int startFrom,  int n)
 	
 	if ((n > startFrom))
 	{
-		printf("121212\n");
 		if (toupper(str[startFrom]) == toupper(str[n]))
 		{
-			printf("3535\n");
 			checkIfPalindrome = isPalindrome(str, n - 1, startFrom + 1);
 		}
 		else 
