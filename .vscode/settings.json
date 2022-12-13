@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "linklist": "c"
+        "linklist": "c",
+        "solution6.h": "c"
     }
 }
