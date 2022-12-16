@@ -16,6 +16,15 @@ void insert(struct Node** head_ref, int new_data)
     (*head_ref) = new_node;
 }
 
+// Function to remove the first node
+void removeFirst(struct Node** head_ref){
+    if((*head_ref)==NULL)
+        return;
+    struct Node * temp =(*head_ref);
+    (*head_ref)= (*head_ref)->next;
+    free(temp);
+}
+
 // Function to print linked list
 void printList(struct Node* head)
 {
@@ -48,6 +57,8 @@ insert(&head, 20);
 insert(&head, 4);
 insert(&head, 15);
 insert(&head, 85);
+printList(head);
+removeFirst(&head);
 printList(head);
 revers(&head);
 printList(head);
