@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "solution1.h"
 
+void init(int *array, int size){
+    for(int i=0; i<size; ++i)
+        array[i] = random()%100000-50000;
+}
+
 int * mergeSort(int *arr1 ,int size1 ,int *arr2 , int size2, int (*func)(int)){
 
     if(size1<1)
@@ -13,13 +18,13 @@ int * mergeSort(int *arr1 ,int size1 ,int *arr2 , int size2, int (*func)(int)){
     j=k=0;
 
     for(int i=0; i< size1+size2 ;++i){
-        printf("arr1[%d] = %d ---  arr2[%d] = %d\n", j ,arr1[j], k, arr2[k]);
+        //printf("arr1[%d] = %d ---  arr2[%d] = %d\n", j ,arr1[j], k, arr2[k]);
         if((func(arr1[j])<=func( arr2[k]) && j<size1) || k>=size2 )
             arr[i]=arr1[j++];
         else
             arr[i]=arr2[k++];
     }
-    printArray(arr, size1+size2);
+    //printArray(arr, size1+size2);
     return arr;
 
 }
@@ -31,9 +36,9 @@ int *sort(int arr[], int start, int end,int (*func)(int)){
     int *arr2 = partition(arr ,((end-start)/2), end+1 );
     int size1= ((end-start)/2)-start;
     int size2= end-(((end-start)/2));
-    printArray(arr1,size1);
-    printArray(arr2,size2);
-    printf("size1 = %d\t size2 = %d\n",size1,size2);
+    //printArray(arr1,size1);
+    //printArray(arr2,size2);
+    //printf("size1 = %d\t size2 = %d\n",size1,size2);
     if (size1 >1)
         arr1 = sort(arr1 ,start, (end-start)/2, func);
     if(size2>1)
