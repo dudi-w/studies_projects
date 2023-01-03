@@ -60,7 +60,7 @@ void fs_debug()
 		for(int j=0;j<INODES_PER_BLOCK;++j){
 			if(!Iblock.inode[j].isvalid)
 				continue;
-			printf("inode %d:\n",j);
+			printf("\033[1;35minode %d:\n\033[0m",j);
 			printf("\tsize: %d bytes\n\tdirect blocks:",Iblock.inode[j].size);
 			for(int k=0;k<POINTERS_PER_INODE;++k){
 				if(Iblock.inode[j].direct[k])

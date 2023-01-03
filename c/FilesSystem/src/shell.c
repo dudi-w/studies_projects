@@ -30,7 +30,7 @@ int main( int argc, char *argv[] )
 	printf("opened emulated disk image %s with %d blocks\n",argv[1],disk_size());
 
 	while(1) {
-		printf("\033[1;33msimplefs> \033[0m");
+		printf("\033[1;34msimplefs> \033[0m");
 		fflush(stdout);
 
 		if(!fgets(line,sizeof(line),stdin))
