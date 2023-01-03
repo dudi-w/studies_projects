@@ -10,7 +10,7 @@ void swap(int **a, int **b)
 
 
 int main()
-{    
+{   
 	int arr_a[ ] = {5,3,2,6};
 	int arr_b[ ] = {6,9,2,5,7,3};
 	int* a = arr_a;

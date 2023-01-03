@@ -1,6 +1,11 @@
 {
     "files.associations": {
-        "types.h": "c"
+        "types.h": "c",
+        "stdlib.h": "c",
+        "solution2.h": "c",
+        "stdbool.h": "c",
+        "math.h": "c",
+        "stdio.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

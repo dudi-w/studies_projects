@@ -11,6 +11,10 @@ struct Node
 void insert(struct Node** head_ref, int new_data)
 {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    if(new_node==NULL){
+        printf("Memory not allocated");
+        exit(0);
+    }
     new_node->data = new_data;
     new_node->next = (*head_ref);
     (*head_ref) = new_node;
@@ -29,11 +33,11 @@ void removeFirst(struct Node** head_ref){
 void printList(struct Node* head)
 {
     printf("The linked list is:\n");
-    struct Node* temp = head;
-    while (temp != NULL)
+    //struct Node* temp = head;
+    while (head != NULL)
     {
-        printf("%d ->", temp->data);
-        temp = temp->next;
+        printf("%d-> ", head->data);
+        head = head->next;
     }
     printf("NULL\n");
 }
