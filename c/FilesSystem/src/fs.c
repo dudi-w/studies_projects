@@ -195,7 +195,7 @@ void unmount()
 int fs_create()
 {
 	int InodeIndex = getFreeInode();
-	printf("%d",InodeIndex );
+	printf("%d\n",InodeIndex );
 	if(InodeIndex==-1)
 		return -1;
 	
@@ -237,8 +237,10 @@ int getFreeBlock()
 		return -1;
 	}
 	for(int i=ceil(disk_size()/10)+1 ;i<disk_size() ;++i)
-		if(!BitMap[i])
+		if(!BitMap[i]){
+			BitMap[i]=1;
 			return i;
+		}
 	
 	printf("ERROR - No free block exists\n");
 	return -1;
@@ -253,7 +255,7 @@ int fs_delete( int inumber )
 	union fs_block Iblock;
 	disk_read((inumber/INODES_PER_BLOCK)+1,Iblock.data);
 	if(!Iblock.inode[inumber].isvalid){
-		printf("inonde has already been deleted\n");
+		printf("inonde has already been deleted\n");//???
 		return 1;
 	}
 	Iblock.inode[inumber].isvalid=0;
@@ -289,7 +291,7 @@ int getBlockInodeNum(int inumber ){
 }
 
 //Returns the inode number inside the block
-int getInodeNum(int inumber ){
+int getInodeIndex(int inumber ){
 	return inumber%INODES_PER_BLOCK;
 }
 
@@ -298,7 +300,7 @@ int fs_read( int inumber, char *data, int length, int offset)
 	sanity_check(inumber,data);
 	union fs_block Iblock;
 	disk_read(getBlockInodeNum(inumber),Iblock.data);
-	if(!Iblock.inode[getInodeNum(inumber)].isvalid)	//Checking whether the inode is valid
+	if(!Iblock.inode[getInodeIndex(inumber)].isvalid)	//Checking whether the inode is valid
 		return -1;
 	
 	int offset2 =(offset%DISK_BLOCK_SIZE);//index of block
@@ -312,7 +314,8 @@ int fs_read( int inumber, char *data, int length, int offset)
 		printf("\033[1;35m - dataBlockNum = %d\033[0m\n",dataBlockNum );
 		copy('r',dataBlockNum ,data, iterations, count ,offset2);
 		count+=iterations;
-		iterations= ((fs_getsize(inumber)-count-offset)> DISK_BLOCK_SIZE)? DISK_BLOCK_SIZE :fs_getsize(inumber)-count-offset ;
+		iterations= ((fs_getsize(inumber)-count-offset)> DISK_BLOCK_SIZE)?\
+		DISK_BLOCK_SIZE :fs_getsize(inumber)-count-offset;
 		offset2=0;
 	}
 	return count;
@@ -323,16 +326,39 @@ int getBlockNumByte(int inumber , int offset){
 	union fs_block Iblock;
 	disk_read(getBlockInodeNum(inumber),Iblock.data);
 	if(offset<DISK_BLOCK_SIZE*POINTERS_PER_INODE){
-		return (Iblock.inode[getInodeNum(inumber)].direct[offset/DISK_BLOCK_SIZE])?\
-		Iblock.inode[getInodeNum(inumber)].direct[offset/DISK_BLOCK_SIZE]:-1;
+		return (Iblock.inode[getInodeIndex(inumber)].direct[offset/DISK_BLOCK_SIZE])?\
+		Iblock.inode[getInodeIndex(inumber)].direct[offset/DISK_BLOCK_SIZE]:-1;
 	}
 	else{
 		union fs_block IDblock;
-			disk_read(Iblock.inode[getInodeNum(inumber)].indirect ,IDblock.data);
+			disk_read(Iblock.inode[getInodeIndex(inumber)].indirect ,IDblock.data);
 			return (IDblock.pointers[(offset-(DISK_BLOCK_SIZE*POINTERS_PER_INODE))/DISK_BLOCK_SIZE])?\
 			IDblock.pointers[(offset-(DISK_BLOCK_SIZE*POINTERS_PER_INODE))/DISK_BLOCK_SIZE]:-1;
 	}
 }
+
+//Set the block number in inode
+void setBlockNumByte(int inumber , int offset , int nBlock){
+	union fs_block Iblock;
+	disk_read(getBlockInodeNum(inumber),Iblock.data);
+	if(offset<DISK_BLOCK_SIZE*POINTERS_PER_INODE && !Iblock.inode[getInodeIndex(inumber)].direct[offset/DISK_BLOCK_SIZE]){
+		Iblock.inode[getInodeIndex(inumber)].direct[offset/DISK_BLOCK_SIZE] = nBlock;
+		disk_write(getBlockInodeNum(inumber),Iblock.data);
+		return;
+	}
+	else if (offset>=DISK_BLOCK_SIZE*POINTERS_PER_INODE){
+		union fs_block IDblock;
+			disk_read(Iblock.inode[getInodeIndex(inumber)].indirect ,IDblock.data);
+			if(!IDblock.pointers[(offset-(DISK_BLOCK_SIZE*POINTERS_PER_INODE))/DISK_BLOCK_SIZE]){
+				IDblock.pointers[(offset-(DISK_BLOCK_SIZE*POINTERS_PER_INODE))/DISK_BLOCK_SIZE]=nBlock;
+				disk_write(getBlockInodeNum(inumber),Iblock.data);
+				return;
+			}
+	}
+	printf("ERORR = setBlockNumByte");
+	exit(0);
+}
+
 void copy( int permission, int nBlock , char *data, int iterations, int offset1 , int offset2){
 	if(permission=='r'){
 		union fs_block Dblock;
@@ -360,6 +386,38 @@ int fs_write( int inumber, const char *data, int length, int offset )
 	}
 	union fs_block Iblock;
 	disk_read(getBlockInodeNum(inumber) ,Iblock.data);
-	if(Iblock.inode[getInodeNum(inumber)])
+	if(!Iblock.inode[getInodeIndex(inumber)].isvalid){ // || Iblock.inode[getInodeIndex(inumber)].size!=offset){
+		printf("ERORR - invalid inumber \n Please use 'create'\n" );
+		return -1;
+	}
+
+	if(!Iblock.inode[getInodeIndex(inumber)].size){
+		Iblock.inode[getInodeIndex(inumber)].indirect=0;
+		for(int j=0;j<POINTERS_PER_INODE;++j)
+			Iblock.inode[getInodeIndex(inumber)].direct[j]= 0;
+		disk_write(getBlockInodeNum(inumber) ,Iblock.data);//???
+	}
+
+	int offset2 =(offset%DISK_BLOCK_SIZE);//index of block
+	int iterations= (length%DISK_BLOCK_SIZE);
+	int count=0;//How many times a copy was made
+
+	if(!BitMap && !fs_mount())
+		return -1;
+
+	for(int i=0;i<ceil(length/DISK_BLOCK_SIZE);++i){
+		int nFreeBlock = getFreeBlock();
+		if(nFreeBlock<0){
+			fs_delete(inumber);
+			return -(length+count);
+		}
+		copy('w', nFreeBlock ,data, iterations,count,offset+count);
+		setBlockNumByte(inumber,offset+count,nFreeBlock);
+		Iblock.inode[getInodeIndex(inumber)].size+=iterations;
+		count+=iterations;
+		iterations=DISK_BLOCK_SIZE-(offset%DISK_BLOCK_SIZE);//??
+	}
+	disk_write(getBlockInodeNum(inumber),Iblock.data);
+	
 	return 0;
 }
