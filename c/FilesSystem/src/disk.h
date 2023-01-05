@@ -8,6 +8,7 @@ int  disk_size();
 void disk_read( int blocknum, char *data );
 void disk_write( int blocknum, const char *data );
 void disk_close();
+void sanity_check( int blocknum, const void *data );
 
 
 #endif

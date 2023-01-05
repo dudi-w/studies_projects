@@ -30,7 +30,7 @@ int main( int argc, char *argv[] )
 	printf("opened emulated disk image %s with %d blocks\n",argv[1],disk_size());
 
 	while(1) {
-		printf("\033[1;34msimplefs> \033[0m");
+		printf(":\033[1;34m~/simplefs\033[0m$ ");
 		fflush(stdout);
 
 		if(!fgets(line,sizeof(line),stdin))
@@ -44,6 +44,16 @@ int main( int argc, char *argv[] )
 		args = sscanf(line,"%s %s %s",cmd,arg1,arg2);
 		if(args==0)
 			continue;
+		fs_debug();
+		/*fs_create();
+		fs_format();
+		fs_mount();
+		fs_mount();
+		fs_debug();
+		printf("%d\n",fs_getsize(5));
+		fs_format();
+		fs_create();
+		return 0;*/
 
 		if(!strcmp(cmd,"format")) {
 			if(args==1) {
@@ -166,6 +176,7 @@ int main( int argc, char *argv[] )
 	}
 
 	printf("closing emulated disk.\n");
+	unmount();
 	disk_close();
 
 	return 0;
@@ -188,11 +199,11 @@ static int do_copyin( const char *filename, int inumber )
 		if(result<=0) break;
 		if(result>0) {
 			actual = fs_write(inumber,buffer,result,offset);
+			offset += actual;
 			if(actual<0) {
 				printf("ERROR: fs_write return invalid result %d\n",actual);
 				break;
 			}
-			offset += actual;
 			if(actual!=result) {
 				printf("WARNING: fs_write only wrote %d bytes, not %d bytes\n",actual,result);
 				break;

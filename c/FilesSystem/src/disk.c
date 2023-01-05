@@ -35,7 +35,7 @@ int disk_size()
 	return nblocks;
 }
 
-static void sanity_check( int blocknum, const void *data )
+void sanity_check( int blocknum, const void *data )
 {
 	if(blocknum<0) {
 		printf("ERROR: blocknum (%d) is negative!\n",blocknum);

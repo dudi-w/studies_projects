@@ -1,4 +1,4 @@
-GCC=/usr/bin/gcc
+GCC=gcc
 
 simplefs: shell.o fs.o disk.o
 	$(GCC) shell.o fs.o disk.o -o simplefs
@@ -13,7 +13,7 @@ disk.o: disk.c disk.h
 	$(GCC) -Wall disk.c -c -o disk.o -g
 
 run : simplefs
-	./simplefs image.200 200
+	./simplefs image.20 20
 
 clean:
 	rm simplefs disk.o fs.o shell.o
