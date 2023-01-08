@@ -44,7 +44,7 @@ int main( int argc, char *argv[] )
 		args = sscanf(line,"%s %s %s",cmd,arg1,arg2);
 		if(args==0)
 			continue;
-		fs_debug();
+		//fs_debug();
 		/*fs_create();
 		fs_format();
 		fs_mount();
@@ -54,6 +54,7 @@ int main( int argc, char *argv[] )
 		fs_format();
 		fs_create();
 		return 0;*/
+		//printf("getFreeBlock()= %d\n" , getFreeBlock());
 
 		if(!strcmp(cmd,"format")) {
 			if(args==1) {

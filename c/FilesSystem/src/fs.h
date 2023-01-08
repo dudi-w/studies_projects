@@ -12,7 +12,7 @@ int getFreeBlock();
 void unmount();
 int getBlockNumByte(int inumber , int offset);
 
-void copy( int permission, int nBlock , char *data, int iterations, int offset1 , int offset2);
+void fs_copy( int permission, int nBlock , char *data, int iterations, int offset1 , int offset2);
 int  fs_read( int inumber, char *data, int length, int offset );
 int  fs_write( int inumber, const char *data, int length, int offset );
 

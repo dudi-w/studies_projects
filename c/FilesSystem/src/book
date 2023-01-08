@@ -1,0 +1,422 @@
+[[File:Light Amplification by Stimulated Emission of Radiation.jpg|thumb|Semi-conductor Lasers]]
+A '''laser''' is a device that can produce a bright beam of colored light that is focused on a spot. Normally a light bulb glows white because it gives off light in every color we can see. It does so by heating up a strand of wire until it glows. The laser works very differently, so it can make a very narrow beam with only a single color. Laser is an '''acronym''' for <u>Light Amplification by Stimulated Emission of Radiation</u>
+
+==Who invented it?==
+The ideas that led to the invention of the laser were discovered by Albert Einstein in 1916. But it was not until 1953 that these ideas were put into use. The first laser was actually called a maser, because it used microwaves. (This is the same type of energy that is used in a microwave oven). Charles Townes and two of his students made the first maser, but it would only work for short amounts of time. Two scientists from the Soviet Union (Russia) named Nikolay Basov and Aleksandr 
+Prokhorov figured out how to make the maser stay on. These three men won a Nobel Prize in 1964 for their discovery.
+
+The first idea for a laser came from Charles Townes and Arthur Schawlow. Gordon Gould worked on the idea and wrote them down in a paper in 1959. This paper was the first time the word laser was used.
+
+The first working laser was invented by Theodore Maiman and demonstrated on May 16, 1960.
+
+==How does it get power? ==
+A laser is powered by electricity. The electric current gives it the energy it needs to emit light.
+
+==How does it work?==
+
+The name of the laser is an acronym that comes from first letters of the name, "Light Amplification by Stimulated Emission of Radiation". This is just a way of saying that a bright beam of light is created by pumping energy into a material. The energy radiation goes into the material from an outside source and pumps up or excites the material. The atoms in the material go into an excited/fast-moving state by absorbing this energy.
+
+A single packet of light is called a ''photon''. This word comes from the Greek name for light. When photon of a certain color passes an excited atom, it causes that atom to release a photon of the same color. So the total light becomes slightly brighter and the photons keep moving through the material. As it does so, it passes other excited atoms. These also emit photons of the same color. As a result the light is amplified/brightened, creating a bright laser beam of a single color.
+
+The beam of light causes all the excited atoms to give off their energy as photons. Normally all the light would travel away until they are absorbed by a barrier. However if more energy is pumped into the material, it will keep the laser beam turned on.
+
+A laser is made with a mirror at each end of the material. The light photons will bounce back and forth between these mirrors, causing more photons to be emitted.
+
+===Ruby Lasers===
+(see discussion page about additions below)
+====The Parts====
+Some lasers only have diodes.It is cut in half so you can see its parts. The picture below shows a  laser diode,similar to light emitting diode.
+  
+[[File:LED, 5mm, green (en).png|left|thumb|200px|Cut-away view of a  laser diode.]]
+
+ The picture below shows a ruby laser..  The first working laser was a ruby laser, and it was invented in 1960.
+
+It is cut in half so you can see its parts.  The shiny red tube at the centre is a ruby crystal.  That's where the laser beam will come from when the laser is switched on.
+
+[[File:Ruby laser main.png|left|thumb|345px|Cut-away view of a ruby laser.]]
+
+If you look closely at the picture, you will see that there are two round mirrors, one attached to each end of the ruby crystal.  The mirror at the far end is called a "fully reflecting mirror".  All the light reaching this type of mirror bounces back off it again.
+
+The mirror at the near end of the crystal is called a "partially reflecting mirror".  This type of mirror reflects most of the light, but some of the light can pass through it.
+
+A tube made of quartz is coiled around the ruby crystal.  It is called a "quartz flash tube", and each end of it is connected to a power supply, forming an electric circuit.  In the picture above, we made the quartz flash tube see-through, so you can get a better view of the crystal.
+
+All of these parts are inside an aluminium cylinder.  The cylinder is highly polished, like a curved mirror.
+
+====Switching it on====
+When the electric power supply is switched on, a current flows through the quartz flash tube, and it gives off a very bright burst of light.  The reflecting cylinder around the flash tube helps to focus all that light onto the ruby crystal.
+
+[[File:Ruby laser quartz light.png|thumb|500px|Quartz flash tube lights up.]]
+
+====What happens inside the crystal?====
+Like everything else, the ruby crystal is made of atoms. A real atom is so tiny, you can't see it, even with a very powerful microscope.  They are much bigger in this picture so you can see them:
+
+[[File:Ruby laser atoms.png|thumb|376px|Atoms in the ruby crystal]]
+
+The light from the quartz flash tube hits the atoms in the crystal.  Some of the atoms absorb the light, giving them more energy.  They are said to be in a "higher energy level".  To return to their previous energy level, they must get rid of the extra energy they got from the light.  They do this by emitting a tiny particle of light called a "photon".  Scientists call this process "stimulated emission of radiation" because the atoms are '''stimulated''' by the bright light, causing the '''emission''' of a photon of light, and light is a type of '''radiation'''.  The next picture shows the atoms emitting photons.
+
+[[File:Ruby laser photons.png|thumb|376px|Ruby atoms emitting photons]]
+
+Of course, in reality photons are a lot smaller than those in the picture.  Photons are even smaller than the stuff that makes up atoms!
+
+====Where do the photons go?====
+When they are emitted from the atoms, the photons of light shoot off in all directions.
+[[File:Ruby laser photons all dirs.png|left|thumb|177px|Photons shooting off]]
+Sometimes they pass close to another atom, and when that happens, the other atom might emit a photon too.
+
+[[File:Ruby laser photons pass.png|thumb|177px|Photons causing emission of more photons]]
+
+And if the photon from the other atom passes yet another atom, that atom might also emit a photon.  So the number of photons increases very quickly, and the inside of the laser becomes very bright and hot. A water cooling system keeps it from overheating.
+
+[[File:Ruby laser photons many.png|thumb|376px|Lots of photons]]
+
+====How is the laser beam formed?====
+When the photons of light hit the mirrors, they are reflected back off them.  Many of the photons will bounce back and forth between the mirrors, passing atoms on the way, and causing yet more photons to be emitted.  Scientists call this "light amplification", because the '''light''' (made of photons) is '''amplified''' (made brighter).
+
+With so many photons whizzing back and forth between the mirrors, many of them escape from the crystal through the partially reflective mirror at the front.  We have shown some of these photons in the picture below.
+
+[[File:Ruby laser photons escape.png|thumb|376px|Photons escaping through the front mirror]]
+
+The laser beam is made of many millions of these photons, escaping from the crystal through the front mirror.
+
+[[File:Ruby laser beam.png|thumb|400px|The laser beam]]
+
+The whole process, from flicking the switch to the laser beam appearing, happens in the blink of an eye.
+
+==How dangerous is it?==
+The light from a laser beam can become very bright. If it has enough energy, this beam can cause damage to the eyes. You should not look directly into a laser beam. When scientists work with very powerful lasers, they must wear safety goggles over their eyes to avoid injury. Even a weak laser beam can damage the eyes when it is seen directly for a long time.
+
+==What does it do?==
+A photon of light moves through space like a wave. Just like a wave moving across water, oscillating up and down, a light wave has a rate at which it vibrates. This rate is called the ''frequency'', and it is the rate of vibration that determines the color we see.
+
+A normal light bulb will emit many photons of light at various frequencies. As a result, we see the light from the bulb as white. A laser, however, only emits photons with a single frequency. Such light is called ''monochromatic'', a word that means ''single color''.
+
+Much as a company of soldiers on parade all step at the same time, the photons from a laser are also moving in lock-step with each other. This is called ''coherence''. It is a very useful property of a laser because of the way that waves interact with each other. It is this property of coherence, for example, that allows lasers to make ''holograms'', which are pictures that can make a three-dimensional image.
+
+Finally the light from a laser is all moving in the same direction. The light from a flashlight (British English: ''torch'') comes out in a cone shape, and the brightness of the beam decreases the further away you get. But the tight beam from a laser will stay bright over much longer distances.
+
+These three properties of a laser: monochromatic, coherence and a tight beam, are useful in many applications. Lasers are now being used in a great variety of devices. (See "How has it changed the world?" below for a list of examples.)
+
+==How does it vary?==
+Lasers can differ from one another in the frequency of light they emit. The frequency depends on the types of materials used to make the laser. This is caused by differences in the properties of the atoms.
+
+Lasers can also vary in the brightness, or ''intensity'', of the beam of light they emit. The weakest lasers are fairly harmless and can be used in a classroom to point to locations on a projector screen. Some of the most powerful lasers can quickly cut through solid rock or metal sheets.
+
+There are several different types of lasers. The material used to create the beam can be a solid, such as a piece of ruby. Some liquids and gasses can also be used to make a laser. Lasers can also be made out of similar materials as those used to make computer chips. Those are called ''semiconductor'' materials because of their electrical properties.
+
+==How has it changed the world?==
+[[File:Starfire Optical Range - three lasers into space.jpg|right|thumb|240px|Astronomers use lasers to fix blur from the Earth's thick atmosphere.]]
+Lasers are very useful devices and they have been included in many devices. A material called optical fiber can be used to guide the light from a laser, and it is used to let computers talk to each other. Lasers are also used in {{w|CD}} and {{w|DVD}} drives to read the small pits on a disk. (See [[Wikijunior:How Things Work/DVD|How things work: DVD]])
+
+Laser light travels in a very straight line. Straight beams of light can be used for measuring long distances and for keeping things lined up when building bridges and buildings. Soldiers use lasers to guide a rocket to a target.
+
+Stronger lasers can be used to cut through hard metals. They are used for very fine surgery, such as fixing an eye that can not see well. They can be used to remove a tattoo or a birthmark.
+
+==What idea(s) and/or inventions had to be developed before it could be created?==
+In order to create the laser, scientists had to explain how the atom worked. They had to come up with the theory called "quantum mechanics", which says that light and other very small particles all come in packets called ''quanta''. This word comes from the Latin "quantum", which means how much.
+
+The theory of quantum mechanics says that an atom can only store energy of certain amounts. Inside an atom are tiny negative particles called electrons that can absorb energy. When an electron receives just the right amount of energy, it can jump up to a higher level. By doing so it enters an excited state, which means it has more energy. Later the electron can release this energy, dropping back down to a lower, less excited state.
+
+{{BookCat}}
+
+{{wikijunior article stub}}
+
+[[Image:Mercedes_V6_DTM_Rennmotor_1996.jpg|thumb|300px|right|An automobile engine. This engine is a V6, which means it has six cylinders and a "V" shaped block.]]
+A '''car engine''' uses '''internal combustion engine''' which is a mechanical device which burns a fuel to produce power rotation which moves a vehicle.
+
+== Who invented it? ==
+
+Nicolaus Otto was the first person to successfully build the 4-stroke type of engine that would later become an car engine in 1876. In 1885 Karl Benz used an engine similar to Otto's engine to make a three-wheeled automobile move. In the same year, Benz began producing and selling automobiles.
+
+The first commercial two-stroke engine involving in-cylinder compression is attributed to Scottish engineer Dugald Clerk, who patented his design in 1881 
+
+== How does it get power? ==
+The internal combustion engine gets its power from the '''heat generated from the burning of liquid fuels mixed with air (''vaporized'')'''. 
+
+These are mostly '' 'fossil fuels' '' like gasoline, diesel, compressed natural gas (CNG) and liquefied petroleum gas (LPG) that are mined from the ground, and are becoming harder to find and extract,   but some recent technologies use synthetic or renewable fuels such as hydrogen, which can be produced by electrolysis using renewable energy sources.
+
+== What does it do? ==
+It is a mechanical device that converts chemical energy (the fuel) to heat energy, and then to mechanical energy. Reciprocating (back and forth) motion is converted to rotary (spinning) motion, and transmitted through a clutch, gear box etc. to move the wheels of the car.
+
+== How does it work? ==
+[[File:4StrokeEngine Ortho 3D Small.gif|thumb|left|225px|Four-stroke cycle (or Otto cycle)<br>1. Intake<br>2. Compression<br>3. Power<br>4. Exhaust]]
+An engine is properly called a motor because it makes things move! Engine really means ingenious devices, but we use the term because the process of burning a fuel and delivering power usually requires much more than a simple motor spinning an axle. (clever things like gears, levers and cables to get the power to where it is really needed). 
+
+A motor burns a mixture of fuel and air in one or more metal tubes called cylinders.  The hot, expanding gas from the combustion drives a piston downwards, causing a crankshaft to rotate, and spin a flywheel, absorbs energy from the burned fuel and keeps things rotating until the next cycle.  The power from the rotating crankshaft and flywheel is what ultimately drives the wheels.
+
+There are lots of different types of motor, but only two common sorts: the cheap, noisy and rather limited 2-stroke usually only found on small motorcycles and garden machines, and the more sophisticated Otto or 4-stroke used for cars, trucks and buses, which  motor (pictured here) has a fun mnemonic, starting with the piston at the 'top' (but note: this is  not always actually at the top, but - as in the picture left - that is how most folks call the end of the cylinder with the spark-plug or igniter which is also furthest from the '' 'bottom-end' ''  or crankshaft): 
+* '''SUCK (1)''' in a mixture of air and fuel vapor (actually called ''induction stroke'' as the piston starts at the 'top' of the cylinder near the spark plug or igniter and goes down to the 'bottom' near the crankshaft)
+* '''SQUEEZE (2)''' the mixture (a ''compression stroke'' as the piston goes 'up' towards the spark plug or igniter)
+* '''BANG! (3)''' the spark plug or igniter sets fire to the compressed fuel and air (a ''power stroke'' to force the piston 'down' towards the crankshaft) - When the piston is furthest from the crankshaft, it is said to be at '' 'top-dead-center' '' - the actual spark usually occurs when the flywheel inertia has moved the crankshaft  a few degrees further, so the piston has actually already started its 'decent' before it gets a push from the expanding hot burning gasses!  
+* '''BLOW (4)''' out the exhausted (burned) gasses form the burnt fuel (''the exhaust stroke'' - the piston returns to the 'top' of the cylinder ready to suck-in some fresh fuel and restart the cycle.
+===Two Stroke Motor===
+
+[[File:Trabant601deLuxe.jpg|thumb|right|A Trabant 601 De Luxe Limousine.]]  
+These were used in only a few small cars in the mid 20th century, notably the mass-produced East German Trabant, but also more famous makers of 'super-compacts' or 'ultra-lights' such as  DKW, Saab, Wartburg, Suzuki and Subaru produced small numbers of 2-stroke vehicles. 
+
+A special mixture of fuel and lubricating oil is needed, because the fuel-and-air mixture is drawn in through the crankcase, with the end of the combustion stroke and the beginning of the compression stroke happening at the same time so that it performs the intake and exhaust functions together!
+
+Although they have a better power-to-weight ratio than 4-strokes, they are more prone to wear and very polluting. Many industrial machines or ship engines use large 2-stroke diesel motors.
+
+===Gasoline  and diesel===
+The speed of gasoline (or petrol) engines is easier to control and usually lighter than an equivalent diesel, which work best at constant speed and really needs a turbo-charger to compensate for the diesel inertia.
+
+Gasoline is a 'light' fuel, highly combustible and ignited with an electrical spark-plug. Diesel (sometimes called 'vaporising oil) is a thicker 'heavy' fuel which is much less inflammable, and is fired by very high compression within the cylinder. The diesel is 'injected' by a tube fitted about where a gasoline engine has its spark-plug. Diesel fuel is apt to become solid at low temperatures, and often has an 'anti-wax-agent' to prevent this. 
+
+The diesel engine may require heating before it will work. This is usually done with an electrical heater, but some tractors motors designed for cold climates in the mid 20th century could use either fuel, and had to be started using petrol, then when hot, the driver could choose to use either expensive gasoline or cheap 'tractor vaporizing oil' which was in some European countries was subsidised and stained to detect its use in 'unauthorized' vehicles.
+
+== How dangerous is it? ==
+'''VERY!''' Engines use flammable liquid fuel that can leak, they produce heat which can ignite spilled fuel, they are heavy and massive, so they stay hot long after they stop,  they produce power,  and have lots of moving parts which can crush fingers or catch clothing to trap and injure the unwary, so the main motor (called the '' 'prime mover' '') has to be turned off long before you can work on an engine.  Remember there are  other motors that are around to power such as cooling fans  that may be designed to work for some period of time  after the ''prime mover'' engine ignition is switched off).
+
+'''Never open the hood or touch an engine unless you are certain it has properly cooled off''' -probably for at least an hour after stopping.
+
+Always check that everything in the engine bay is cool and  is not leaking fuel or oil - plus make sure that any other motors have also actually stopped running before inserting anything under the hood (including particularly unprotected  fingers, loose long hair or dangling clothing).
+
+== How does it vary? ==
+[[File:Volkswagen motor cut 1945.JPG|thumb|left|A VW Beetle engine]]
+Internal combustion engines vary in the number of cylinders they have, and the size and positioning of those cylinders.  For example, an Inline-4 has four cylinders in a line, and a V-6 has three pairs of cylinders in a "V" shape illustrated above.
+
+Some Volkswagen designs  used an unusual four-stroke air cooled engine, with two cylinders either side ('' 'horizontally opposed, four-cylinder motor' '') which was originally designed for light aircraft. Illustrated here is one such, a Volkswagen Beetle motor of 1131 cubic centimetres (69 Cubic inches) total capacity, 25 PS (DIN) horsepower from 1945. It has been cut to show a  better view of the interior. The orange colour is the cut surfaces and the green colour  is the fuel-air  inlet  from the carburettor (mixer) which is in the middle, because it has to feed either side. The  exhaust, cooling fan, and electrical generator or  alternator is not shown. The oil filter and cooler is at the top left.
+
+
+Automotive (vehicle) internal combustion engines  may be either 2-stroke or 4-stroke engines, and can use spark-ignition (SI) for 'volatile' gasoline or liquid petroleum gas (LPG) fuels and/or compression ignited (CI) diesel engines (as mentioned).
+
+== How has it changed the world? ==
+Very dramatically. Before the automobile, there was only horse-power for personal transport at around 10 - 15 km/h (less than 10 mph or roughly twice walking speed) and steam powered public transport managed about two or three times that speed. The internal combustion engine has made personal transportation very much faster, up to about 100 km/h (60mph) on ordinary roads. Unfortunately both gasoline and diesel are what ar called 'fossil fuels' because they are made by natural forces over many millions of years, and our rate of consumption means they may not last forever. Scientists have tried many other 'synthetic fuels' but with only limited success. So the car is also responsible, indirectly, for the way we in the western world now  live, with separate residential, industrial and commercial areas, which means most people need a car for work, shopping and social activities.  
+
+Unfortunately massive car use has led to an increase in world pollution - the so-called '' 'greenhouse-gasses' '' which are thought to be warming the world and changing the weather. The polar ice caps seem to be melting, so the sea might rise, flooding coastal areas, and storms may become more violent because the air-flow is temperature sensitive.
+
+== What idea(s) and/or inventions had to be developed before it could be created? ==
+The ideas of converting reciprocatory (back and forth) motion of the to rotary (spinning) motion was known since ancient times, and used in lathes to make round posts and spindles.
+
+The idea of using external heat to make steam was known to the ancient Greeks, but steam engines as we know them only emerged from reciprocating steam pumps developed since the 17th century. Later, in the 18th century more sophisticated steam engines had cranks and flywheels to produce rotary motion and speed control using governors. In the early 19th century steam locomotives were developed, and with them some of the accessories such as cabin heaters (to say nothing of steering mechanisms and brakes).
+
+The big breakthrough was finding ways of burning the fuel inside the piston (internal combustion engine), rather than making high-pressure  steam or gas and then pumping that into the engine cylinders as occurs in steam and pneumatic motors.
+
+== References ==
+[http://inventors.about.com/library/inventors/blotto.htm Nicolaus Otto Reference]
+
+{{BookCat}}
+
+{{wikijunior article stub}}
+
+==== What is Binary? ====
+Most people use '''ten different digits''' &mdash; 0 to 9 &mdash; to write numbers. For example, the numbers 15, 987630, 100, 99, and 6 are all made up of one or more of these ten digits.
+
+This is called the '''decimal''' number system or '''base ten''', which means that this number system has '''ten''' different digits to construct a number, as many as (most) people have fingers.
+
+But computers are not built with the decimal number system. This is because computers are built with electronic circuits, each part of which can be either on or off. As there are only two options, they can only represent '''two different digits''', '''0''' and '''1'''.  This is called the '''binary''' number system, or '''base two'''. ("Bi" means two.) All the numbers are constructed from the two digits '''0''' and '''1'''. A digit in binary (that's a 0 or a 1) is also called a '''bit''' – short for '''bi'''nary digi'''t'''.
+
+Computers use this number system to add, subtract, multiply, divide and do all their other math and data. They even save data in the form of bits.
+
+A bit by itself can only mean zero or one, so to represent bigger numbers (and even represent letters) they group them together into chunks. Eight bits make a '''byte''', and computers use as many bytes as they need to store what we need them to. Modern computers have many billions of bytes of storage.
+
+This book will teach you how binary works, why computers use it, and how they use it.
+
+==== Why do we use Binary? ====
+In normal math, we don't use binary. We were taught to use our normal number system. Binary is much easier to do math in than normal numbers because you only are using two number-symbols &mdash; 1 and 0 instead of ten number-symbols &mdash; 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.
+
+Computers use binary because they can only read and store an on or off charge. So, using 0 as "off" and 1 as "on," we can use numbers in electrical wiring. Think of it as this &mdash; if you had one color for every math symbol (0 to 9), you'd have ten colors. That's a lot of colors to memorize, but you have done it anyway. If you were limited to only black and white, you'd only have two colors. It would be so much easier to memorize, but you would need to make a new way of writing down numbers. Binary is just that &mdash; a new way to record and use numbers.
+
+==== Binary Notation ====
+In school, you were taught that we have ones, tens, and hundreds columns and so on. Each column is worth ten times the amount of the column to its right. This means that if the first column is worth 1, the second column is worth 10, and the third column is worth 100, and so on. To find the value of a digit in a certain column, you multiply the digit by the number that the column is worth. If you haven't seen a model of the columns before, it looks like this:
+
+{| class="wikitable" style="text-align:right"
+|-
+! Decimal column !! 10,000 || 1000 || 100 || 10 || 1
+|-
+! Digit
+| 5 || 4 || 9 || 3 || 6
+|-
+! Value
+| 5 × 10,000 || 4 × 1000 || 9 × 100 || 3 × 10 || 6 × 1
+|}
+
+So the decimal number 54,936 is equal to 5×10000 + 4×1000 + 9×100 + 3×10 + 6×1.
+
+Binary also has columns, but each column is worth two times the amount of the column to its right. You still determine the value of digits in the same way, by multiplying the value of the bit (0 or 1) by the value of its column digit (128, 64, 32, etc.), as shown below:
+
+{| class="wikitable" style="text-align:right"
+|-
+! Binary column || 128 || 64 || 32 || 16 || 8 || 4|| 2 || 1 
+|-
+! Bit
+|  1   || 0 || 1 || 1 || 0 || 1 || 0 || 1
+|-
+! Value
+|  1 × 128 || 0 × 64  || 1 × 32 || 1 × 16 || 0 × 8 || 1 × 4 || 0 × 2 || 1 × 1
+|}
+
+So the binary number 10110101 = (1×128) + (1×32) + (1×16) + (1×4) + (1×1) = 181 in decimal.
+
+==== Writing Binary Numbers ====
+The method above lets us read binary numbers, but how do we write them? One way is to write a list of all the numbers starting from one and working upwards. Just as adding 1 to 9 in decimal carries over to make 10, and 1 + 99 makes 100, in binary when you add one to one, you carry a one over to the next place on the left. Follow along with this table to see how that works.
+
+{| class="wikitable" style="text-align: right"
+|-
+! Base-10 !! Binary
+|-
+|0
+|0
+|-
+| 1 || 1
+|-
+| 2|| 10
+|-
+| 3|| 11
+|-
+| 4|| 100
+|-
+| 5|| 101
+|-
+| 6|| 110
+|-
+| 7|| 111
+|-
+| 8|| 1000
+|-
+| 9 || 1001
+|-
+| 10 || 1010
+|-
+| 11 || 1011
+|-
+| 12 || 1100
+|-
+| 13 || 1101
+|-
+| 14 || 1110
+|-
+| 15 || 1111
+|-
+| 16 || 10000
+|}
+
+You'll notice that the values 1, 2, 4, 8, and 16 in binary only have a single one bit and some zero bits. If you go back up to the binary columns, you might notice that there is a column for each of these values. If you write the number in the columns, you would only need to write a 1 in the column that has the same value as the number you are writing. All of the other columns would have zeroes. Base ten works in the same way! When you write a base ten number that has the same value of one of the base ten columns, such as 100, you would only write a 1 in the column with a value equal to the number you're writing. You would put a 0 in the other columns.
+
+{| class="wikitable"
+|-
+! Base-10 version !! Binary
+|-
+| 1 || 1
+|-
+| 2 || 10
+|-
+| 4 || 100
+|-
+| 8 || 1000
+|-
+| 16 || 10000
+|}
+
+Have you noticed a pattern in writing binary numbers? Study the table for 1 to 16 again until you understand why in binary,
+:<i>"1 + 1 = 10"</i> and <i>"1 + 100 = 101"</i>
+in your own way.
+
+You've probably got lots of practice reading decimal but none yet reading binary, so it's normal for reading binary to feel quite slow.
+
+===== Writing Larger Numbers =====
+What do you do if you want to write a bigger number, like 86? You could use the list method shown above, but that would take a long time! A quicker method involves the columns:
+
+# Find the column with the largest value that is still less than or equal to the number you're writing and write a 1 in that column. For 86, you would write a 1 in the sixty-fours column because 64 is less than 86, but the next column to the left (128) is greater than 86.
+# Look at the next column to the right of the one you used in the previous step. If you can add the value of that column to the value of the previous column and get a number less than or equal to the number you're converting to binary, write a 1 there. If not, write a 0. In the example with 86, the value of the first column you used (64) plus the value of the next column to the right (32) equals 96. 96 is greater than 86, so you would write a 0 in the thirty-twos column.
+# Find the next column to the right of the last one you wrote in. If adding the value of that column to the sum of the values of all the columns with a one in them would give you a number less than or equal to your number, write a 1 in that column. If not, write a 0. With 86, the next column would be the sixteens column. 16 plus the sum of the values of all the previous columns with ones in them (64 in this example) is 80. 80 is less than 86, so you would write a 1 in the sixteens column.
+# Repeat step 3 until the sum of the values of the columns with ones in them is equal to the number you were trying to find. Once this happens, fill any remaining columns with zeros. 
+
+A table showing the full process with 86 can be seen below:
+{| class="wikitable" style="text-align:right"
+|-
+! Binary column || 128 || 64 || 32 || 16 || 8 || 4|| 2 || 1 
+|-
+! Can this number fit?
+|  No. The total would be 128, and 128>86.   || Yes. The total would be 64, and 64<86. || No. The total would be 96, and 96>86. || Yes. The total would be 80, and 80<86. || No. The total would be 88 and 88>86 || Yes. The total would be 84, and 84<86. || Yes. The total would be 86. || No. The total would be 87, and 87>86.
+|-
+!Bit
+|A 0 can be put here, or it can be left blank.
+|1
+|0
+|1
+|0
+|1
+|1
+|0
+|-
+! Total
+|  0 || 64  || 64 || 80 || 80 || 84 || 86 || 86
+|}
+
+=== Translating to Base-10 ===
+
+The binary number for 52 is 110100. How do you read a binary number?
+# You look at the ones column. Since it has a 0 in it, you don't add anything to the total.
+# Then you look at the twos column. Nothing, so we move on to the next column.
+# We have a 1 in the fours column, so we add 4 to the total (total is 4).
+# Skipping the eights column since it has a 0, we have come to a 1 in the sixteens column. We add 16 to the total (total is 20).
+# Last, we have a 1 in the thirty-twos column. We add this to our total (total is 52).
+
+We're done! We now have the number 52 as our total. The basics of reading a base-2 number is add each columns value to the total if there is a 1 in it. You don't have to multiply like you do in base-10 to get the total (like the 5 in the tens column from the above base-10 example) because the only digits are 0 (Remember that 0 times anything equals 0.) and 1 (Remember that 1 times anything is always equal to the other number.) Not needing to multiply can help speed up your reading of base-2 numbers. Let's look at 110100 in a table.
+
+{| class="wikitable"
+|-
+! Binary digit !! Column !! Binary digit's value
+|-
+| 0 || 1 || 0
+|-
+| 0 || 2 || 0
+|-
+| 1 || 4 || 4
+|-
+| 0 || 8 || 0
+|-
+| 1 || 16 || 16
+|-
+| 1 || 32 || 32
+|-
+|  || '''Total''' || 52
+|}
+
+Now let's look at another number.
+
+=== Finding a Mystery Number ===
+
+The binary number is 1011, but we don't know what it is. Let's go through the column-reading process to find out what the number is.
+# The ones column has a 1 in it, so we add 1 x 1 to the total (total is 1).
+# The twos column has a 1 in it, so we add 1 x 2 to the total (total is 3).
+# The fours column has a 0 in it, so we add 0 x 4 to the total (total is still 3).
+# The eights column has a 1 in it, so we add 1 x 8 to the total (total is 11).
+       
+We are done, so the total is the answer. The answer is 11! Here are some more numbers for you to work out.
+<quiz display=simple>
+{
+|type="{}"}
+101={ 5_2 }
+
+{
+|type="{}"}
+1111={ 15_2 }
+
+{
+|type="{}"}
+10001={ 17_2 }
+
+{
+|type="{}"}
+10100={ 20_2 }
+
+{
+|type="{}"}
+101000={ 40_2 }
+</quiz>
+==== Storing text ====
+Computers store everything in binary, including text. To do this, every letter, every punctuation character, in fact a very large number of the symbols people have ever used, has been given its own number in a system called Unicode.
+
+For example, if your name is "George" then the computer can store that in binary just by storing the number for "G", then for "e", and so on. The most common symbols in American English, like letters without accents, can be stored with just one byte. Other symbols, like "£" and "¿", need more than one byte as they've been given a bigger number. A few examples:
+* G is stored as 71, which is "[tel:0100&#x20;0111 0100 0111]" in binary
+* e is stored as a hundred and one<!-- Writing 101 would be confusing! -->, which is "[tel:0110&#x20;0101 0110 0101]" in binary.
+
+The whole word "George" looks like:
+ 0100 0111 0110 0101 0110 1111 0111 0010 0110 0111 0110 0101
+
+While this might look like gibberish, see if you can find the rest of the letters in that and what their decimal representation is!{{BookCat}}
+
+
