@@ -44,18 +44,7 @@ int main( int argc, char *argv[] )
 		args = sscanf(line,"%s %s %s",cmd,arg1,arg2);
 		if(args==0)
 			continue;
-		//fs_debug();
-		/*fs_create();
-		fs_format();
-		fs_mount();
-		fs_mount();
-		fs_debug();
-		printf("%d\n",fs_getsize(5));
-		fs_format();
-		fs_create();
-		return 0;*/
-		//printf("getFreeBlock()= %d\n" , getFreeBlock());
-
+		
 		if(!strcmp(cmd,"format")) {
 			if(args==1) {
 				if(fs_format()) {
@@ -158,6 +147,7 @@ int main( int argc, char *argv[] )
 			printf("    mount\n");
 			printf("    debug\n");
 			printf("    create\n");
+			printf("    getsize <inode>\n");
 			printf("    delete  <inode>\n");
 			printf("    cat     <inode>\n");
 			printf("    copyin  <file> <inode>\n");
