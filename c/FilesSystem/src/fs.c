@@ -376,7 +376,6 @@ void setBlockNumByte(int inumber , int offset , int nBlock){
 			if(offset/DISK_BLOCK_SIZE==5){
 				printf("\033[1;31mIblock.inode[getInodeIndex(inumber)].indirect=%d\033[0m\n",Iblock.inode[getInodeIndex(inumber)].indirect);
 				if(!Iblock.inode[getInodeIndex(inumber)].indirect){
-					
 					int indirect= getFreeBlock();
 					Iblock.inode[getInodeIndex(inumber)].indirect = indirect;
 					union fs_block IDblock;
