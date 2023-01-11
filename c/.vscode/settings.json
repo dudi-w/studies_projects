@@ -5,7 +5,8 @@
         "solution2.h": "c",
         "stdbool.h": "c",
         "math.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "disk.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

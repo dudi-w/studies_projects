@@ -13,7 +13,7 @@ disk.o: disk.c disk.h
 	$(GCC) -Wall -pedantic disk.c -c -o disk.o -g
 
 run : simplefs
-	./simplefs image.200 200
+	./simplefs image.20 20
 
 clean:
 	rm simplefs disk.o fs.o shell.o

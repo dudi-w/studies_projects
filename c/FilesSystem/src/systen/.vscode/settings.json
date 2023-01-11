@@ -1,0 +1,14 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/mefathim-tech-11/s06.dudivi/c/FilesSystem/src/systen",
+            "binaryPath": "/home/mefathim-tech-11/s06.dudivi/c/FilesSystem/src/systen/simplefs",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "/home/mefathim-tech-11/s06.dudivi/c/FilesSystem/src/systen",
+            "binaryPath": "/home/mefathim-tech-11/s06.dudivi/c/FilesSystem/src/systen/simplefs",
+            "binaryArgs": ["image.200", "200"]
+        }
+    ]
+}

@@ -3,53 +3,63 @@
 
 #define LENGTH 8
 static int bord[LENGTH][LENGTH];
+static int count=0;
 
 void printBord(){
+    //printf("count = %d\n",++count);
     for(int i=0;i<LENGTH;++i){
         for(int j=0;j<LENGTH;++j){
-            printf("%d | ",bord[i][j]);
+            if(bord[i][j]){
+                printf("\033[1;31m%d\033[0m | ",bord[i][j]);
+            }
+            else{
+                printf("%d | ",bord[i][j]);
+            }
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 int func(int row){
-    printf("bord[%d]\n",row);
     if(row >=LENGTH)
         return 1;
     
-    int test=1;
-    int i=0;
-    for(;i<LENGTH ;++i){
+    
+    for(int i=0;i<LENGTH ;++i){
+        int test=1;
         bord[row][i]=1;
-        printf("bord[%d][%d]\n",row,i);
-
-        for(int j=0;j<LENGTH;++j){
-            if(bord[j][i] && j!=row){
+        //printBord();
+        count++;
+        for(int j=0;j<LENGTH && bord[row][i];++j){
+            if((bord[j][i] && j!=row) || (bord[row][j] && j!=i) ){
                 test =0;
                 bord[row][i]=0;
+                //break;
             }
-            else{
-                for(int k=0;k<LENGTH;++k){
-                    if(bord[j][k] && fabs(j-row)==fabs(k-i)){
-                        test =0;
-                        bord[row][i]=0;
-                    }
+            
+            for(int k=0;k<LENGTH && bord[row][i] ;++k){
+                if(bord[j][k] && j!=row && fabs(j-row)==fabs(k-i)){
+                    test =0;
+                    bord[row][i]=0;
+                    //break;
                 }
             }
         }
-        printf("test = %d\n",test);
         if(!test){
             continue;
         }
-        test = func(++row);
+        test = func(row+1);
         if(test){
             return 1;
         }
+        bord[row][i]=0;
     }
+    return 0;
 }
 
 int main(){
-    printf("%d\n",func(0));
+    //bord[0][3]=1;
+    func(0);
     printBord();
 }
