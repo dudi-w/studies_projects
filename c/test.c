@@ -26,6 +26,6 @@ int main()
     printarr(arr,5);
     zeero(arr,5);
     printarr(arr,5);
-    creatArr(10);
+    creatArr();
     return 0;
 }
