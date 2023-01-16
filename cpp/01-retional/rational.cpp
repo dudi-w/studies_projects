@@ -1,9 +1,16 @@
 #include <iostream>
+#include <assert.h> 
 #include "rational.hpp"
 
 
 int gcd(int a, int b)
-{
+{   
+    if(!a || !b){
+        return 1;
+    }
+    if(b>a){
+        return gcd(a, b % a);
+    }
     if (!b){
         return (a);
     }
@@ -19,7 +26,7 @@ Rational::Rational(int n, int d)
 {
     if(!d){
         std::cerr << "division by zero" << std::endl; 
-        exit(0);
+        assert(d!=0);
     }
     int result = gcd(n,d);
     m_numer = n/result;
@@ -206,7 +213,7 @@ Rational operator-(int n, const Rational& self )
 
 Rational operator*(int n, const Rational& self )
 {
-    return self*n;
+    return (self*n);
 }
 
 Rational operator/(int n, const Rational& self )
