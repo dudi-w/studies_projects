@@ -6,12 +6,14 @@
 class Rational
 {
 public:
+    /*constrectors*/
     Rational(int n, int d);
     Rational(int n);
 
-    double value() const;
-    //void makeGcd();
 
+    double value() const;
+
+    /*overloading operators*/
     Rational operator+( const Rational& other) const;
     Rational operator-( const Rational& other) const;
     Rational operator*( const Rational& other) const;
@@ -46,6 +48,7 @@ private:
     int m_numer;
     int m_denom;
 };
+
 std::ostream& operator<<(std::ostream& out , const Rational& self );
 Rational operator+(int n, const Rational& self );
 Rational operator-(int n, const Rational& self );

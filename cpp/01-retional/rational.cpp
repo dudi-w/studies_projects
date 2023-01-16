@@ -1,10 +1,12 @@
 #include <iostream>
 #include <assert.h> 
+#include <math.h>
 #include "rational.hpp"
-
-
+ 
 int gcd(int a, int b)
 {   
+    if(a<0) a= std::abs(a);
+    if(b<0) b= std::abs(b);
     if(!a || !b){
         return 1;
     }
@@ -17,6 +19,24 @@ int gcd(int a, int b)
     else{
         return gcd(b, a % b);
     }
+}
+
+int gcd2(int a, int b)
+{
+    if(!a || !b) return 1;
+    if(a<0) a= std::abs(a);
+    if(b<0) b= std::abs(b);
+    if(b>a){
+        int temp(a);
+        a=b;
+        b=temp;
+    }
+    while(b>0){
+        int temp(b);
+        b = a % b; 
+        a = temp;
+    }
+    return a;
 }
 
 Rational::Rational(int n): m_numer(n), m_denom(1)

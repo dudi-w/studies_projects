@@ -16,7 +16,11 @@ rational.o: rational.cpp rational.hpp
 	$(CC) $(CFLAGS) rational.cpp -c 
 
 run: main
+	echo "\033[3;35mmain"
 	./main
+	echo "\033[0m"
+	make clean
 
-clean: 
+clean:
+	echo "\033[1;33mclean\033[0m"
 	rm main *.o
