@@ -5,9 +5,10 @@
  
 int gcd(int a, int b)
 {   
+    std::cout<<"a=" << a<<'\t' <<"b= "<<b<<'\n';
     if(a<0) a= std::abs(a);
-    if(b<0) b= std::abs(b);
-    if(!a || !b){
+    /*if(b<0) b= std::abs(b);*/
+    if(!a){
         return 1;
     }
     if(b>a){
@@ -83,7 +84,6 @@ Rational Rational::operator+( const Rational& other) const
     int numer = m_numer * other.m_denom + (other.m_numer * m_denom);
     int denom = m_denom * other.m_denom;
     Rational temp(numer , denom) ;
-    temp.makeGcd();
     return temp;
     
 }
@@ -93,7 +93,6 @@ Rational Rational::operator-( const Rational& other) const
     int numer = m_numer * other.m_denom - (other.m_numer* (*this).m_denom);
     int denom = m_denom * other.m_denom;
     Rational temp(numer, denom);
-    temp.makeGcd();
     return temp;
 }
 
@@ -102,7 +101,6 @@ Rational Rational::operator*( const Rational& other) const
     int numer = m_numer* other.m_numer;
     int denom = m_denom* other.m_denom;
     Rational temp(numer, denom);
-    temp.makeGcd();
     return temp;
 }
 
@@ -111,7 +109,6 @@ Rational Rational::operator/( const Rational& other) const
     int numer = m_numer* other.m_denom;
     int denom = m_denom* other.m_numer;
     Rational temp(numer, denom);
-    temp.makeGcd();
     return temp;
 
 }

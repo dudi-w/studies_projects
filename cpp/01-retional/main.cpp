@@ -3,7 +3,7 @@
 #include "rational.hpp"
 
 int  main(){
-    Rational a1(1,2);
+    Rational a1(1,-2);
     Rational b1(5,2);
     std::cout << a1 << '\n';
     std::cout << b1 << '\n';
