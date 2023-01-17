@@ -7,8 +7,8 @@ class Rational
 {
 public:
     /*constrectors*/
-    Rational(int n, int d);
-    Rational(int n);
+    explicit Rational(int n, int d);
+    explicit Rational(int n);
 
 
     double value() const;

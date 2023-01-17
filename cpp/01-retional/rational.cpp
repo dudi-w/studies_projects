@@ -7,13 +7,13 @@ int gcd(int a, int b)
 {   
     std::cout<<"a=" << a<<'\t' <<"b= "<<b<<'\n';
     if(a<0) a= std::abs(a);
-    /*if(b<0) b= std::abs(b);*/
+    /*if(b<0) b= std::abs(b);
     if(!a){
         return 1;
     }
     if(b>a){
         return gcd(a, b % a);
-    }
+    }*/
     if (!b){
         return (a);
     }
