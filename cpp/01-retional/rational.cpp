@@ -47,7 +47,7 @@ Rational::Rational(int n, int d)
 {
     if(!d){
         std::cerr << "division by zero" << std::endl; 
-        assert(d!=0);
+        assert(d==0);
     }
     int result = gcd(n,d);
     m_numer = n/result;
