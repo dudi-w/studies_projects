@@ -28,7 +28,7 @@ Stack& Stack::operator=(const Stack& other)
 		return *this;
 
 	if (m_pArr != NULL)
-		delete [] m_pArr;
+		delete[] m_pArr;
 	m_pArr = new int[other.m_capacity];
 	m_capacity = other.m_capacity;
 	for(int i(0); i < getSize() ;i++)
@@ -64,6 +64,7 @@ void Stack::display() const
     for(int i(getSize()-1); i>=0 ;--i){
        std::cout << m_pArr[i] << " -> " << std::flush;
     }
+    std::cout << std::endl;
 }
 
 int Stack::top() const
