@@ -10,16 +10,6 @@ public:
     void setOperations(char* const  program);
     
 private:
-    // enum class OpCode{  NoOp,
-                        // Right,
-                        // Left,
-                        // Increment,
-                        // Decrement,
-                        // Write,
-                        // Read,
-                        // LoopBegin,
-                        // LoopEnd
-    // };
 
     void NoOp() const;
     void Right();
@@ -37,3 +27,14 @@ private:
     char* m_OpStorage;
     char* m_ptrPro;
 };
+
+enum class OpCode{  NoOp,
+                    Right,
+                    Left,
+                    Increment,
+                    Decrement,
+                    Write,
+                    Read,
+                    LoopBegin,
+                    LoopEnd
+                    };

@@ -3,11 +3,13 @@ CC=g++
 
 CFLAGS = -Wall -pedantic -Werror -g -std=c++17
 
-main: main.o brainfuck.o
+main: main.o brainfuck.o arrInt8.o
 
-main.o: main.cpp brainfuck.hpp
+main.o: main.cpp brainfuck.hpp ../04-polynomial/dataStructure.hpp
 
 brainfuck.o: brainfuck.cpp brainfuck.hpp
+
+arrInt8.o: arrInt8.cpp ../04-polynomial/dataStructure.hpp
 
 run: main
 	echo "\033[3;35mmain"

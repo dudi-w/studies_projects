@@ -27,38 +27,7 @@ void Brainfuck::setOperations(char* const program)
     
 }
 
-void Brainfuck::translateEndExecute(char const c){
 
-    switch(c)
-    {
-    case '>':
-        return Right();
-    
-    case '<':
-        return Left();
-
-    case '.':
-        return Read();
-
-    case ',':
-        return Write();
-
-    case '+':
-        return Increment();
-
-    case '-':
-        return Decrement();
-
-    case '[':
-        return LoopBegin( c);
-    
-    case ']':
-        return LoopEnd(c);
-
-    default:
-        return NoOp();;
-    }
-}
 void Brainfuck::NoOp() const
 {
     return;
@@ -111,5 +80,48 @@ void Brainfuck::LoopEnd(char c)
     while(*m_ptrPro !='[')
     {
         --m_ptrPro;
+    }
+}
+
+OpCode translate(char const* program){
+
+    size_t i = 0;
+    while(program[i]!= '\0'){
+        switch(program[i]){
+
+            case '>':
+                ???[m_index + i] = OpCode::Right;
+                break;
+
+            case '<':
+                ???[m_index + i] = OpCode::Left;
+
+            case '.':
+                ???[m_index + i] = OpCode::Read;
+
+            case ',':
+                ???[m_index + i] = OpCode::Write;
+                break;
+
+            case '+':
+                ???[m_index + i] = OpCode::Increment;
+                break;
+
+            case '-':
+                ???[m_index + i] = OpCode::Decrement;
+                break;
+
+            case '[':
+                ???[m_index + i] = OpCode::LoopBegin;
+                break;
+
+            case ']':
+                ???[m_index + i] = OpCode::LoopEnd;
+                break;
+
+            default:
+                ???[m_index + i] = OpCode::NoOp;
+                break;
+        }                  
     }
 }
