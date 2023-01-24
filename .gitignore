@@ -2,3 +2,5 @@ test/
 *.o
 *.json
 *.gch
+*.vscode/
+*README.cpp
