@@ -1,4 +1,4 @@
-#include "arrRational.hpp"
+#include "dataStructure.hpp"
 
 ds::ArrRational::ArrRational():
 m_size(1),
@@ -17,7 +17,7 @@ m_arr(new Rational[m_size])
 ds::ArrRational::ArrRational(size_t size , const Rational* const arr):
 ArrRational(size)
 {
-    std::copy(arr , arr+m_size, m_arr);
+    std::copy(arr , arr+m_size , m_arr);
 }
 
 ds::ArrRational::ArrRational(const ArrRational& other):
