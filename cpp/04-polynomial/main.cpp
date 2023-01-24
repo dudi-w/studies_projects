@@ -26,7 +26,7 @@ int main(){
     dd.displye();
     poly::Polynomial ee = (dd*cc);
     ee.displye();
-    ee.ppp().displye();
-    (ee/dd).ppp().displye();
+    ee.derivative().displye();
+    (ee/dd).derivative().displye();
     return 0;
 }

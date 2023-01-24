@@ -144,7 +144,7 @@ void poly::Polynomial::reSize()
     m_degree = i;
 }
 
-poly::Polynomial poly::Polynomial::ppp() const
+poly::Polynomial poly::Polynomial::derivative() const
 {
     poly::Polynomial newpoly(m_degree-1);
     for(size_t i= 0; i<=newpoly.m_degree;++i){

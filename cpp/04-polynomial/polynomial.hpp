@@ -1,4 +1,4 @@
-#include "arrRational.hpp"
+#include "dataStructure.hpp"
 #include "cmath"
 #include "algorithm"
 
@@ -20,7 +20,7 @@ class Polynomial
         Rational& at(size_t i);
         float valueAt(double x) const;
         Rational valueAt(Rational x) const;
-        Polynomial ppp() const;
+        Polynomial derivative() const;
         void displye() const;
 
     private:
