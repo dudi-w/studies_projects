@@ -75,10 +75,10 @@ void ds::ArrByte::cleanMamory() const
     memset(m_arr , 0 , m_size);
 }
 
-void ds::ArrByte::printArr() const
+void ds::ArrByte::display() const
 {
     for(size_t i= 0; i<m_size ; ++i){
-        std::cout<<(int)m_arr[i]<<"-\t"<<std::flush;
+        std::cout<< static_cast <int> (m_arr[i])<<"-\t"<<std::flush;
     }
     std::cout<<'\n';
 }
