@@ -58,6 +58,7 @@ void bf::Memory::read() const
 void bf::Memory::cleanMem()
 {
     m_codeMem.cleanMamory();
+    m_index = m_codeMem.getSize()/2;
 }
 
 size_t bf::Memory::getSize() const
