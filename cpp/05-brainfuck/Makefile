@@ -1,15 +1,18 @@
 CXX=g++
 CC=g++
 
-CFLAGS = -Wall -pedantic -Werror -g -std=c++17
+CXXFLAGS = -Wall -pedantic -Werror -g -std=c++17
 
-main: main.o brainfuck.o arrInt8.o
+main: main.o brainfuck.o BFcode.o arrByte.o BFmemory.o
 
-main.o: main.cpp brainfuck.hpp ../04-polynomial/dataStructure.hpp
+main.o: main.cpp brainfuck.hpp dataStructure.hpp
 
-brainfuck.o: brainfuck.cpp brainfuck.hpp
+brainfuck.o: brainfuck.cpp brainfuck.hpp BFenum.hpp BFcode.hpp BFmemory.hpp
 
-arrInt8.o: arrInt8.cpp ../04-polynomial/dataStructure.hpp
+BFmemory.o: BFmemory.cpp BFmemory.hpp arrByte.cpp dataStructure.hpp
+
+BFcode.o: BFcode.cpp BFcode.hpp arrByte.cpp dataStructure.hpp
+
 
 run: main
 	echo "\033[3;35mmain"
