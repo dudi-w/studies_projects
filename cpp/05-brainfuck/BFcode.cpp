@@ -1,5 +1,8 @@
 #include "brainfuck.hpp"
 
+bf::Code::Code()
+{}
+
 bf::Code::Code(size_t size):
 m_index(0),
 m_codeMem(size)
@@ -37,26 +40,40 @@ void bf::Code::setOp(bf::OpCode op)
 
 void bf::Code::jumpToEndLoop()
 {
-    int count=0;
-    while (getCurrentOp()!= bf::OpCode::LoopEnd || count>0)
+    size_t count=0;
+    
+    (*this)>>1;
+    while (getCurrentOp()!= bf::OpCode::LoopEnd || count!=0)
     {
         if(getCurrentOp()==bf::OpCode::LoopBegin){
             ++count;
         }
-        ++m_index;
+        if(getCurrentOp()==bf::OpCode::LoopEnd){
+            --count;
+        }
+        (*this)>>1;
     }
-    
 }
 
 void bf::Code::jumpToHeadLoop()
 {
     int count=0;
-    while (getCurrentOp()!= bf::OpCode::LoopBegin || count>0)
+
+    (*this)<<1;
+    while (getCurrentOp()!= bf::OpCode::LoopBegin || count!=0)
     {
         if(getCurrentOp()==bf::OpCode::LoopEnd){
             ++count;
         }
-        --m_index;
+        if(getCurrentOp()==bf::OpCode::LoopBegin){
+            --count;
+        }
+        (*this)<<1;
     }
+}
+
+void bf::Code::display()
+{
+    m_codeMem.display();
 }
 

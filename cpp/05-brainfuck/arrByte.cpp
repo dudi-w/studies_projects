@@ -1,4 +1,11 @@
-#include "../04-polynomial/dataStructure.hpp"
+#include <memory.h>
+#include <iostream>
+#include "dataStructure.hpp"
+
+
+ds::ArrByte::ArrByte():
+m_size(0)
+{}
 
 ds::ArrByte::ArrByte(size_t size):
 m_size(size),
