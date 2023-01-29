@@ -1,34 +1,40 @@
 #include "brainfuck.hpp"
+#include "assert.h"
 // #include <memory.h>
 
+bf::Log translate(bf::Code& code , const char* const program);
+size_t checkValid(const char* const program);
 
 bf::Brainfuck::Brainfuck(size_t size):
 m_runMem(size)
 {}
 
-bf::Log bf::Brainfuck::compiler(const char* const program)
-{
-    size_t size = checkValid(program);
-    if(!size){
-        return Log::inValidProgram;
-    }
-    m_codeStor = bf::Code(size);
-    return translate(program);
-}
 
-bf::Log bf::Brainfuck::run()
+bf::Log bf::Brainfuck::run(bf::Code& code)
 {
     m_runMem.cleanMem();
+    while(code.getIndex()>0){
+        code<<1;
+    }
     OpCode op;
-    while(m_codeStor.getCurrentOp()!= OpCode::EndOp){
-        op = m_codeStor.getCurrentOp();
-        execute(op);
-        m_codeStor>>1;
+    while(code.getCurrentOp()!= OpCode::EndOp){
+        op = code.getCurrentOp();
+        bf::Log log = execute(op);
+        if(log == bf::Log::gumpEnd){
+            code.jumpToEndLoop();
+        }
+        if(log== bf::Log::gumpHead){
+            code.jumpToHeadLoop();
+        };
+        //code.display();
+        // std::cout<<"\n\033[1;33m"<<m_runMem.getIndex()<<"\n\033[0m";
+        // m_runMem.display();
+        code>>1;
     }
     return Log::success;
 }
 
-void bf::Brainfuck::execute(bf::OpCode const code)
+bf::Log bf::Brainfuck::execute(bf::OpCode const code)
 {
     switch(code){
 
@@ -49,11 +55,11 @@ void bf::Brainfuck::execute(bf::OpCode const code)
             break;
 
         case bf::OpCode::Increment:
-            m_runMem++;
+            ++m_runMem;
             break;
 
         case bf::OpCode::Decrement:
-            m_runMem--;
+            --m_runMem;
             break;
 
         case bf::OpCode::LoopBegin:
@@ -61,13 +67,13 @@ void bf::Brainfuck::execute(bf::OpCode const code)
                 break;
             }
             else{
-                m_codeStor.jumpToEndLoop();
+                return bf::Log::gumpEnd;
                 break;
             }
 
         case bf::OpCode::LoopEnd:
             if(m_runMem.getValue()){
-                m_codeStor.jumpToHeadLoop();
+                return bf::Log::gumpHead;
                 break;
             }
             else{break;}
@@ -75,9 +81,22 @@ void bf::Brainfuck::execute(bf::OpCode const code)
         default:
             break;
     }
+    return bf::Log::success;
 }
 
-size_t bf::Brainfuck::checkValid(const char* const program)
+
+bf::Code bf::compiler(const char* const program)
+{
+    size_t size = checkValid(program);
+    if(!size){
+        assert(!"invalid code"); //?? bf::Log::inValidProgram;
+    }
+    bf::Code code(size);
+    translate(code , program);
+    return code;
+}
+
+size_t checkValid(const char* const program)
 {
     size_t count, headLoop, endLoop;
     count = headLoop = endLoop = 0;
@@ -89,58 +108,65 @@ size_t bf::Brainfuck::checkValid(const char* const program)
         }
         if(program[i]== '['){
             ++headLoop;
+            ++count;
         }
         if(program[i]== ']'){
             ++endLoop;
+            ++count;
+        }
+        if(endLoop > headLoop){
+            return 0;
         }
     }
-    return (headLoop==endLoop)? count+1 : 0;
+    return (headLoop==endLoop) ? count+1 : 0;
 }
 
-bf::Log bf::Brainfuck::translate(const char* const program)
+bf::Log translate(bf::Code& code , const char* const program)
 {
     size_t i = 0;
     while(program[i]!= '\0'){
-        switch(program[i]){
+        switch(program[i++]){
 
             case '>':
-                m_codeStor.setOp(OpCode::Right);
+                code.setOp(bf::OpCode::Right);
                 break;
 
             case '<':
-                m_codeStor.setOp(OpCode::Left);
+                code.setOp(bf::OpCode::Left);
                 break;
 
             case '.':
-                m_codeStor.setOp(OpCode::Read);
+                code.setOp(bf::OpCode::Read);
                 break;
 
             case ',':
-                m_codeStor.setOp(OpCode::Write);
+                code.setOp(bf::OpCode::Write);
                 break;
 
             case '+':
-                m_codeStor.setOp(OpCode::Increment);
+                code.setOp(bf::OpCode::Increment);
                 break;
 
             case '-':
-                m_codeStor.setOp(OpCode::Decrement);
+                code.setOp(bf::OpCode::Decrement);
                 break;
 
             case '[':
-                m_codeStor.setOp(OpCode::LoopBegin);
+                code.setOp(bf::OpCode::LoopBegin);
                 break;
 
             case ']':
-                m_codeStor.setOp(OpCode::LoopEnd);
+                code.setOp(bf::OpCode::LoopEnd);
                 break;
 
             default:
+            code<<1;
                 break;
-        }                  
+        }
+        code>>1;               
     }
-    m_codeStor.setOp(OpCode::EndOp);
-    return Log::success;
+    code.setOp(bf::OpCode::EndOp);
+    return bf::Log::success;
 }
 
 // void Brainfuck::setOperations(char* const program)

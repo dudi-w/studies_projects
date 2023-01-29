@@ -85,7 +85,12 @@ void ds::ArrByte::cleanMamory() const
 void ds::ArrByte::display() const
 {
     for(size_t i= 0; i<m_size ; ++i){
-        std::cout<< static_cast <int> (m_arr[i])<<"-\t"<<std::flush;
+        if(m_arr[i]){
+            std::cout<<"\033[1;34m"<< static_cast <int> (m_arr[i])<<"-\t\033[0m"<<std::flush;
+        }
+        else{
+            std::cout<< static_cast <int> (m_arr[i])<<"-\t"<<std::flush;
+        }
     }
     std::cout<<'\n';
 }

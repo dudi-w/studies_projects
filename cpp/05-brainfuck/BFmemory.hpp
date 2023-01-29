@@ -14,10 +14,10 @@ class Memory
         // const int8_t& operator[](size_t i) const;
         void operator>>(size_t i);
         void operator<<(size_t i);
-        void operator++();
-        void operator--();
-        void operator++(int);
-        void operator--(int);
+        int8_t& operator++();
+        int8_t& operator--();
+        // void operator++(int);
+        // void operator--(int);
         
         void write();
         void read() const;

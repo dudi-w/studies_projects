@@ -14,18 +14,16 @@ class Brainfuck
 public:
     explicit Brainfuck(size_t size);
 
-    bf::Log compiler(const char* const program);
-    bf::Log run();
+    bf::Log run( bf::Code& code);
 
 private:
-    size_t checkValid(const char* const program);
-    bf::Log translate(const char* const program);
-    void execute(bf::OpCode const code);
+    bf::Log execute(bf::OpCode const code);
 
 private:
-    bf::Code m_codeStor;
     bf::Memory m_runMem;
 };
-}
 
+bf::Code compiler(const char* const program);
+
+}
 #endif

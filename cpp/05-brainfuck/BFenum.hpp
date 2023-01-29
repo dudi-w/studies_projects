@@ -23,7 +23,9 @@ enum class Log
 {
     success,
     out_of_memory,
-    inValidProgram
+    inValidProgram,
+    gumpEnd,
+    gumpHead
 };
 }
 

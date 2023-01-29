@@ -16,31 +16,31 @@ void bf::Memory::operator>>(size_t i)
 
 void bf::Memory::operator<<(size_t i)
 {
-    if(!CheckMemLeak(-i)){
+    if(!CheckMemLeak(-static_cast<__int128_t>(i))){
         realloc();
     }
     m_index-=i;
 }
 
-void bf::Memory::operator++()
+int8_t& bf::Memory::operator++()
 {
-    ++m_codeMem[m_index];
+    return ++m_codeMem[m_index];
 }
 
-void bf::Memory::operator--()
+int8_t& bf::Memory::operator--()
 {
-    --m_codeMem[m_index];
+    return --m_codeMem[m_index];
 }
 
-void bf::Memory::operator++(int n)
-{
-    m_codeMem[m_index]+=n;
-}
+// void bf::Memory::operator++(int n)
+// {
+//     m_codeMem[m_index]+=n;
+// }
 
-void bf::Memory::operator--(int n)
-{
-    m_codeMem[m_index]-=n;
-}
+// void bf::Memory::operator--(int n)
+// {
+//     m_codeMem[m_index]-=n;
+// }
 
 void bf::Memory::write()
 {

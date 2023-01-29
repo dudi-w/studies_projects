@@ -30,6 +30,7 @@ size_t bf::Code::getIndex() const
 
 bf::OpCode bf::Code::getCurrentOp() const
 {   
+    // std::cout<<"m_index = "<<m_index<< " ,m_codeMem[m_index] = " << (int)m_codeMem[m_index]<<'\n';
     return static_cast<bf::OpCode>(m_codeMem[m_index]);
 }
 
