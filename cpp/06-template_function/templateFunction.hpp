@@ -1,5 +1,5 @@
-#ifndef TEMPL_CPP
-#define TEMPL_CPP
+#ifndef TEMPL_HPP
+#define TEMPL_HPP
 
 #include <cstdlib>
 
