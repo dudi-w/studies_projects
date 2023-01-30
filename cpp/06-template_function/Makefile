@@ -9,6 +9,7 @@ main: main.o
 main.o: main.cpp templateFunction.hpp
 
 run: 
+	make
 	./main
 
 clean:
