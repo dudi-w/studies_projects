@@ -1,0 +1,24 @@
+Brainfuck Compiler and Interpreter
+
+This project implements a compiler and interpreter for the Brainfuck programming language. The project contains several files that work together to provide a complete solution for Brainfuck:
+
+main.cpp: This file contains the unit tests for the project.
+
+Compiler.hpp / cpp: These files contains the code for compiling a string of Brainfuck code into an array of commands. The commands are represented as an 'OpCode' enumeration.
+
+Brainfuck.hpp / cpp: These files contains the code for executing the compiled Brainfuck code. The code is executed one command at a time.
+
+ByteArray.hpp /  cpp: These files defines the 'ByteArray' class, which is used to store arrays of int8_t values. The 'ByteArray' class provides the necessary operators to manage the stored array.
+
+Memory.hpp / cpp: These files defines the 'Memory' class, which is a wrapper around the 'ByteArray' class that provides a convenient interface for working with the virtual memory. The 'Memory' class uses a sophisticated reallocation of memory to allow the interpreter unlimited memory (untill the boundry that is determined in the member class which is 30,000 bytes). This means that the memory will grow dynamically as necessary to accommodate the changing needs of the Brainfuck code being executed. The 'Memory' class stores its data in an object of byteArray that is stored as a data member of the class.
+
+Code.hpp / cpp: These files defines the 'Code' class, which is used to store the compiled Brainfuck code. The code is stored as an array of int8_t values, which are cast to the OpCode command type. The 'Code' class stores its data in an object of ByteArray that is stored as a data member of the class.
+The project uses the C++ programming language and requires a C++ compiler to build. To build and run the project, follow these steps:
+
+Clone or download the project to your local machine.
+Open a terminal and navigate to the directory containing the project.
+Type make to build the project.
+Type ./main to run the unit tests.
+You can also use the provided code as a starting point for your own Brainfuck projects. If you have any questions or feedback, please feel free to reach out.
+
+29/01/2023
