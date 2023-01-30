@@ -16,9 +16,6 @@ size_t* tf::getDuplicates(const T arr[] ,size_t  size)
             arrResulte[1] = i;
             return arrResulte;
         }
-        for (auto const &pair: map) {
-            std::cout << "{" << pair.first << ": " << pair.second << "}\n";
-        }
         std::cout <<'\n';
     }
     return NULL;
