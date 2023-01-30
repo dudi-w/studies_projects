@@ -1,27 +1,27 @@
 #include "dataStructure.hpp"
 
-ds::ArrRational::ArrRational():
-m_size(1),
-m_arr(new Rational[m_size])
+ds::ArrRational::ArrRational()
+:m_size(1)
+,m_arr(new Rational[m_size])
 {}
 
-ds::ArrRational::ArrRational(size_t size):
-m_size(size),
-m_arr(new Rational[m_size])
+ds::ArrRational::ArrRational(size_t size)
+:m_size(size)
+,m_arr(new Rational[m_size])
 {
     if(m_size==0){
         throw std::invalid_argument("degree must by non negative");
     }
 }
 
-ds::ArrRational::ArrRational(size_t size , const Rational* const arr):
-ArrRational(size)
+ds::ArrRational::ArrRational(size_t size , const Rational* const arr)
+:ArrRational(size)
 {
     std::copy(arr , arr+m_size , m_arr);
 }
 
-ds::ArrRational::ArrRational(const ArrRational& other):
-ArrRational(other.m_size, other.m_arr)
+ds::ArrRational::ArrRational(const ArrRational& other)
+:ArrRational(other.m_size, other.m_arr)
 {}
 
 ds::ArrRational::~ArrRational()

@@ -1,5 +1,6 @@
 CXX=g++
-CC=g++
+
+CC=$(CC)
 
 CXXFLAGS = -Wall -std=c++17 -Werror -pedantic 
 

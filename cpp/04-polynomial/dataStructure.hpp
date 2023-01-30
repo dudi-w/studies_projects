@@ -1,9 +1,8 @@
 #ifndef DADESTRUCTURE_HPP
 #define DADESTRUCTURE_HPP
 
-
 #include "../01-rational/rational.hpp"
-#include <algorithm>//???
+#include <algorithm>
 #include <memory.h>
 #include <istream>
 

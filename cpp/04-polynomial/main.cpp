@@ -1,32 +1,31 @@
 #include "polynomial.hpp"
 
 int main(){
-    poly::Polynomial aa(5);
-    // aa.displye();
-    aa.at(5) = Rational(7);
-    aa.at(4) = Rational(-4);
-    aa.at(1) = Rational(3);
-    aa.at(0) = Rational(-9);
-    std::cout<<aa.valueAt(3)<<'\n';
-    // aa.displye();
-    poly::Polynomial bb(4);
-    bb.at(4) = Rational(1);
-    bb.at(2) = Rational(-4);
-    bb.at(1) = Rational(3);
-    bb.displye();
-    (bb-aa).displye();
-    (aa-bb).displye();
-    poly::Polynomial cc(4);
-    cc.at(4) = Rational(1);
-    cc.at(0) = Rational(-3,1);
-    poly::Polynomial dd(2);
-    dd.at(2) = Rational(4);
-    dd.at(1) = Rational(3);
-    dd.at(0) = Rational(-9);
-    dd.displye();
-    poly::Polynomial ee = (dd*cc);
-    ee.displye();
-    ee.derivative().displye();
-    (ee/dd).derivative().displye();
+    poly::Polynomial poly1(5);
+    poly1.at(5) = Rational(7);
+    poly1.at(4) = Rational(-4);
+    poly1.at(1) = Rational(3);
+    poly1.at(0) = Rational(-9);
+    std::cout<<poly1.valueAt(3)<<'\n';
+    poly::Polynomial poly2(4);
+    poly2.at(4) = Rational(1);
+    poly2.at(2) = Rational(-4);
+    poly2.at(1) = Rational(3);
+    poly2.displye();
+    (poly2-poly1).displye();
+    (poly1-poly2).displye();
+    poly::Polynomial poly3(4);
+    poly3.at(4) = Rational(1);
+    poly3.at(0) = Rational(-3,1);
+    poly::Polynomial poly4(2);
+    poly4.at(2) = Rational(4);
+    poly4.at(1) = Rational(3);
+    poly4.at(0) = Rational(-9);
+    poly4.displye();
+    poly::Polynomial poly5 = (poly4*poly3);
+    poly5.displye();
+    poly5.derivative().displye();
+    (poly5/poly4).derivative().displye();
+
     return 0;
 }

@@ -40,7 +40,7 @@
         return m_inStack.top();
     }
 
-    inline std::size_t Queue::getSize() const
+    inline size_t Queue::getSize() const
     {
         return m_inStack.getSize() + m_outStack.getSize();
     }

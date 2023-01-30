@@ -1,40 +1,42 @@
 #include "polynomial.hpp"
 
-poly::Polynomial::Polynomial():
-m_degree(0)
+poly::Polynomial::Polynomial()
+:m_degree(0)
 ,m_coeff()
 {}
 
-poly::Polynomial::Polynomial(size_t degree):
-m_degree(degree),
+poly::Polynomial::Polynomial(size_t degree)
+:m_degree(degree),
 m_coeff(degree+1)
 {}
 
-poly::Polynomial::Polynomial(size_t degree , const Rational* const arr):
-m_degree(degree),
-m_coeff(degree+1,arr)
+poly::Polynomial::Polynomial(size_t degree , const Rational* const arr)
+:m_degree(degree)
+,m_coeff(degree+1,arr)
 {}
 
 poly::Polynomial poly::Polynomial::operator+( const Polynomial& other) const
 {
     size_t maxDegree = ((*this).m_degree > other.m_degree)? (*this).m_degree : other.m_degree;
-    poly::Polynomial newPoly(maxDegree);
-    for(size_t i=0 ; i<= maxDegree;++i){
-        if(i<=(*this).m_degree && i<=other.m_degree){
-            newPoly.m_coeff[i]= (*this).m_coeff[i] + other.m_coeff[i];
+    
+    poly::Polynomial resultPolynomial(maxDegree);
+    
+    for(size_t degree =0 ; degree<= maxDegree ; ++degree){
+        if(degree <=(*this).m_degree && degree<=other.m_degree){
+            resultPolynomial.m_coeff[degree]= (*this).m_coeff[degree] + other.m_coeff[degree];
             continue;
         }
-        if(i<=(*this).m_degree){
-            newPoly.m_coeff[i]= (*this).m_coeff[i];
+        if(degree<=(*this).m_degree){
+            resultPolynomial.m_coeff[degree] = (*this).m_coeff[degree];
             continue;
         }
-        if(i<=other.m_degree){
-            newPoly.m_coeff[i]= other.m_coeff[i];
+        if(degree<=other.m_degree){
+            resultPolynomial.m_coeff[degree] = other.m_coeff[degree];
             continue;
         }
     }
-    newPoly.reSize();
-    return newPoly;
+    resultPolynomial.reSize();
+    return resultPolynomial;
 }
 
 
@@ -63,8 +65,8 @@ poly::Polynomial poly::Polynomial::operator-( const Polynomial& other) const
 poly::Polynomial poly::Polynomial::operator*( const Polynomial& other) const
 {
     poly::Polynomial newPoly((*this).m_degree + other.m_degree +1);
-    for(size_t i(0); i< (*this).m_degree+1 ; ++i){
-        for(size_t j(0) ; j< other.m_degree +1 ; ++j){
+    for(size_t i = 0; i< (*this).m_degree+1 ; ++i){
+        for(size_t j = 0 ; j< other.m_degree +1 ; ++j){
             newPoly.m_coeff[i+j] += (*this).m_coeff[i] * other.m_coeff[j];
         }
     }

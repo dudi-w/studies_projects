@@ -1,4 +1,6 @@
-#include <ostream>
+#ifndef QUEUE_HPP
+#define QUEUE_HPP
+
 #include "../02-stack/stack.hpp"
 
 class Queue
@@ -10,7 +12,7 @@ public:
     bool isEmpty() const;
     int front();
     int back();
-    std::size_t getSize() const;
+    size_t getSize() const;
     void display() const;
     void revDisplay() const;
 
@@ -18,3 +20,5 @@ private:
     Stack m_inStack;
     Stack m_outStack;
 };
+
+#endif
