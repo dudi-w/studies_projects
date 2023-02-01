@@ -17,8 +17,6 @@ BFcode.o: BFcode.cpp BFcode.hpp arrByte.cpp dataStructure.hpp
 run: main
 	echo "\033[3;35mmain"
 	./main
-	echo "\033[0m"
-	make clean
 
 clean:
 	echo "\033[1;33mclean\033[0m"

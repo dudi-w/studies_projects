@@ -1,12 +1,13 @@
 #include "brainfuck.hpp"
 #include "assert.h"
-// #include <memory.h>
 
+/*declaration*/
 bf::Log translate(bf::Code& code , const char* const program);
 size_t checkValid(const char* const program);
 
-bf::Brainfuck::Brainfuck(size_t size):
-m_runMem(size)
+
+bf::Brainfuck::Brainfuck(size_t size)
+:m_runMem(size)
 {}
 
 
@@ -16,19 +17,19 @@ bf::Log bf::Brainfuck::run(bf::Code& code)
     while(code.getIndex()>0){
         code<<1;
     }
+    
     OpCode op;
-    while(code.getCurrentOp()!= OpCode::EndOp){
-        op = code.getCurrentOp();
+    while(( op = code.getCurrentOp() ) != OpCode::EndOp){
+        
         bf::Log log = execute(op);
+        
         if(log == bf::Log::gumpEnd){
             code.jumpToEndLoop();
         }
+        
         if(log== bf::Log::gumpHead){
             code.jumpToHeadLoop();
         };
-        //code.display();
-        // std::cout<<"\n\033[1;33m"<<m_runMem.getIndex()<<"\n\033[0m";
-        // m_runMem.display();
         code>>1;
     }
     return Log::success;
@@ -88,9 +89,11 @@ bf::Log bf::Brainfuck::execute(bf::OpCode const code)
 bf::Code bf::compiler(const char* const program)
 {
     size_t size = checkValid(program);
+    
     if(!size){
-        assert(!"invalid code"); //?? bf::Log::inValidProgram;
+        assert(!"invalid code");
     }
+    
     bf::Code code(size);
     translate(code , program);
     return code;
@@ -100,6 +103,7 @@ size_t checkValid(const char* const program)
 {
     size_t count, headLoop, endLoop;
     count = headLoop = endLoop = 0;
+    
     for(size_t i=0 ; program[i]!='\0' ; ++i){
         if( program[i]== '<' || program[i]== '>' ||
             program[i]== '.' || program[i]== ',' ||
@@ -118,12 +122,13 @@ size_t checkValid(const char* const program)
             return 0;
         }
     }
-    return (headLoop==endLoop) ? count+1 : 0;
+    return (headLoop==endLoop) ? count +1 : 0;
 }
 
 bf::Log translate(bf::Code& code , const char* const program)
 {
     size_t i = 0;
+
     while(program[i]!= '\0'){
         switch(program[i++]){
 
@@ -160,81 +165,11 @@ bf::Log translate(bf::Code& code , const char* const program)
                 break;
 
             default:
-            code<<1;
+            code<<1;                    //In order to stay the same place in memory
                 break;
         }
         code>>1;               
     }
-    code.setOp(bf::OpCode::EndOp);
+    code.setOp(bf::OpCode::EndOp);      //To indicate the end of the program
     return bf::Log::success;
 }
-
-// void Brainfuck::setOperations(char* const program)
-// {
-//     m_ptrPro = program;
-//     memset(m_OpStorage ,0 ,m_size);
-//     while(*m_ptrPro!='\0')
-//     {
-//         std::cout<<*m_ptrPro;;
-//         char c = *m_ptrPro;
-//         translateEndExecute(c);
-//         ++m_ptrPro;
-//     }
-    
-// }
-
-
-// void Brainfuck::NoOp() const
-// {
-//     return;
-// }
-
-// void Brainfuck::Right()
-// {
-//     ++m_OpStorage;
-// }
-
-// void Brainfuck::Left()
-// {
-//     --m_OpStorage;
-// }
-
-// void Brainfuck::Increment()
-// {
-//     ++(*m_OpStorage);
-// }
-
-// void Brainfuck::Decrement()
-// {
-//     --(*m_OpStorage);
-// }
-
-// void Brainfuck::Write() 
-// {
-//     (*m_OpStorage)= ++(*m_ptrPro);
-// }
-
-// void Brainfuck::Read() const
-// {
-//     std::cout<<(*m_OpStorage);
-// }
-
-// void Brainfuck::LoopBegin(char c)
-// {
-//     if(*m_OpStorage){
-//         return NoOp();
-//     }
-//     while(*m_ptrPro != ']')
-//     {
-//         ++m_ptrPro;
-//     }
-//     ++m_ptrPro;    
-// }
-
-// void Brainfuck::LoopEnd(char c)
-// {
-//     while(*m_ptrPro !='[')
-//     {
-//         --m_ptrPro;
-//     }
-// }

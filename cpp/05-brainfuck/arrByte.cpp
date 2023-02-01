@@ -3,8 +3,9 @@
 #include "dataStructure.hpp"
 
 
-ds::ArrByte::ArrByte():
-m_size(0)
+ds::ArrByte::ArrByte()
+: m_size(0)
+, m_arr(nullptr)
 {}
 
 ds::ArrByte::ArrByte(size_t size):
@@ -16,14 +17,14 @@ m_arr(new int8_t[m_size])
 ds::ArrByte::ArrByte(const ArrByte& other):
 ArrByte(other.m_size)
 {
-    if(other.m_arr!=NULL){
+    if(other.m_arr!=nullptr){
         std::copy(other.m_arr , other.m_arr + other.m_size , m_arr);
     }
 }
     
 ds::ArrByte::~ArrByte()
 {
-    if(m_arr!=NULL){
+    if(m_arr != nullptr){
         delete[] m_arr; 
     }
 }
@@ -33,7 +34,7 @@ ds::ArrByte& ds::ArrByte::operator=( const ArrByte& other)
     if (&other == this){
 		return *this;
     }
-	if (m_arr != NULL){
+	if (m_arr != nullptr){
 		delete[] m_arr;
     }
 	m_arr = new int8_t[other.m_size];
@@ -44,12 +45,14 @@ ds::ArrByte& ds::ArrByte::operator=( const ArrByte& other)
 
 ds::ArrByte ds::ArrByte::operator+( const ArrByte& other) const
 {
-    if(m_arr == NULL){
+    if(m_arr == nullptr){
         return other;
     }
-    if(other.m_arr == NULL){
+    
+    if(other.m_arr == nullptr){
         return *this;
     }
+
     ds::ArrByte temp(m_size+ other.m_size);
     std::copy(m_arr, m_arr+m_size, temp.m_arr);
     std::copy(other.m_arr, other.m_arr+other.m_size, temp.m_arr+m_size);

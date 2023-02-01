@@ -14,6 +14,10 @@ class Brainfuck
 public:
     explicit Brainfuck(size_t size);
 
+    Brainfuck(Brainfuck const& other) = default;
+    Brainfuck& operator=(Brainfuck const& other) = default;
+    ~Brainfuck() = default;
+
     bf::Log run( bf::Code& code);
 
 private:

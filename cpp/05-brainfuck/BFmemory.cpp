@@ -1,9 +1,9 @@
 #include "BFmemory.hpp"
 #include <iostream>
 
-bf::Memory::Memory(size_t size):
-m_index(size/2),
-m_codeMem(size)
+bf::Memory::Memory(size_t size)
+:m_index(size/2)
+,m_codeMem(size)
 {}
 
 void bf::Memory::operator>>(size_t i)
@@ -16,7 +16,7 @@ void bf::Memory::operator>>(size_t i)
 
 void bf::Memory::operator<<(size_t i)
 {
-    if(!CheckMemLeak(-static_cast<__int128_t>(i))){
+    if(!CheckMemLeak( -(static_cast<__int128_t>(i)) )){
         realloc();
     }
     m_index-=i;
@@ -31,16 +31,6 @@ int8_t& bf::Memory::operator--()
 {
     return --m_codeMem[m_index];
 }
-
-// void bf::Memory::operator++(int n)
-// {
-//     m_codeMem[m_index]+=n;
-// }
-
-// void bf::Memory::operator--(int n)
-// {
-//     m_codeMem[m_index]-=n;
-// }
 
 void bf::Memory::write()
 {
@@ -83,12 +73,14 @@ void bf::Memory::display() const
 
 void bf::Memory::realloc()
 {
-    ds::ArrByte temp(getSize()/2);
-    m_codeMem = temp+m_codeMem+temp;
+    ds::ArrByte temp( 1 + getSize()/2 );
+    temp.cleanMamory();
+
+    m_codeMem = temp + m_codeMem + temp;
     m_index+= temp.getSize();
 }
 
 bool bf::Memory::CheckMemLeak(__int128_t n) const
 {
-    return !((m_index+n)>= m_codeMem.getSize() || (m_index+n) < 0);
+    return ! ((m_index+n) >= m_codeMem.getSize() || (m_index+n) < 0);
 }
