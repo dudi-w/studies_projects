@@ -22,8 +22,8 @@ public:
     void display() const;
 
 private:
-    Node* head;
-    size_t size;
+    ls::Node<T>* m_head;
+    size_t m_size;
 };
 
 #include "list.inl"

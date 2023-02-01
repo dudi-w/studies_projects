@@ -11,7 +11,7 @@ public:
     explicit Node(const U& data , const U& next);
     Node(const Node& other);
     Node& operator=(const Node& const);
-    ~Node() = default;
+    ~Node();
 
     const U& getData() const;
     void setData(const U& otherData);
