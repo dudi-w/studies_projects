@@ -1,63 +1,70 @@
-#include "node.hpp"
+#include "list.hpp"
 
+
+template<typename T>
 template<typename U>
-ls::Node<U>::Node(const U& data)
+ls::List<T>::Node<U>::Node(const U& data)
 : m_data(data)
 , m_next(nullptr)
 {}
 
+template<typename T>
 template<typename U>
-ls::Node<U>::Node(const U& data , const U& next)
+ls::List<T>::Node<U>::Node(const U& data , List<T>::Node<U>& next)
 : m_data(data)
-, m_next(next)
+, m_next(&next)
 {}
 
+template<typename T>
 template<typename U>
-ls::Node<U>::Node(const Node& other)
-: m_data(other.data)
+ls::List<T>::Node<U>::Node(const Node& other)
+: m_data(other.m_data)
 , m_next(nullptr)
 {}
 
+template<typename T>
 template<typename U>
-ls::Node<U>& ls::Node<U>::operator=(const Node& other)
+ls::List<T>::Node<U>& ls::List<T>::Node<U>::operator=(const Node& other)
 {   
     if(this==&other){
-        return (*this)
+        return (*this);
     }
 
     m_data = other.m_data; //whet about cpye the pointer??
     return (*this);
 }
 
+template<typename T>
 template<typename U>
-ls::Node<U>::~Node()
+ls::List<T>::Node<U>::~Node()
 {
-    std::cout<<"delete\n";
-    if(m_next!=nullptr){
-        delete m_next;
-    }
+    delete m_next;
 }
 
+template<typename T>
 template<typename U>
-const U& ls::Node<U>::getData() const
+const U& ls::List<T>::Node<U>::getData() const
 {
     return m_data;
 }
 
+template<typename T>
 template<typename U>
-void ls::Node<U>::setData(const U& otherData)
+void ls::List<T>::Node<U>::setData(const U& otherData)
 {
     m_data = otherData;
 }
 
-template<typename U>
-const ls::Node<U>*& ls::Node<U>::next() const
-{
-    return m_next;
-}
+// template<typename T>
+// template<typename U>
+// const ls::List<T>::Node<U>* & ls::List<T>::Node<U>::next() const
+// {
+//     return m_next;
+// }
 
+template<typename T>
 template<typename U>
-ls::Node<U>*& ls::Node<U>::next()
+ls::List<T>::Node<U>* & ls::List<T>::Node<U>::next()
 {
     return m_next;
 }

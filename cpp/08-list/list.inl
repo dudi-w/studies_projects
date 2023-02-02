@@ -1,4 +1,8 @@
+#ifndef LIST_INL
+#define LIST_INL
+
 #include <cassert>
+#include <iostream>
 #include "list.hpp"
 
 template<typename T>
@@ -9,14 +13,12 @@ ls::List<T>::List()
 
 template<typename T>
 ls::List<T>::List(const List& other)
+: m_head(nullptr)
+, m_size(0)
 {
-    if(this==&other){
-        return;// *this;
-    }
-
-    Node<T>* temp = other.m_head;
+    Node<T> * temp = other.m_head;
     while(temp != nullptr){
-        insertBack(temp->m_data);
+        (*this).insertBack(temp->m_data);
         temp = temp->m_next;
     }
 }
@@ -30,13 +32,16 @@ ls::List<T>& ls::List<T>::operator=(const List& other)
 
     if(m_head != nullptr){
         delete m_head;
+        m_head =nullptr;
+        m_size=0;
     }
 
-    ls::Node<T>* temp = other.m_head;
+    Node<T>* temp = other.m_head;
     while(temp != nullptr){
-        insertBack(temp->m_data);
+        (*this).insertBack(temp->m_data);
         temp = temp->m_next;
     }
+    return (*this);
 }
 
 template<typename T>
@@ -49,54 +54,71 @@ template<typename T>
 void ls::List<T>::insertFront(const T& data)
 {
     if(m_head == nullptr){
-        m_head = new ls::Node<T>(data);
+        m_head = new Node<T>(data);
     }
     else{
-        m_head = new ls::Node<T>(data, *m_head);
+        m_head = new Node<T>(data, *m_head);
     }
+    ++m_size;
 }
 
 template<typename T>
 T ls::List<T>::extractFront()
 {
     assert(m_head!=nullptr && "list empty error");
-    ls::Node<T> tempNode(*m_head);
-    ls::Node<T>* tempP = (m_head);
+    Node<T> tempNode(*m_head);
+    Node<T>* tempP = (m_head);
     m_head = m_head->m_next;
-    if(tempP->m_next != nullptr){tempP->m_next == nullptr};
+    --m_size;
+    if(tempP->m_next != nullptr){tempP->m_next = nullptr;};
     delete tempP;
-    return tempNode;
+    return tempNode.m_data;
 }
 
 template<typename T>
 void ls::List<T>::insertBack(const T& data)
 {   
-    Node<T>* temp = m_head;
-    while(temp->m_next != nullptr){
-        temp = temp->m_next;
+    if(m_head == nullptr){
+        m_head = new ls::List<T>::Node<T>(data);
     }
-    temp->m_next = new ls::Node<T>(data);
+    else{
+        Node<T>* temp = m_head;
+        while(temp->m_next != nullptr){
+            temp = temp->m_next;
+        }
+        temp->m_next = new ls::List<T>::Node<T>(data);
+    }
+    ++m_size;
 }
 
 template<typename T>
 T ls::List<T>::extractBack()
 {
-    Node<T>* tempP1 = m_head , tempP2;
-    if(m_size>=1){
+    if(m_size<=1){
         return extractFront();
     }
+
+    Node<T>* tempP1 = m_head , *tempP2;
+    
     while(tempP1->m_next->m_next != nullptr){
-        tempP1 = temp->m_next;
+        tempP1 = tempP1->m_next;
     }
     tempP2 = tempP1->m_next;
-    tempP1->m_next = tempP2
-    ls::Node<T> tempNode(*tempP2);
-
-    return tempNode;
+    tempP1->m_next = nullptr;
+    --m_size;
+    Node<T> tempNode(*tempP2);
+    delete tempP2;
+    return tempNode.m_data;
 }
 
 template<typename T>
 void ls::List<T>::display() const
 {
-
+    Node<T>* temp = m_head;
+    while(temp != nullptr){
+        std::cout<<temp->m_data<<" -> " << std::flush;
+        temp = temp->m_next;
+    }
+    std::cout<<"NULL\n";
 }
+#endif
