@@ -2,7 +2,6 @@
 #define LIST_HPP
 
 #include <cstdlib>
-// #include "node.hpp"
 
 namespace ls
 {
@@ -21,7 +20,7 @@ public:
     T extractFront();
     void insertBack(const T& data);
     T extractBack();
-    void display() const;
+    std::ostream& display(std::ostream& os) const;
     
 
 private:
@@ -50,6 +49,9 @@ private:
 };
 
 }//namespace ls
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os ,const ls::List<T>&  list);
 
 
 #include "node.inl"

@@ -7,16 +7,16 @@ void test1_long(){
     for(long i = 0 ; i <10 ; ++i){
         list_1.insertBack(i);
     }
-    list_1.display();
+    std::cout<<list_1;
 
     for(long i = 9 ; i > -1 ; --i){
         list_1.insertFront(i);
     }
-    list_1.display();
+    std::cout<<list_1;
 
 
     ls::List<long> list_2(list_1);
-    list_2.display();
+    std::cout<<list_2;
 
     for(size_t i = 0 ; i <5; ++i){
         std::cout<<list_2.extractBack()<<'\n';
@@ -25,11 +25,11 @@ void test1_long(){
     for(size_t i = 0 ; i <19; ++i){
         std::cout<<list_1.extractFront()<<'\n';
     }
-    list_2.display();
-    list_1.display();
+    std::cout<<list_1;
+    std::cout<<list_2;
     list_2 = list_1;
-    list_2.display();
-    list_1.display();
+    std::cout<<list_1;
+    std::cout<<list_2;
 }
 
 void test2_Rational(){
@@ -37,16 +37,16 @@ void test2_Rational(){
     for(long i = 0 ; i <10 ; ++i){
         list_1.insertBack(Rational(i,i+8));
     }
-    list_1.display();
+    std::cout<<list_1;
 
     for(long i = 9 ; i > -1 ; --i){
         list_1.insertFront(Rational(i*2,i+7));
     }
-    list_1.display();
+    std::cout<<list_1;
 
 
     ls::List<Rational> list_2(list_1);
-    list_2.display();
+    std::cout<<list_2;
 
     for(size_t i = 0 ; i <5; ++i){
         std::cout<<list_2.extractBack()<<'\n';
@@ -55,11 +55,11 @@ void test2_Rational(){
     for(size_t i = 0 ; i <19; ++i){
         std::cout<<list_1.extractFront()<<'\n';
     }
-    list_2.display();
-    list_1.display();
+    std::cout<<list_2;
+    std::cout<<list_1;
     list_2 = list_1;
-    list_2.display();
-    list_1.display();
+    std::cout<<list_2;
+    std::cout<<list_1;
 
 }
 

@@ -51,14 +51,15 @@ ls::List<T>::~List()
 }
 
 template<typename T>
+bool ls::List<T>::isEmpty()
+{
+    return  m_head == nullptr ? true : false;
+}
+
+template<typename T>
 void ls::List<T>::insertFront(const T& data)
 {
-    if(m_head == nullptr){
-        m_head = new Node<T>(data);
-    }
-    else{
-        m_head = new Node<T>(data, *m_head);
-    }
+    m_head = new Node<T>(data, *m_head);
     ++m_size;
 }
 
@@ -112,13 +113,20 @@ T ls::List<T>::extractBack()
 }
 
 template<typename T>
-void ls::List<T>::display() const
+std::ostream& ls::List<T>::display(std::ostream& os) const
 {
     Node<T>* temp = m_head;
     while(temp != nullptr){
-        std::cout<<temp->m_data<<" -> " << std::flush;
+        os << temp->m_data << " -> " << std::flush;
         temp = temp->m_next;
     }
-    std::cout<<"NULL\n";
+    os<<"NULL\n";
+    return os;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os ,const ls::List<T>& list)
+{
+    return list.display(os);
 }
 #endif
