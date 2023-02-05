@@ -29,9 +29,4 @@ enum class Log
 };
 }
 
-// std::ostream& operator<<(std::ostream& os, bf::OpCode code)
-// {
-//     os<<(int)code<<std::flush;
-//     return os;
-// }
 #endif
