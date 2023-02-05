@@ -68,16 +68,16 @@ typename Container::const_iterator  tf::getFirstDuplicates(Container const& cont
     typename Container::const_iterator it = container.begin();
     typename Container::const_iterator end = container.end();
     std::unordered_map <typename Container::value_type, typename Container::const_iterator > map;
-    while(it != end){
-        
-        if(map.count(*it)==0){
-            map[*it]=it;
-            ++it;
+        while(it != end){
+            
+            if(map.count(*it)==0){
+                map[*it]=it;
+                ++it;
+            }
+            else{
+                it = map.at(*it);
+                return it;
+            }
         }
-        else{
-            it = map.at(*it);
-            return it;
-        }
-    }
-    return end;
+        return end;
 }

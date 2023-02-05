@@ -20,7 +20,6 @@ typename Container::const_iterator getFirstUniq(Container const& container);
 template<typename Container>
 typename Container::const_iterator getFirstDuplicates(Container const& container);
 
-
 }//namespace tm
 
 #include "templateFunction2.inl"
