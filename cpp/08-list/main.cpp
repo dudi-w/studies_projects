@@ -1,9 +1,11 @@
 #include <iostream>
 #include "list.inl"
 #include "../01-rational/rational.hpp"
+#include "../07-containers/templateFunction2.hpp"
 
 void test1_long(){
     ls::List<long> list_1;
+
     for(long i = 0 ; i <10 ; ++i){
         list_1.insertBack(i);
     }
@@ -14,6 +16,9 @@ void test1_long(){
     }
     std::cout<<list_1;
 
+    ls::List<long>::iterator endIt(list_1.end());
+    ls::List<long>::iterator firstIt(list_1.begin());
+    // tf::getFirstDuplicates(list_1);
 
     ls::List<long> list_2(list_1);
     std::cout<<list_2;

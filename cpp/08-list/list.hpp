@@ -5,16 +5,45 @@
 
 namespace ls
 {
+// template <typename T>
+// class list<T>::Node<T>;
+
 template <typename T>
 class List
 {
+    template <typename U> class Node;
 public:
     explicit List();
     List(const List& other);
     List& operator=(const List& other);
     ~List();
 
+    class iterator 
+    {
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        // using difference_type   = std::ptrdiff_t;
+        using value_type        = Node<T>;
+
+        explicit iterator() : m_ptr(nullptr) {}
+        explicit iterator(value_type* ptr) : m_ptr(ptr) {}
+
+        value_type& operator*() const { return *m_ptr; }
+        value_type* operator->() { return m_ptr; }
+        iterator operator++() { m_ptr = (*m_ptr).m_next ; return *this; }  
+        iterator operator++(int) { m_ptr = m_ptr->m_next ; return *this; }
+        
+        friend bool operator== (const iterator& a, const iterator& b) { return a.m_ptr == b.m_ptr; };
+        friend bool operator!= (const iterator& a, const iterator& b) { return a.m_ptr != b.m_ptr; };  
+
+    private:
+        value_type* m_ptr;
+    };
+
     bool isEmpty();
+
+    iterator begin();
+    iterator end();
 
     void insertFront(const T& data);
     T extractFront();

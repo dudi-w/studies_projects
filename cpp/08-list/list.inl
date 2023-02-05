@@ -45,15 +45,28 @@ ls::List<T>& ls::List<T>::operator=(const List& other)
 }
 
 template<typename T>
+inline
 ls::List<T>::~List()
 {
     delete m_head;
 }
 
 template<typename T>
+typename ls::List<T>::iterator ls::List<T>::begin()
+{
+    return iterator(m_head);
+}
+
+template<typename T>
+typename ls::List<T>::iterator ls::List<T>::end()
+{
+    return iterator();
+}
+
+template<typename T>
 bool ls::List<T>::isEmpty()
 {
-    return  m_head == nullptr ? true : false;
+    return  m_head == nullptr  && m_size == 0 ? true : false;
 }
 
 template<typename T>
@@ -62,6 +75,18 @@ void ls::List<T>::insertFront(const T& data)
     m_head = new Node<T>(data, *m_head);
     ++m_size;
 }
+
+// template<typename T>
+// ls::List<T>::iterator ls::List<T>::begin()
+// {
+
+// }
+
+// template<typename T>
+// std::iterator ls::List<T>::end()
+// {
+
+// }
 
 template<typename T>
 T ls::List<T>::extractFront()
@@ -79,16 +104,17 @@ T ls::List<T>::extractFront()
 template<typename T>
 void ls::List<T>::insertBack(const T& data)
 {   
-    if(m_head == nullptr){
-        m_head = new ls::List<T>::Node<T>(data);
+    if(isEmpty()){
+        return insertFront(data);
     }
-    else{
-        Node<T>* temp = m_head;
-        while(temp->m_next != nullptr){
-            temp = temp->m_next;
-        }
-        temp->m_next = new ls::List<T>::Node<T>(data);
+    
+    Node<T>* temp = m_head;
+    while(temp->m_next != nullptr){
+        temp = temp->m_next;
     }
+    
+    temp->m_next = new ls::List<T>::Node<T>(data);
+
     ++m_size;
 }
 
