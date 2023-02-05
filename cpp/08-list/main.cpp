@@ -15,10 +15,15 @@ void test1_long(){
         list_1.insertFront(i);
     }
     std::cout<<list_1;
-
-    ls::List<long>::iterator endIt(list_1.end());
+    
     ls::List<long>::iterator firstIt(list_1.begin());
-    // tf::getFirstDuplicates(list_1);
+    ls::List<long>::iterator endIt(list_1.end());
+    while(firstIt != list_1.end())
+    {
+        (*firstIt).m_data = (*firstIt).m_data * (*firstIt).m_data;
+        ++firstIt;
+    }
+    std::cout<<list_1;
 
     ls::List<long> list_2(list_1);
     std::cout<<list_2;

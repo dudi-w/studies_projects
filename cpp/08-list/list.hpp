@@ -22,7 +22,6 @@ public:
     {
     public:
         using iterator_category = std::forward_iterator_tag;
-        // using difference_type   = std::ptrdiff_t;
         using value_type        = Node<T>;
 
         explicit iterator() : m_ptr(nullptr) {}
@@ -81,7 +80,6 @@ private:
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os ,const ls::List<T>&  list);
-
 
 #include "node.inl"
 #include "list.inl"

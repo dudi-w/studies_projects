@@ -62,7 +62,6 @@ typename Container::const_iterator  tf::getFirstUniq(Container const& container)
     return end;
 }
 
-
 template<typename Container>
 typename Container::const_iterator  tf::getFirstDuplicates(Container const& container)
 {
