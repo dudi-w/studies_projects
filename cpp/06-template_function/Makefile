@@ -1,8 +1,8 @@
-CC = g++
+CXX = g++
 
-CXX = $(CC)
+CC = $(CXX)
 
-GXXFLAGS = -Wall -pedantic -Werror -g -std=c++17
+GXXFLAGS = -Wall -pedantic -g -std=c++17
 
 GXXFLAGS+= -Werror
 
