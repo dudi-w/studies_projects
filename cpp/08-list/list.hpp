@@ -5,13 +5,12 @@
 
 namespace ls
 {
-// template <typename T>
-// class list<T>::Node<T>;
 
 template <typename T>
 class List
 {
     template <typename U> class Node;
+
 public:
     explicit List();
     List(const List& other);
@@ -27,7 +26,8 @@ public:
         explicit iterator() : m_ptr(nullptr) {}
         explicit iterator(value_type* ptr) : m_ptr(ptr) {}
 
-        value_type& operator*() const { return *m_ptr; }
+        value_type& operator*() { return *m_ptr; }
+        const value_type& operator*() const { return *m_ptr; }
         value_type* operator->() { return m_ptr; }
         iterator operator++() { m_ptr = (*m_ptr).m_next ; return *this; }  
         iterator operator++(int) { m_ptr = m_ptr->m_next ; return *this; }
@@ -64,7 +64,6 @@ private:
 
         const U& getData() const;
         void setData(const U& otherData);
-        // const Node*& next() const;
         Node*& next();
 
     public:

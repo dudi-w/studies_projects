@@ -76,18 +76,6 @@ void ls::List<T>::insertFront(const T& data)
     ++m_size;
 }
 
-// template<typename T>
-// ls::List<T>::iterator ls::List<T>::begin()
-// {
-
-// }
-
-// template<typename T>
-// std::iterator ls::List<T>::end()
-// {
-
-// }
-
 template<typename T>
 T ls::List<T>::extractFront()
 {
