@@ -3,7 +3,9 @@ CXX = g++
 CC = $(CXX)
 
 CXXFLAGS = -Wall -pedantic -std=c++17
+
 CXXFLAGS+= -Werror
+
 CXXFLAGS+= -g
 
 main : main.o VirtualMachine.o

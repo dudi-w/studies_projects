@@ -8,93 +8,93 @@
 
 
 vm::VirtualMachine::VirtualMachine()
+: m_it(nullptr)
 {}
 
-void vm::VirtualMachine::run( std::vector<vm::VMdata> const code)
+void vm::VirtualMachine::run( std::vector<int32_t> const& code)
 {
     cleanMem();
     
-    std::vector<vm::VMdata>::const_iterator it = code.begin();
-    while(it != code.end()){
+    m_it = code.begin();
+    while(m_it != code.end()){
         
-        execute((*it).code);
-        vm::VMdata::OpCode log = execute((*it).code);
+        vm::OpCode log = execute(static_cast<vm::OpCode>(*m_it));
 
-        if(log == vm::VMdata::OpCode::Push){
-            ++it;
-            m_stackMem.push((*it).data);
+        if(log == vm::OpCode::Jmp){
+            ++m_it;
+            m_it = &code.at(*m_it);
         }
-        if(log == vm::VMdata::OpCode::Halt){
+        if(log == vm::OpCode::Halt){
             return;
         };
-        ++it;
+        ++m_it;
     }
 }
 
-vm::VMdata::OpCode vm::VirtualMachine::execute(vm::VMdata::OpCode const code)
+vm::OpCode vm::VirtualMachine::execute(vm::OpCode const code)
 {
     switch(code){
 
-        case vm::VMdata::OpCode::Add:
+        case vm::OpCode::Add:
             add();
             break;
 
-        case vm::VMdata::OpCode::Sub:
+        case vm::OpCode::Sub:
             sub();
             break;
 
-        case vm::VMdata::OpCode::Mul:
+        case vm::OpCode::Mul:
             mul();
             break;
 
-        case vm::VMdata::OpCode::Div:
+        case vm::OpCode::Div:
             div();
             break;
 
-        case vm::VMdata::OpCode::Pop:
+        case vm::OpCode::Pop:
             pop();
             break;
 
-        case vm::VMdata::OpCode::Push:
+        case vm::OpCode::Push:
             return VirtualMachine::push();
             break;
 
-        case vm::VMdata::OpCode::Dup:
+        case vm::OpCode::Dup:
             dup();
             break;
 
-        case vm::VMdata::OpCode::Swap:
+        case vm::OpCode::Swap:
             swap();
             break;
         
-        case vm::VMdata::OpCode::Print:
+        case vm::OpCode::Print:
             print();
             break;
 
-        case vm::VMdata::OpCode::PrintC:
+        case vm::OpCode::PrintC:
             printC();
             break;
 
-        case vm::VMdata::OpCode::Nop:
+        case vm::OpCode::Nop:
             nop();
             break;
 
-        case vm::VMdata::OpCode::Halt:
+        case vm::OpCode::Halt:
             return halt();
             break;
 
-        case vm::VMdata::OpCode::Inc:
+        case vm::OpCode::Inc:
             inc();
             break;
 
-        case vm::VMdata::OpCode::Dec:
+        case vm::OpCode::Dec:
             dec();
             break;
 
         default:
             break;
     }
-    return vm::VMdata::OpCode::Nop;
+    return vm::OpCode::Nop;
 }
 
 void vm::VirtualMachine::cleanMem()
@@ -131,9 +131,11 @@ int32_t vm::VirtualMachine::pop()
     return data;
 }
 
-vm::VMdata::OpCode vm::VirtualMachine::push()
+vm::OpCode vm::VirtualMachine::push()
 {
-    return:VMdata::OpCode::Push;
+    ++m_it;
+    m_stackMem.push(*m_it);
+    return OpCode::Push;
 }
 
 void vm::VirtualMachine::dup()
@@ -145,8 +147,8 @@ void vm::VirtualMachine::swap()
 {
     int32_t data1 = pop();
     int32_t data2 = pop();
-    m_stackMem.push(data2);
     m_stackMem.push(data1);
+    m_stackMem.push(data2);
 }
 
 void vm::VirtualMachine::print()
@@ -162,9 +164,9 @@ void vm::VirtualMachine::printC()
 void vm::VirtualMachine::nop()
 {}
 
-vm::VMdata::OpCode vm::VirtualMachine::halt()
+vm::OpCode vm::VirtualMachine::halt()
 {
-    return vm::VMdata::OpCode::Halt;
+    return vm::OpCode::Halt;
 }
 
 void vm::VirtualMachine::inc()
@@ -177,6 +179,23 @@ void vm::VirtualMachine::dec()
 {
     int32_t data = pop();
     m_stackMem.push(--data);
+}
+
+void vm::VirtualMachine::jmp()
+{
+    ++m_it;
+    int32_t address = *m_it;
+    m_it = &code[address];
+}
+
+void vm::VirtualMachine::jz()
+{
+
+}
+
+void vm::VirtualMachine::jnz()
+{
+
 }
 
 
@@ -227,35 +246,35 @@ void vm::VirtualMachine::dec()
 //         switch(program[i++]){
 
 //             case '>':
-//                 code.setOp(vm::VMdata::OpCode::Right);
+//                 code.setOp(vm::OpCode::Right);
 //                 break;
 
 //             case '<':
-//                 code.setOp(vm::VMdata::OpCode::Left);
+//                 code.setOp(vm::OpCode::Left);
 //                 break;
 
 //             case '.':
-//                 code.setOp(vm::VMdata::OpCode::Read);
+//                 code.setOp(vm::OpCode::Read);
 //                 break;
 
 //             case ',':
-//                 code.setOp(vm::VMdata::OpCode::Write);
+//                 code.setOp(vm::OpCode::Write);
 //                 break;
 
 //             case '+':
-//                 code.setOp(vm::VMdata::OpCode::Increment);
+//                 code.setOp(vm::OpCode::Increment);
 //                 break;
 
 //             case '-':
-//                 code.setOp(vm::VMdata::OpCode::Decrement);
+//                 code.setOp(vm::OpCode::Decrement);
 //                 break;
 
 //             case '[':
-//                 code.setOp(vm::VMdata::OpCode::LoopBegin);
+//                 code.setOp(vm::OpCode::LoopBegin);
 //                 break;
 
 //             case ']':
-//                 code.setOp(vm::VMdata::OpCode::LoopEnd);
+//                 code.setOp(vm::OpCode::LoopEnd);
 //                 break;
 
 //             default:
@@ -264,6 +283,6 @@ void vm::VirtualMachine::dec()
 //         }
 //         code>>1;               
 //     }
-//     code.setOp(vm::VMdata::OpCode::EndOp);      //To indicate the end of the program
+//     code.setOp(vm::OpCode::EndOp);      //To indicate the end of the program
 //     return vm::Log::success;
 // }

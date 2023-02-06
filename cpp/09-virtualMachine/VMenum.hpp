@@ -5,27 +5,25 @@
 
 namespace vm 
 {
-    
-
-union VMdata
+enum class OpCode : int32_t
 {
-    int32_t data;
-    enum class OpCode: int32_t{
-        Add,
-        Sub,
-        Mul,
-        Div,
-        Pop,
-        Push,
-        Dup,
-        Swap,
-        Print,
-        PrintC,
-        Nop,
-        Halt,
-        Inc,
-        Dec
-    } code;
+    Add,
+    Sub,
+    Mul,
+    Div,
+    Pop,
+    Push,
+    Dup,
+    Swap,
+    Print,
+    PrintC,
+    Nop,
+    Halt,
+    Inc,
+    Dec,
+    Jmp,
+    Jz,
+    Jnz
 };
 
 // enum class Log
