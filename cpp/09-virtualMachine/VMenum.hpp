@@ -7,23 +7,23 @@ namespace vm
 {
 enum class OpCode : int32_t
 {
+    Pop,
+    Push,
     Add,
     Sub,
     Mul,
     Div,
-    Pop,
-    Push,
+    Inc,
+    Dec,
     Dup,
     Swap,
     Print,
     PrintC,
-    Nop,
-    Halt,
-    Inc,
-    Dec,
     Jmp,
     Jz,
-    Jnz
+    Jnz,
+    Halt,
+    Nop
 };
 
 // enum class Log

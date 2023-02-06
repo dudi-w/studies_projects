@@ -2,24 +2,38 @@
 #include "VirtualMachine.hpp"
 #include "assert.h"
 
-/*declaration*/
-// vm::Log translate(vm::Code& code , const char* const program);
-// size_t checkValid(const char* const program);
-
-
 vm::VirtualMachine::VirtualMachine()
 : m_index(0)
+, m_functions(
+    {
+        &VirtualMachine::pop,
+        [](VirtualMachine&){return vm::OpCode::Push;},
+        &VirtualMachine::add,
+        &VirtualMachine::sub,
+        &VirtualMachine::mul,
+        &VirtualMachine::div,
+        &VirtualMachine::inc,
+        &VirtualMachine::dec,
+        &VirtualMachine::dup,
+        &VirtualMachine::swap,
+        &VirtualMachine::print,
+        &VirtualMachine::printC,
+        [](VirtualMachine&){return vm::OpCode::Jmp;},
+        &VirtualMachine::jz,
+        &VirtualMachine::jnz,
+        [](VirtualMachine&){return vm::OpCode::Halt;},
+        [](VirtualMachine&){return vm::OpCode::Nop;}
+    }
+)
 {}
 
 void vm::VirtualMachine::run( std::vector <int32_t> const& code)
 {
     cleanMem();
-    m_index = 0;
 
-    while(m_index < code.size()){
+    while(true){
         
-        vm::OpCode log = vm::OpCode::Nop;
-        log = execute(static_cast<vm::OpCode>(code[m_index]));
+        vm::OpCode log = m_functions[code[m_index]](*this);
 
         if(log == vm::OpCode::Push){
             ++m_index;
@@ -36,89 +50,90 @@ void vm::VirtualMachine::run( std::vector <int32_t> const& code)
     }
 }
 
-vm::OpCode vm::VirtualMachine::execute(vm::OpCode const code)
-{
-    switch(code){
+// vm::OpCode vm::VirtualMachine::execute(vm::OpCode const code)
+// {
+//     switch(code){
 
-        case vm::OpCode::Add:
-            return add();
-            break;
+//         case vm::OpCode::Add:
+//             return add();
+//             break;
 
-        case vm::OpCode::Sub:
-            return sub();
-            break;
+//         case vm::OpCode::Sub:
+//             return sub();
+//             break;
 
-        case vm::OpCode::Mul:
-            return mul();
-            break;
+//         case vm::OpCode::Mul:
+//             return mul();
+//             break;
 
-        case vm::OpCode::Div:
-            return div();
-            break;
+//         case vm::OpCode::Div:
+//             return div();
+//             break;
 
-        case vm::OpCode::Pop:
-            return pop();
-            break;
+//         case vm::OpCode::Pop:
+//             return pop();
+//             break;
 
-        case vm::OpCode::Push:
-            return push();
-            break;
+//         case vm::OpCode::Push:
+//             return push();
+//             break;
 
-        case vm::OpCode::Dup:
-            return dup();
-            break;
+//         case vm::OpCode::Dup:
+//             return dup();
+//             break;
 
-        case vm::OpCode::Swap:
-            return swap();
-            break;
+//         case vm::OpCode::Swap:
+//             return swap();
+//             break;
         
-        case vm::OpCode::Print:
-            return print();
-            break;
+//         case vm::OpCode::Print:
+//             return print();
+//             break;
 
-        case vm::OpCode::PrintC:
-            return printC();
-            break;
+//         case vm::OpCode::PrintC:
+//             return printC();
+//             break;
 
-        case vm::OpCode::Nop:
-            return nop();
-            break;
+//         case vm::OpCode::Nop:
+//             return nop();
+//             break;
 
-        case vm::OpCode::Halt:
-            return halt();
-            break;
+//         case vm::OpCode::Halt:
+//             return halt();
+//             break;
 
-        case vm::OpCode::Inc:
-            return inc();
-            break;
+//         case vm::OpCode::Inc:
+//             return inc();
+//             break;
 
-        case vm::OpCode::Dec:
-            return dec();
-            break;
+//         case vm::OpCode::Dec:
+//             return dec();
+//             break;
 
-        case vm::OpCode::Jmp:
-            return jmp();
-            break;
+//         case vm::OpCode::Jmp:
+//             return jmp();
+//             break;
 
-        case vm::OpCode::Jz:
-            return jz();
-            break;
+//         case vm::OpCode::Jz:
+//             return jz();
+//             break;
 
-        case vm::OpCode::Jnz:
-            return jnz();
-            break;
+//         case vm::OpCode::Jnz:
+//             return jnz();
+//             break;
 
-        default:
-            break;
-    }
-    return vm::OpCode::Nop;
-}
+//         default:
+//             break;
+//     }
+//     return vm::OpCode::Nop;
+// }
 
 void vm::VirtualMachine::cleanMem()
 {
     while(!m_stackMem.empty()){
         m_stackMem.pop();
     }
+    m_index= 0;
 }
 
 vm::OpCode vm::VirtualMachine::add()

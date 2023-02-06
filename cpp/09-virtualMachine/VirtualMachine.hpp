@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <stack>
 #include <vector>
+#include <array>
+#include <functional>
 #include "VMenum.hpp"
 
 namespace vm
@@ -44,6 +46,7 @@ private:
 private:
     std::stack<int32_t> m_stackMem;
     size_t m_index;
+    std::array<std::function<vm::OpCode(vm::VirtualMachine&)> ,17> m_functions;
 };
 
 // vm::Code compiler(const char* const program);
