@@ -11,7 +11,7 @@ vm::VirtualMachine::VirtualMachine()
 : m_index(0)
 {}
 
-void vm::VirtualMachine::run( std::vector<int32_t> const& code)
+void vm::VirtualMachine::run( std::vector <int32_t> const& code)
 {
     cleanMem();
     m_index = 0;
@@ -41,47 +41,47 @@ vm::OpCode vm::VirtualMachine::execute(vm::OpCode const code)
     switch(code){
 
         case vm::OpCode::Add:
-            add();
+            return add();
             break;
 
         case vm::OpCode::Sub:
-            sub();
+            return sub();
             break;
 
         case vm::OpCode::Mul:
-            mul();
+            return mul();
             break;
 
         case vm::OpCode::Div:
-            div();
+            return div();
             break;
 
         case vm::OpCode::Pop:
-            pop();
+            return pop();
             break;
 
         case vm::OpCode::Push:
-            return VirtualMachine::push();
+            return push();
             break;
 
         case vm::OpCode::Dup:
-            dup();
+            return dup();
             break;
 
         case vm::OpCode::Swap:
-            swap();
+            return swap();
             break;
         
         case vm::OpCode::Print:
-            print();
+            return print();
             break;
 
         case vm::OpCode::PrintC:
-            printC();
+            return printC();
             break;
 
         case vm::OpCode::Nop:
-            nop();
+            return nop();
             break;
 
         case vm::OpCode::Halt:
@@ -89,11 +89,11 @@ vm::OpCode vm::VirtualMachine::execute(vm::OpCode const code)
             break;
 
         case vm::OpCode::Inc:
-            inc();
+            return inc();
             break;
 
         case vm::OpCode::Dec:
-            dec();
+            return dec();
             break;
 
         case vm::OpCode::Jmp:
@@ -121,81 +121,112 @@ void vm::VirtualMachine::cleanMem()
     }
 }
 
-void vm::VirtualMachine::add()
+vm::OpCode vm::VirtualMachine::add()
 {
-    m_stackMem.push(pop()+pop());
+    int32_t data1 = m_stackMem.top();
+    pop();
+    int32_t data2 = m_stackMem.top();
+    pop();
+    m_stackMem.push(data1+data2);
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::sub()
+vm::OpCode vm::VirtualMachine::sub()
 {
-    m_stackMem.push(pop()-pop());
+    int32_t data1 = m_stackMem.top();
+    pop();
+    int32_t data2 = m_stackMem.top();
+    pop();
+    m_stackMem.push(data1-data2);
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::mul()
+vm::OpCode vm::VirtualMachine::mul()
 {
-    m_stackMem.push(pop()*pop());
+    int32_t data1 = m_stackMem.top();
+    pop();
+    int32_t data2 = m_stackMem.top();
+    pop();
+    m_stackMem.push(data1*data2);
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::div()
+vm::OpCode vm::VirtualMachine::div()
 {
-    m_stackMem.push(pop()/pop());
+    int32_t data1 = m_stackMem.top();
+    pop();
+    int32_t data2 = m_stackMem.top();
+    pop();
+    m_stackMem.push(data1/data2);
+    return vm::OpCode::Nop;
 }
 
-int32_t vm::VirtualMachine::pop()
+vm::OpCode vm::VirtualMachine::pop()
 {
-    int32_t data = m_stackMem.top();
     m_stackMem.pop();
-    return data;
+    return vm::OpCode::Nop;
 }
 
 vm::OpCode vm::VirtualMachine::push()
 {
-    // ++m_index;
-    // m_stackMem.push(code[m_index]);
     return OpCode::Push;
 }
 
-void vm::VirtualMachine::dup()
+vm::OpCode vm::VirtualMachine::dup()
 {
     m_stackMem.push(m_stackMem.top());
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::swap()
+vm::OpCode vm::VirtualMachine::swap()
 {
-    int32_t data1 = pop();
-    int32_t data2 = pop();
+    int32_t data1 = m_stackMem.top();
+    m_stackMem.pop();
+    int32_t data2 = m_stackMem.top();
+    m_stackMem.pop();
     m_stackMem.push(data1);
     m_stackMem.push(data2);
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::print()
+vm::OpCode vm::VirtualMachine::print()
 {
-    std::cout<<pop();
+    std::cout<<m_stackMem.top()<<std::flush;
+    m_stackMem.pop();
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::printC()
+vm::OpCode vm::VirtualMachine::printC()
 {
-    std::cout<<static_cast<char>(pop());
+    std::cout<<static_cast<char>(m_stackMem.top())<<std::flush;
+    m_stackMem.pop();
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::nop()
-{}
+vm::OpCode vm::VirtualMachine::nop()
+{
+    return vm::OpCode::Nop;
+}
 
 vm::OpCode vm::VirtualMachine::halt()
 {
     return vm::OpCode::Halt;
 }
 
-void vm::VirtualMachine::inc()
+vm::OpCode vm::VirtualMachine::inc()
 {
-    int32_t data = pop();
+    int32_t data = m_stackMem.top();
+    m_stackMem.pop();
     m_stackMem.push(++data);
+    return vm::OpCode::Nop;
 }
 
-void vm::VirtualMachine::dec()
+vm::OpCode vm::VirtualMachine::dec()
 {
-    int32_t data = pop();
+    int32_t data = m_stackMem.top();
+    m_stackMem.pop();
     m_stackMem.push(--data);
+    return vm::OpCode::Nop;
 }
 
 vm::OpCode vm::VirtualMachine::jmp()
