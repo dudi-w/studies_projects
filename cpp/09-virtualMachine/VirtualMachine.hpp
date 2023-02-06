@@ -37,13 +37,13 @@ private:
     vm::OpCode halt();
     void inc();
     void dec();
-    void jmp();
-    void jz();
-    void jnz();
+    vm::OpCode jmp();
+    vm::OpCode jz();
+    vm::OpCode jnz();
 
 private:
     std::stack<int32_t> m_stackMem;
-    std::vector<int32_t>::const_iterator m_it;
+    size_t m_index;
 };
 
 // vm::Code compiler(const char* const program);

@@ -13,6 +13,10 @@ void test_1()
     code.push_back(static_cast<int32_t>(vm::OpCode::Inc));
     code.push_back(static_cast<int32_t>(vm::OpCode::Dec));
     code.push_back( static_cast<int32_t>(vm::OpCode::Print));
+    code.push_back(static_cast<int32_t>(vm::OpCode::Push));
+    code.push_back(0);
+    code.push_back( static_cast<int32_t>(vm::OpCode::Jnz));
+    code.push_back(0);
     code.push_back(static_cast<int32_t>(vm::OpCode::Halt));
     myMachine.run(code);
 }

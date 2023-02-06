@@ -8,26 +8,31 @@
 
 
 vm::VirtualMachine::VirtualMachine()
-: m_it(nullptr)
+: m_index(0)
 {}
 
 void vm::VirtualMachine::run( std::vector<int32_t> const& code)
 {
     cleanMem();
-    
-    m_it = code.begin();
-    while(m_it != code.end()){
-        
-        vm::OpCode log = execute(static_cast<vm::OpCode>(*m_it));
+    m_index = 0;
 
+    while(m_index < code.size()){
+        
+        vm::OpCode log = vm::OpCode::Nop;
+        log = execute(static_cast<vm::OpCode>(code[m_index]));
+
+        if(log == vm::OpCode::Push){
+            ++m_index;
+            m_stackMem.push(code[m_index]);
+        }
         if(log == vm::OpCode::Jmp){
-            ++m_it;
-            m_it = &code.at(*m_it);
+            ++m_index;
+            m_index = code[m_index]-1;
         }
         if(log == vm::OpCode::Halt){
             return;
         };
-        ++m_it;
+        ++m_index;
     }
 }
 
@@ -91,6 +96,18 @@ vm::OpCode vm::VirtualMachine::execute(vm::OpCode const code)
             dec();
             break;
 
+        case vm::OpCode::Jmp:
+            return jmp();
+            break;
+
+        case vm::OpCode::Jz:
+            return jz();
+            break;
+
+        case vm::OpCode::Jnz:
+            return jnz();
+            break;
+
         default:
             break;
     }
@@ -133,8 +150,8 @@ int32_t vm::VirtualMachine::pop()
 
 vm::OpCode vm::VirtualMachine::push()
 {
-    ++m_it;
-    m_stackMem.push(*m_it);
+    // ++m_index;
+    // m_stackMem.push(code[m_index]);
     return OpCode::Push;
 }
 
@@ -181,21 +198,34 @@ void vm::VirtualMachine::dec()
     m_stackMem.push(--data);
 }
 
-void vm::VirtualMachine::jmp()
+vm::OpCode vm::VirtualMachine::jmp()
 {
-    ++m_it;
-    int32_t address = *m_it;
-    m_it = &code[address];
+    return vm::OpCode::Jmp;
 }
 
-void vm::VirtualMachine::jz()
+vm::OpCode vm::VirtualMachine::jz()
 {
+    if(!m_stackMem.top()){
+        return jmp();
+    }
+    else{
+        pop();
+        ++m_index;
+        return vm::OpCode::Nop;
+    }
 
 }
 
-void vm::VirtualMachine::jnz()
+vm::OpCode vm::VirtualMachine::jnz()
 {
-
+    if(m_stackMem.top()){
+        return jmp();
+    }
+    else{
+        pop();
+        ++m_index;
+        return vm::OpCode::Nop;
+    }
 }
 
 
