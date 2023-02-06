@@ -1,5 +1,6 @@
 #ifndef VM_ENUM_HPP
 #define VM_ENUM_HPP
+#define SIZE_OPCODE 17
 
 #include <iostream>
 
@@ -26,14 +27,6 @@ enum class OpCode : int32_t
     Nop
 };
 
-// enum class Log
-// {
-//     success,
-//     out_of_memory,
-//     inValidProgram,
-//     gumpEnd,
-//     gumpHead
-// };
 }
 
 #endif
