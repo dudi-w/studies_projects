@@ -36,11 +36,13 @@ private:
     vm::OpCode dec();
     vm::OpCode jz();
     vm::OpCode jnz();
+    vm::OpCode ret();
 
 private:
-    std::stack<int32_t> m_stackMem;
+    std::stack<int32_t> m_memStack;
+    std::stack<int32_t> m_callStack;
     size_t m_index;
-    std::array<std::function<vm::OpCode(vm::VirtualMachine&)> ,SIZE_OPCODE-1> m_functions;
+    std::array<std::function<vm::OpCode(vm::VirtualMachine&)> ,SIZE_OPCODE> m_functions;
 };
 
 }

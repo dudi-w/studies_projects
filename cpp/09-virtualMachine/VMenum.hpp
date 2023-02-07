@@ -1,6 +1,6 @@
 #ifndef VM_ENUM_HPP
 #define VM_ENUM_HPP
-#define SIZE_OPCODE 17
+#define SIZE_OPCODE 19
 
 #include <iostream>
 
@@ -24,6 +24,8 @@ enum class OpCode : int32_t
     Jz,
     Jnz,
     Halt,
+    Call,
+    Ret,
     Nop
 };
 
