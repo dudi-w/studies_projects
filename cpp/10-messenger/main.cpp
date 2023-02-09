@@ -4,8 +4,8 @@
 #include "change_case.hpp"
 #include "terminalInput.hpp"
 #include "stringInput.hpp"
-#include "fileInput .hpp"
-#include "fileInput .hpp"
+#include "fileInput.hpp"
+#include "shiftEncryption.hpp"
 #include <iostream>
 #include <vector>
 #include <array>
@@ -33,10 +33,18 @@ void test_upper_through_terminal()
     dt::change_case(terminalInput, p, std::cout);
 }
 
+void test_shift_encryption()
+{
+    TerminalInput terminalInput;
+    dt::ShiftEncryption shiftEncryption(26+3);
+    dt::change_case(terminalInput, shiftEncryption, std::cout);
+}
+
 int main()
 {
     test_lower_through_file();
     test_upper_through_terminal();
     test_upper();
+    test_shift_encryption();
     return 0; 
 }

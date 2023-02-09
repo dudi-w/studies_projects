@@ -11,7 +11,8 @@ public:
     FileInput(std::string path);
     ~FileInput() = default;
 
-    std::string returnAsString() const;
+    inline
+    std::string returnAsString() const{return m_data;}
 
 private:
     std::string m_data;
@@ -22,11 +23,6 @@ FileInput::FileInput(std::string path)
     std::ifstream file(path);
     std::getline(file , m_data , ';');
     file.close();
-}
-
-std::string FileInput::returnAsString() const
-{
-    return m_data;
 }
 
 #endif
