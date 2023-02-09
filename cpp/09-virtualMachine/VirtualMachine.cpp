@@ -6,25 +6,25 @@ vm::VirtualMachine::VirtualMachine()
 : m_index(0)
 , m_functions(
     {
-        &VirtualMachine::pop,
-        [](VirtualMachine&){return vm::OpCode::Push;},
-        &VirtualMachine::add,
-        &VirtualMachine::sub,
-        &VirtualMachine::mul,
-        &VirtualMachine::div,
-        &VirtualMachine::inc,
-        &VirtualMachine::dec,
-        &VirtualMachine::dup,
-        &VirtualMachine::swap,
-        &VirtualMachine::print,
-        &VirtualMachine::printC,
-        [](VirtualMachine&){return vm::OpCode::Jmp;},
-        &VirtualMachine::jz,
-        &VirtualMachine::jnz,
-        [](VirtualMachine&){return vm::OpCode::Halt;},
-        [](VirtualMachine&){return vm::OpCode::Call;},
-        &VirtualMachine::ret,
-        [](VirtualMachine&){return vm::OpCode::Nop;}
+        { vm::OpCode::Pop ,&VirtualMachine::pop },
+        { vm::OpCode::Push ,[](VirtualMachine&){return vm::Log::MakePush;} },
+        { vm::OpCode::Add ,&VirtualMachine::add },
+        { vm::OpCode::Sub ,&VirtualMachine::sub },
+        { vm::OpCode::Mul ,&VirtualMachine::mul },
+        { vm::OpCode::Div ,&VirtualMachine::div },
+        { vm::OpCode::Inc ,&VirtualMachine::inc },
+        { vm::OpCode::Dec ,&VirtualMachine::dec },
+        { vm::OpCode::Dup ,&VirtualMachine::dup },
+        { vm::OpCode::Swap ,&VirtualMachine::swap },
+        { vm::OpCode::Print ,&VirtualMachine::print },
+        { vm::OpCode::PrintC ,&VirtualMachine::printC },
+        { vm::OpCode::Jmp ,[](VirtualMachine&){return vm::Log::MakeJump;} },
+        { vm::OpCode::Jz ,&VirtualMachine::jz },
+        { vm::OpCode::Jnz ,&VirtualMachine::jnz },
+        { vm::OpCode::Halt ,[](VirtualMachine&){return vm::Log::Halt;} },
+        { vm::OpCode::Call ,[](VirtualMachine&){return vm::Log::MakeCall;} },
+        { vm::OpCode::Ret ,&VirtualMachine::ret },
+        { vm::OpCode::Nop ,[](VirtualMachine&){return vm::Log::Success;} }
     }
 )
 {}
@@ -37,23 +37,23 @@ void vm::VirtualMachine::run( std::vector <int32_t> const& code)
         if(code[m_index]>=(int32_t)m_functions.size()){
             assert(!"invalid program");
         }
-        vm::OpCode log = m_functions[code[m_index]](*this);
+        vm::Log log = m_functions[static_cast<vm::OpCode>(code[m_index])](*this);
 
-        if(log == vm::OpCode::Push){
+        if(log == vm::Log::MakePush){
             m_memStack.push(code[++m_index]);
         }
 
-        if(log == vm::OpCode::Call){
+        if(log == vm::Log::MakeCall){
             m_callStack.push(m_index+2);
-            log = vm::OpCode::Jmp;
+            log = vm::Log::MakeJump;
         }
 
-        if(log == vm::OpCode::Jmp){
-            m_index = code[++m_index];
+        if(log == vm::Log::MakeJump){
+            m_index = static_cast<size_t>(code[++m_index]);
             continue;
         }
 
-        if(log == vm::OpCode::Halt){
+        if(log == vm::Log::Halt){
             break;
         };
         ++m_index;
@@ -68,63 +68,66 @@ void vm::VirtualMachine::cleanMem()
     m_index= 0;
 }
 
-vm::OpCode vm::VirtualMachine::add()
+vm::Log vm::VirtualMachine::add()
 {   
-    int32_t data1 = m_memStack.top();
+    if(m_memStack.size() < 2){
+        return vm::Log::TooFewArguments;
+    }
+    int32_t data = m_memStack.top();
     pop();
-    assert(!m_memStack.empty() && "invalid program");
-    int32_t data2 = m_memStack.top();
-    pop();
-    m_memStack.push(data1+data2);
-    return vm::OpCode::Nop;
+    m_memStack.top() = m_memStack.top() + data;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::sub()
+vm::Log vm::VirtualMachine::sub()
 {
-    int32_t data1 = m_memStack.top();
+    if(m_memStack.size() < 2){
+        return vm::Log::TooFewArguments;
+    }
+    int32_t data = m_memStack.top();
     pop();
-    assert(!m_memStack.empty() && "invalid program");
-    int32_t data2 = m_memStack.top();
-    pop();
-    m_memStack.push(data1-data2);
-    return vm::OpCode::Nop;
+    m_memStack.top() = m_memStack.top() - data;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::mul()
+vm::Log vm::VirtualMachine::mul()
 {
-    int32_t data1 = m_memStack.top();
+    if(m_memStack.size() < 2){
+        return vm::Log::TooFewArguments;
+    }
+    int32_t data = m_memStack.top();
     pop();
-    assert(!m_memStack.empty() && "invalid program");
-    int32_t data2 = m_memStack.top();
-    pop();
-    m_memStack.push(data1*data2);
-    return vm::OpCode::Nop;
+    m_memStack.top() = m_memStack.top() * data;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::div()
+vm::Log vm::VirtualMachine::div()
 {
-    int32_t data1 = m_memStack.top();
+    if(m_memStack.size() < 2){
+        return vm::Log::TooFewArguments;
+    }
+    int32_t data = m_memStack.top();
     pop();
-    assert(!m_memStack.empty() && "invalid program");
-    int32_t data2 = m_memStack.top();
-    pop();
-    m_memStack.push(data1/data2);
-    return vm::OpCode::Nop;
+    if(m_memStack.top()==0){
+        return vm::Log::DivisionByZero;
+    }
+    m_memStack.top() = m_memStack.top() / data;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::pop()
+vm::Log vm::VirtualMachine::pop()
 {
     m_memStack.pop();
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::dup()
+vm::Log vm::VirtualMachine::dup()
 {
     m_memStack.push(m_memStack.top());
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::swap()
+vm::Log vm::VirtualMachine::swap()
 {
     int32_t data1 = m_memStack.top();
     m_memStack.pop();
@@ -132,75 +135,70 @@ vm::OpCode vm::VirtualMachine::swap()
     m_memStack.pop();
     m_memStack.push(data1);
     m_memStack.push(data2);
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::print()
+vm::Log vm::VirtualMachine::print()
 {
     std::cout<<m_memStack.top()<<std::flush;
     m_memStack.pop();
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::printC()
+vm::Log vm::VirtualMachine::printC()
 {
     std::cout<<static_cast<char>(m_memStack.top())<<std::flush;
     m_memStack.pop();
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::inc()
+vm::Log vm::VirtualMachine::inc()
 {
     int32_t data = m_memStack.top();
     m_memStack.pop();
     m_memStack.push(++data);
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::dec()
+vm::Log vm::VirtualMachine::dec()
 {
     int32_t data = m_memStack.top();
     m_memStack.pop();
     m_memStack.push(--data);
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }
 
-vm::OpCode vm::VirtualMachine::jz()
+vm::Log vm::VirtualMachine::jz()
 {
     if(!m_memStack.top()){
         m_memStack.pop();
-        return vm::OpCode::Jmp;
+        return vm::Log::MakeJump;
 
     }
     else{
         pop();
         ++m_index;
-        return vm::OpCode::Nop;
+        return vm::Log::Success;
     }
 
 }
 
-vm::OpCode vm::VirtualMachine::jnz()
+vm::Log vm::VirtualMachine::jnz()
 {
     if(m_memStack.top()){
         m_memStack.pop();
-        return vm::OpCode::Jmp;
+        return vm::Log::MakeJump;
     }
     else{
         pop();
         ++m_index;
-        return vm::OpCode::Nop;
+        return vm::Log::Success;
     }
 }
 
-// vm::OpCode vm::VirtualMachine::call()
-// {
-// 
-// }
-
-vm::OpCode vm::VirtualMachine::ret()
+vm::Log vm::VirtualMachine::ret()
 {
-    m_index = m_callStack.top()-1;
+    m_index = m_callStack.top()-1;//Because the external loop increase the pointer
     m_callStack.pop();
-    return vm::OpCode::Nop;
+    return vm::Log::Success;
 }

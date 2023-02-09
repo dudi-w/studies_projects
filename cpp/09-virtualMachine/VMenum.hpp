@@ -6,6 +6,19 @@
 
 namespace vm 
 {
+
+enum class Log : char 
+{
+    Success,
+    DivisionByZero,
+    TooFewArguments,
+    MakePush,
+    MakeJump,
+    MakeCall,
+    Halt
+};
+
+
 enum class OpCode : int32_t
 {
     Pop,

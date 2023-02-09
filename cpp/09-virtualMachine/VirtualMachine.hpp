@@ -3,7 +3,7 @@
 
 #include <stack>
 #include <vector>
-#include <array>
+#include <unordered_map>
 #include <functional>
 #include "VMenum.hpp"
 
@@ -23,26 +23,27 @@ public:
 
 private:
     void cleanMem();
-    vm::OpCode add();
-    vm::OpCode sub();
-    vm::OpCode mul();
-    vm::OpCode div();
-    vm::OpCode pop();
-    vm::OpCode dup();
-    vm::OpCode swap();
-    vm::OpCode print();
-    vm::OpCode printC();
-    vm::OpCode inc();
-    vm::OpCode dec();
-    vm::OpCode jz();
-    vm::OpCode jnz();
-    vm::OpCode ret();
+
+    vm::Log add();
+    vm::Log sub();
+    vm::Log mul();
+    vm::Log div();
+    vm::Log pop();
+    vm::Log dup();
+    vm::Log swap();
+    vm::Log print();
+    vm::Log printC();
+    vm::Log inc();
+    vm::Log dec();
+    vm::Log jz();
+    vm::Log jnz();
+    vm::Log ret();
 
 private:
     std::stack<int32_t> m_memStack;
     std::stack<int32_t> m_callStack;
     size_t m_index;
-    std::array<std::function<vm::OpCode(vm::VirtualMachine&)> ,SIZE_OPCODE> m_functions;
+    std::unordered_map<vm::OpCode , std::function<vm::Log(vm::VirtualMachine&)>> m_functions;
 };
 
 }

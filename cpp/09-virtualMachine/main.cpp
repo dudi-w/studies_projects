@@ -1,8 +1,7 @@
 #include "VirtualMachine.hpp"
 
-void test_1()
+void test_1(vm::VirtualMachine& myMachine)
 {
-    vm::VirtualMachine myMachine;
     std::vector<int32_t> code (5);
     code.at(0) = static_cast<int32_t>(vm::OpCode::Push);
     code.at(1) = 10;
@@ -23,8 +22,7 @@ void test_1()
     std::cout<<'\n';
 }
 
-void test_print_ABC(){
-    vm::VirtualMachine myMachine;
+void test_print_ABC(vm::VirtualMachine& myMachine){
     std::vector<int32_t> code;
     code.push_back(static_cast<int32_t>(vm::OpCode::Nop));
     code.push_back(static_cast<int32_t>(vm::OpCode::Push));
@@ -43,8 +41,7 @@ void test_print_ABC(){
     std::cout<<'\n';
 }
 
-void test_print_AB_Phase3(){
-    vm::VirtualMachine myMachine;
+void test_print_AB_Phase3(vm::VirtualMachine& myMachine){
     std::vector<int32_t> code;
     code.push_back(static_cast<int32_t>(vm::OpCode::Push));
     code.push_back(64);
@@ -68,8 +65,9 @@ void test_print_AB_Phase3(){
 }
 
 int main(){
-    test_1();
-    test_print_ABC();
-    test_print_AB_Phase3();
+    vm::VirtualMachine myMachine;
+    test_1(myMachine);
+    test_print_ABC(myMachine);
+    test_print_AB_Phase3(myMachine);
     return 0;
 }

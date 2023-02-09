@@ -65,9 +65,10 @@ typename Container::const_iterator  tf::getFirstUniq(Container const& container)
 template<typename Container>
 typename Container::const_iterator  tf::getFirstDuplicates(Container const& container)
 {
-    typename Container::const_iterator it = container.begin();
-    typename Container::const_iterator end = container.end();
-    std::unordered_map <typename Container::value_type, typename Container::const_iterator > map;
+    using iter = typename Container::const_iterator;
+    iter it = container.cbegin();
+    iter end = container.cend();
+    std::unordered_map <typename Container::value_type, iter > map;
         while(it != end){
             
             if(map.count(*it)==0){
