@@ -1,8 +1,8 @@
 #include "uppercase.hpp"
 #include <iterator>
 
-namespace dt{
-
+namespace dt
+{
 std::string Uppercase::transform(std::string const& input)const
 {
     if( input.size() == 0 ){
@@ -18,7 +18,6 @@ std::string Uppercase::transform(std::string const& input)const
     }
 
     return new_string;
-    
 };
 
 }//namespace dt

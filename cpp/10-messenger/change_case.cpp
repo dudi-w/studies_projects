@@ -2,21 +2,12 @@
 
 namespace dt
 {
-void change_case(Input const& input, Transformation const& t, std::ostream& os)
+void change_case(Input const& input, Transformation const& trans, Output& out)
 {
     std::string str = input.returnAsString();
-    std::string new_str = t.transform(str);
-    os << new_str << std::endl;
+    std::string new_str = trans.transform(str);
+    out.returnResulte(new_str);
 
-};
-
-void change_case_by_stream(std::istream& is, Transformation const& t, std::ostream& os)
-{
-    std::string input;
-    is >> input;
-
-    std::string new_str = t.transform(input); 
-    os << new_str << std::endl;
 };
 
 }//namespace dt

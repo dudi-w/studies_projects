@@ -3,11 +3,14 @@
 
 #include "input.hpp"
 #include <iostream>
-
+namespace dt
+{
 class TerminalInput : public Input
 {
 public:
-    TerminalInput();
+    explicit TerminalInput();
+    TerminalInput(TerminalInput const& other) = default;
+    TerminalInput& operator=(TerminalInput const& other) = default;
     ~TerminalInput() = default;
 
     std::string returnAsString() const;
@@ -27,4 +30,5 @@ std::string TerminalInput::returnAsString() const
     return m_data;
 }
 
+}//namespace dt
 #endif

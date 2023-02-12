@@ -1,10 +1,10 @@
 #include <iterator>
 #include <iostream>
-#include "shiftEncryption.hpp"
+#include "a_zEncryption.hpp"
 
-namespace dt
-{
-std::string ShiftEncryption::transform(std::string const& input)const
+namespace dt{
+
+std::string A_Z_Encryption::transform(std::string const& input)const
 {
     if( input.size() == 0 ){
         return input;
@@ -15,14 +15,15 @@ std::string ShiftEncryption::transform(std::string const& input)const
 
     while(it != input.end()){
         if((*it)>='A'  && (*it)<='Z'){
-            new_string.push_back(((((*it)-'A')+m_shift)%26)+'A');
+            new_string.push_back(('Z')-((*it)-'A'));
         }else if((*it)>='a'  &&  (*it)<='z'){
-            new_string.push_back(((((*it)-'a')+m_shift)%26)+'a');
+            new_string.push_back(('z')-((*it)-'a'));
         }else{
             new_string.push_back(*it);
         }
         ++it;
     }
+    
     return new_string;
 };
 

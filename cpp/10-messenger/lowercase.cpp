@@ -1,8 +1,8 @@
 #include "lowercase.hpp"
 #include <iterator>
 
-namespace dt{
-
+namespace dt
+{
 std::string Lowercase::transform(std::string const& input)const
 {
     if( input.size() == 0 ){
@@ -18,7 +18,6 @@ std::string Lowercase::transform(std::string const& input)const
     }
 
     return new_string;
-
 };
 
 }//namespace dt
