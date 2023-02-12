@@ -49,7 +49,8 @@ void vm::VirtualMachine::run( std::vector <int32_t> const& code)
         }
 
         if(log == vm::Log::MakeJump){
-            m_index = static_cast<size_t>(code[++m_index]);
+            ++m_index;
+            m_index = code[m_index];
             continue;
         }
 
