@@ -44,7 +44,7 @@ void test_upper_from_terminal_to_terminal()
 void test_shift_encryption_from_terminal_to_file()
 {
     dt::TerminalInput terminalInput;
-    dt::ShiftEncryption shiftEncryption(30);
+    dt::ShiftEncryption shiftEncryption(-30);
     dt::FileOutput fileOutput("outDAta.txt");
     dt::change_case(terminalInput, shiftEncryption, fileOutput);
 }
