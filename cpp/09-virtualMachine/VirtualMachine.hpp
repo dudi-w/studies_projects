@@ -5,7 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <functional>
-#include "VMenum.hpp"
+#include "report.hpp"
 
 namespace vm
 {
@@ -14,12 +14,11 @@ class VirtualMachine
 {
 public:
     explicit VirtualMachine();
-
     VirtualMachine(VirtualMachine const& other) = default;
     VirtualMachine& operator=(VirtualMachine const& other) = default;
     ~VirtualMachine() = default;
 
-    void run(std::vector<int32_t> const& code);
+    vm::Report run(std::vector<int32_t> const& code);
 
 private:
     void cleanMem();

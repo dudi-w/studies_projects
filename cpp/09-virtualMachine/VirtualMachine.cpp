@@ -1,5 +1,5 @@
-#include "VirtualMachine.hpp"
 #include <assert.h>
+#include "VirtualMachine.hpp"
 
 
 vm::VirtualMachine::VirtualMachine()
@@ -29,19 +29,16 @@ vm::VirtualMachine::VirtualMachine()
 )
 {}
 
-void vm::VirtualMachine::run( std::vector <int32_t> const& code)
+vm::Report vm::VirtualMachine::run( std::vector <int32_t> const& code)
 {
     cleanMem();
-
+    vm::Log log;
     while(true){
         if(code[m_index]>=(int32_t)m_functions.size()){
-            assert(!"invalid program");
+            log = vm::Log::invalid_program;
+            break;
         }
-        vm::Log log = m_functions[static_cast<vm::OpCode>(code[m_index])](*this);
-
-        if(log == vm::Log::MakePush){
-            m_memStack.push(code[++m_index]);
-        }
+        log = m_functions[static_cast<vm::OpCode>(code[m_index])](*this);
 
         if(log == vm::Log::MakeCall){
             m_callStack.push(m_index+2);
@@ -54,11 +51,15 @@ void vm::VirtualMachine::run( std::vector <int32_t> const& code)
             continue;
         }
 
-        if(log == vm::Log::Halt){
+        if(log == vm::Log::MakePush){
+            m_memStack.push(code[++m_index]);
+        }else
+        if(log != vm::Log::Success){
             break;
         };
         ++m_index;
     }
+    return vm::Report(m_index ,static_cast<vm::OpCode>(code[m_index]), log , m_memStack.empty() , m_callStack.empty());
 }
 
 void vm::VirtualMachine::cleanMem()

@@ -8,11 +8,13 @@ CXXFLAGS+= -Werror
 
 CXXFLAGS+= -g
 
-main : main.o VirtualMachine.o
+main : main.o VirtualMachine.o report.o
 
 main.o: main.cpp VirtualMachine.hpp
 
 VirtualMachine.o: VirtualMachine.cpp VirtualMachine.hpp
+
+report.o: report.cpp report.hpp
 
 clean: 
 	rm *.o main
