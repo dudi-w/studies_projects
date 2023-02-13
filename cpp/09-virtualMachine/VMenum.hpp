@@ -10,6 +10,7 @@ namespace vm
 
 enum class Log : int8_t 
 {
+    Start,
     Success,
     DivisionByZero,
     TooFewArguments,
@@ -17,18 +18,23 @@ enum class Log : int8_t
     MakeJump,
     MakeCall,
     Halt,
-    invalid_program
+    Invalid_program,
+    Empty_stack,
+    Out_of_renge
 };
 
-static std::array<std::string, 8> arrLogs
-    {"Success",
-    "DivisionByZero",
-    "TooFewArguments",
-    "MakePush",
-    "MakeJump",
-    "MakeCall",
+static std::array<std::string, 11> arrLogs
+    {"Start running",
+    "Success",
+    "Division By Zero",
+    "Too Few Arguments",
+    "Make Push",
+    "Make Jump",
+    "Make Call",
     "Halt",
-    "invalid program"};
+    "Invalid program",
+    "The stack is empty",
+    "Out of renge"};
 
 enum class OpCode : int32_t
 {

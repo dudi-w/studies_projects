@@ -21,8 +21,6 @@ public:
     vm::Report run(std::vector<int32_t> const& code);
 
 private:
-    void cleanMem();
-
     vm::Log add();
     vm::Log sub();
     vm::Log mul();
@@ -38,11 +36,13 @@ private:
     vm::Log jnz();
     vm::Log ret();
 
+    void cleanMem();
+
 private:
     std::stack<int32_t> m_memStack;
     std::stack<int32_t> m_callStack;
     size_t m_index;
-    std::unordered_map<vm::OpCode , std::function<vm::Log(vm::VirtualMachine&)>> m_functions;
+    std::unordered_map <vm::OpCode , std::function <vm::Log(vm::VirtualMachine&) > > m_functions;
 };
 
 }
