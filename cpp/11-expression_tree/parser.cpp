@@ -8,7 +8,8 @@
 #include "subNode.hpp"
 #include "divNode.hpp"
 
-void parser(std::string const& expression , et::ExpressionNode* root , size_t& count){
+void parser(std::string const& expression , et::ExpressionNode* root , size_t& count)
+{
     if(root){
         abort();
     }
@@ -35,13 +36,13 @@ size_t preurity(std::string const& expression)
     std::string::const_iterator it = expression.cbegin();
     size_t min = INFINITY;
     while (it != expression.cend()){
-        min = std::min(shrd(*it), min);///////????????
+        min = std::min(rating(*it), min);///////????????
     }
         
     return i;
 }
 
-unsigned int shrd(char q)
+unsigned int rating(char q)
 {
     switch (q){
         case '+':
