@@ -12,9 +12,9 @@ size_t tk::NumToken::getIndex() const
     return m_index;
 }
 
-void tk::NumToken::creatNode(std::stack<P_Ex> stack) const
+void tk::NumToken::creatNode(std::stack<P_ex> stack) const
 {
-    P_Ex P_node= std::make_unique<et::NumNode>(m_data);
+    P_ex P_node= std::make_unique<et::NumNode>(m_data);
     stack.push(std::move(P_node));
 }
 

@@ -13,7 +13,7 @@ public:
     SubNode& operator = (SubNode const& other) = delete;
     ~SubNode() = default;
 
-    int getValue() const;
+    int getValue() const override;
 };
 
 }// namespace et

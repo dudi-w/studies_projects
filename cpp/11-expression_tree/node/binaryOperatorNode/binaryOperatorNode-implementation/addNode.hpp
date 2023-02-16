@@ -13,7 +13,7 @@ public:
     AddNode& operator=(AddNode const& other) = delete;
     ~AddNode() = default;
     
-    int getValue() const;
+    int getValue() const override;
 };
 
 }// namespace et

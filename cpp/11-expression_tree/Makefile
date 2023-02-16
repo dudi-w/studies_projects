@@ -3,7 +3,9 @@ CC = $(CXX)
 
 CCXXFLAGS = -std=c++17 -Well -pedantic 
 CCXXFLAGS += -Werror
-CCXXFLAGS += -g
+CCXXFLAGS += -g3
+
+CPPFLEGS = I ./
 
 main: main.o tokens/numToken.o tokens/operatorToken.o tokens/token.hpp
 

@@ -9,23 +9,23 @@
 
 namespace et
 {
-P_Ex bildEDD(P_Ex right ,P_Ex left){
+P_ex bildEDD(P_ex right ,P_ex left){
     return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
 }
 
-P_Ex bildSUB(P_Ex right ,P_Ex left){
+P_ex bildSUB(P_ex right ,P_ex left){
     return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
 }
 
-P_Ex bildMUL(P_Ex right ,P_Ex left){
+P_ex bildMUL(P_ex right ,P_ex left){
     return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
 }
 
-P_Ex bildDIV(P_Ex right ,P_Ex left){
+P_ex bildDIV(P_ex right ,P_ex left){
     return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
 }
 
-static std::unordered_map<char,std::function<P_Ex(P_Ex right ,P_Ex left)>> bildFunctions
+static std::unordered_map<char,std::function<P_ex(P_Ex right ,P_Ex left)>> bildFunctions
 {
     {'+', &bildEDD },
     {'-', &bildSUB },

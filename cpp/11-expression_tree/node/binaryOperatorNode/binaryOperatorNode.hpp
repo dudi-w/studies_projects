@@ -4,7 +4,7 @@
 #include <memory>
 #include "expressionNode.hpp"
 
-using P_Ex =  std::unique_ptr<et::ExpressionNode>;
+using P_ex =  std::unique_ptr<et::ExpressionNode>;
 
 namespace et
 {
@@ -12,23 +12,23 @@ namespace et
 class BinaryOperatorNode : public ExpressionNode
 {
 public:
-    explicit BinaryOperatorNode(P_Ex right ,P_Ex left);
+    explicit BinaryOperatorNode(P_ex right ,P_ex left);
     BinaryOperatorNode(BinaryOperatorNode const& other) = delete;
     BinaryOperatorNode& operator=(BinaryOperatorNode const& other) = delete;
-    ~BinaryOperatorNode() = default;
+    virtual ~BinaryOperatorNode() = default;
 
     virtual int getValue() const = 0;
 
 protected:
-    P_Ex m_right;
-    P_Ex m_left;
+    P_ex m_right;
+    P_ex m_left;
 };
 
-inline
-et::BinaryOperatorNode::BinaryOperatorNode(P_Ex right ,P_Ex left)
+inline et::BinaryOperatorNode::BinaryOperatorNode(P_ex right ,P_ex left)
 : m_right(std::move(right))
 , m_left(std::move(left))
 {}
 
 }// namespace et
+
 #endif

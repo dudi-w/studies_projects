@@ -15,7 +15,7 @@ public:
     ~NumToken() = default;
     
     size_t getIndex() const;
-    void creatNode(std::stack<P_Ex> stack) const;
+    void creatNode(std::stack<P_ex> stack) const;
     Group preyutiryGroup() const;
 
 private:

@@ -13,7 +13,7 @@ public:
     DivNode& operator=(DivNode const& other) = delete;
     ~DivNode() = default;
 
-    int getValue() const;
+    int getValue() const override;
 };
 
 }// namespace et

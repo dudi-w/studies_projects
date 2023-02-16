@@ -55,7 +55,9 @@ std::vector<P_token> tokenizer(std::string const& strExpr)
     return tokenExpr;
 }
 
-std::vector<P_token> 
+std::vector<P_token> makePNorder(std::vector<P_token> const& tokenEper){
+
+}
 
 // void parser(std::string const& expression , et::ExpressionNode* root , size_t& count)
 // {

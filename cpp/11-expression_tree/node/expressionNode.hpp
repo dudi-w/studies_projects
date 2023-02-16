@@ -1,9 +1,7 @@
 #ifndef EXPRESSION_NODE_HPP
 #define EXPRESSION_NODE_HPP
 
-//expression tree
-namespace et
-{
+namespace et{//expression tree
 
 class ExpressionNode
 {
@@ -14,5 +12,5 @@ public:
     virtual int getValue() const = 0;
 };
 
-}
+}//namespace et
 #endif
