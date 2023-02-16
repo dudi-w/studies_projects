@@ -5,19 +5,13 @@ CCXXFLAGS = -std=c++17 -Well -pedantic
 CCXXFLAGS += -Werror
 CCXXFLAGS += -g
 
-main: main.o numNode.o addNode.o subNode.o mulNode.o divNode.o
+main: main.o tokens/numToken.o tokens/operatorToken.o tokens/token.hpp
 
 main.o: main.cpp 
 
-numNode.o : numNode.cpp numNode.hpp
+tokens/numToken.o : tokens/numToken.cpp tokens/numToken.hpp
 
-addNode.o : addNode.cpp addNode.hpp
-
-subNode.o : subNode.cpp subNode.hpp
-
-mulNode.o : mulNode.cpp mulNode.hpp
-
-divNode.o : divNode.cpp divNode.hpp
+tokens/operatorToken.o : tokens/operatorToken.cpp tokens/operatorToken.hpp
 
 clean:
-	$(RM) -r *.o ./main
+	$(RM) -r *.o ./main */*.o

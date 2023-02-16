@@ -2,7 +2,7 @@
 #define EXPRESSION_TREE_HPP
 
 #include <cstdlib>
-#include "expressionNode.hpp"
+#include "node/expressionNode.hpp"
 
 namespace et
 {
