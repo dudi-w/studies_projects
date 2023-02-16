@@ -1,7 +1,7 @@
 #ifndef NUM_NODE_HPP
 #define NUM_NODE_HPP
 
-#include "expressionNode.hpp"
+#include "../expressionNode.hpp"
 
 namespace et
 {

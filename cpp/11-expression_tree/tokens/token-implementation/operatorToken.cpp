@@ -1,6 +1,6 @@
 #include "operatorToken.hpp"
 
-tk::OperatorToken::OperatorToken(size_t index ,constructor_fun constructor ,Group group)
+tk::OperatorToken::OperatorToken(size_t index ,Constructor_fun constructor ,Group group)
 : m_index(index)
 , m_constructor(constructor)
 , m_group(group)

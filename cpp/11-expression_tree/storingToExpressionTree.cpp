@@ -1,12 +1,4 @@
-#include <string>
-#include <vector>
-#include <assert.h>
-#include "map_bild_functions.hpp"
-#include "tokens/token.hpp"
-#include "tokens/operatorToken.hpp"
-#include "tokens/numToken.hpp"
-
-using P_token = std::unique_ptr<tk::Token>;
+#include "storingToExpressionTree.hpp"
 
 bool isOperator(char op)
 {
@@ -54,8 +46,17 @@ std::vector<P_token> tokenizer(std::string const& strExpr)
     }
     return tokenExpr;
 }
-
-std::vector<P_token> makePNorder(std::vector<P_token> const& tokenEper){
+using P_to = std::vector<P_token>;
+P_to makePNorder(P_to const& tokenEper ,P_to::const_iterator begin , P_to::const_iterator end){
+    std::vector<P_token> newVector(tokenEper.size());
+    P_to::const_iterator candidate = begin; 
+    while(begin != end){
+        if((*(*begin)).preyutiryGroup() < (*(*candidate)).preyutiryGroup()){
+            candidate = 
+        }
+        ++begin;
+    }
+    
 
 }
 

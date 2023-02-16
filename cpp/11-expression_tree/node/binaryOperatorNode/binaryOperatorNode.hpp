@@ -2,7 +2,7 @@
 #define BINARY_OPERATOR_NODE_HPP
 
 #include <memory>
-#include "expressionNode.hpp"
+#include "../expressionNode.hpp"
 
 using P_ex =  std::unique_ptr<et::ExpressionNode>;
 

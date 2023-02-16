@@ -5,15 +5,25 @@ CCXXFLAGS = -std=c++17 -Well -pedantic
 CCXXFLAGS += -Werror
 CCXXFLAGS += -g3
 
-CPPFLEGS = I ./
+# CPPFLEGS = I ./
 
-main: main.o tokens/numToken.o tokens/operatorToken.o tokens/token.hpp
+main: main.o storingToExpressionTree.o\
+	tokens/token-implementation/numToken.o\
+	tokens/token-implementation/operatorToken.o\
+	map_bild_functions.o\
+	tokens/token.hpp\
+	
 
 main.o: main.cpp 
 
-tokens/numToken.o : tokens/numToken.cpp tokens/numToken.hpp
+map_bild_functions.o : map_bild_functions.cpp map_bild_functions.hpp
 
-tokens/operatorToken.o : tokens/operatorToken.cpp tokens/operatorToken.hpp
+storingToExpressionTree.o : storingToExpressionTree.cpp storingToExpressionTree.hpp
+
+tokens/token-implementation/numToken.o : tokens/token-implementation/numToken.cpp tokens/token-implementation/numToken.hpp
+
+tokens/token-implementation/operatorToken.o : tokens/token-implementation/operatorToken.cpp tokens/token-implementation/operatorToken.hpp
+
 
 clean:
-	$(RM) -r *.o ./main */*.o
+	$(RM) -r *.o ./main */*.o */*/*.o

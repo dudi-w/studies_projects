@@ -1,31 +1,26 @@
+#ifndef MAP_BILDERS_HPP
+#define MAP_BILDERS_HPP
+
 #include <memory>
 #include <unordered_map>
 #include <functional>
 #include "ETenum.hpp"
-#include "node/binaryOperatorNode/addNode.hpp"
-#include "node/binaryOperatorNode/subNode.hpp"
-#include "node/binaryOperatorNode/mulNode.hpp"
-#include "node/binaryOperatorNode/divNode.hpp"
+#include "node/binaryOperatorNode/binaryOperatorNode-implementation/addNode.hpp"
+#include "node/binaryOperatorNode/binaryOperatorNode-implementation/subNode.hpp"
+#include "node/binaryOperatorNode/binaryOperatorNode-implementation/mulNode.hpp"
+#include "node/binaryOperatorNode/binaryOperatorNode-implementation/divNode.hpp"
 
 namespace et
 {
-P_ex bildEDD(P_ex right ,P_ex left){
-    return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
-}
+P_ex bildEDD(P_ex right ,P_ex left);
 
-P_ex bildSUB(P_ex right ,P_ex left){
-    return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
-}
+P_ex bildSUB(P_ex right ,P_ex left);
 
-P_ex bildMUL(P_ex right ,P_ex left){
-    return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
-}
+P_ex bildMUL(P_ex right ,P_ex left);
 
-P_ex bildDIV(P_ex right ,P_ex left){
-    return std::make_unique<et::AddNode>( std::move(right) , std::move(left));
-}
+P_ex bildDIV(P_ex right ,P_ex left);
 
-static std::unordered_map<char,std::function<P_ex(P_Ex right ,P_Ex left)>> bildFunctions
+static std::unordered_map<char,std::function<P_ex(P_ex right ,P_ex left)>> bildFunctions
 {
     {'+', &bildEDD },
     {'-', &bildSUB },
@@ -42,3 +37,5 @@ static std::unordered_map<char, Group> preurityGroup
 };
 
 }//namespace et
+
+#endif

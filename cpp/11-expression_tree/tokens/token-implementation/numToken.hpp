@@ -1,7 +1,7 @@
 #ifndef NUM_TOKEN_HPP
 #define NUM_TOKEN_HPP
 
-#include "token.hpp"
+#include "../token.hpp"
 
 namespace tk
 {

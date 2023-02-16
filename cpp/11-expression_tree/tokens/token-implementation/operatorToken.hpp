@@ -1,7 +1,7 @@
 #ifndef OPERATOR_TOKEN_HPP
 #define OPERATOR_TOKEN_HPP
 
-#include "token.hpp"
+#include "../token.hpp"
 
 namespace tk
 {
@@ -9,7 +9,7 @@ namespace tk
 class OperatorToken : public Token
 {
 public:
-    explicit OperatorToken(size_t index ,constructor_fun constructor ,Group group);
+    explicit OperatorToken(size_t index ,Constructor_fun constructor ,Group group);
     OperatorToken(OperatorToken const& other) = default;
     OperatorToken& operator=(OperatorToken const& other) = default;
     ~OperatorToken() = default;
@@ -20,7 +20,7 @@ public:
 
 private:
     size_t m_index;
-    constructor_fun m_constructor;
+    Constructor_fun m_constructor;
     Group m_group;
     
 };

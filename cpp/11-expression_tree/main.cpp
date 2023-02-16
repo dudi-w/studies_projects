@@ -1,13 +1,15 @@
 #include <iostream>
 #include <vector>
-#include "ETenum.hpp"
-#include "tokens/token.hpp"
-#include "tokens/numToken.hpp"
-#include "tokens/operatorToken.hpp"
+#include "storingToExpressionTree.hpp"
+// #include "ETenum.hpp"
+// #include "tokens/token.hpp"
+// #include "tokens/token-implementation/numToken.hpp"
+// #include "tokens/token-implementation/operatorToken.hpp"
 
 int main(void)
 {
-    std::vector<tk::Token*> tokens;
+    std::vector<P_token> tokens = tokenizer("1+2");
+
     // tokens.push_back(&tk::NumToken(5,5, Group::NumGroup));
     // tokens.push_back(&tk::NumToken(5,5, Group::NumGroup));
     // std::cout << tokens[0].getIndex();
@@ -27,4 +29,4 @@ int main(void)
     // std::cout<<rot2.getValue()<<std::endl;
 
     return 0;
-}//1+2*5
+}

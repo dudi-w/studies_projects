@@ -1,5 +1,5 @@
 #include "numToken.hpp"
-#include "../node/numNode.hpp"
+#include "../../node/numNode/numNode.hpp"
 
 tk::NumToken::NumToken(size_t index ,int data ,Group group)
 : m_index(index)
