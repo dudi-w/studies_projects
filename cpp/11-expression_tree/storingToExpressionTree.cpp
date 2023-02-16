@@ -6,6 +6,8 @@
 #include "tokens/operatorToken.hpp"
 #include "tokens/numToken.hpp"
 
+using P_token = std::unique_ptr<tk::Token>;
+
 bool isOperator(char op)
 {
     return (op == '+' || op == '-' || op == '*' || op == '/' );
@@ -24,10 +26,11 @@ int extractData(std::string const& strExpr, size_t& index)
     return data;
 }
 
-std::vector<std::unique_ptr<tk::Token>> tokenizer(std::string const& strExpr)
+std::vector<P_token> tokenizer(std::string const& strExpr)
 {
-    std::vector<std::unique_ptr<tk::Token>> tokenExpr;
+    std::vector<P_token> tokenExpr;
     for(size_t i = 0; i<strExpr.size() ;++i){
+        
         if(strExpr[i] == ' '){
             continue;
         }
@@ -37,18 +40,22 @@ std::vector<std::unique_ptr<tk::Token>> tokenizer(std::string const& strExpr)
             auto func =  et::bildFunctions[strExpr[i]];
             auto oper =  std::make_unique<tk::OperatorToken>(i, func, group);
             tokenExpr.push_back(std::move(oper));
+        }
         
-        }else if(isdigit(strExpr[i])){
+        else if(isdigit(strExpr[i])){
             int data = extractData(strExpr, i);
             auto num =  std::make_unique<tk::NumToken>(i, data, Group::NumGroup);
             tokenExpr.push_back(std::move(num));
-        
-        }else{
+        }
+
+        else{
             assert(!"invalid expressin");
         }
     }
     return tokenExpr;
 }
+
+std::vector<P_token> 
 
 // void parser(std::string const& expression , et::ExpressionNode* root , size_t& count)
 // {
