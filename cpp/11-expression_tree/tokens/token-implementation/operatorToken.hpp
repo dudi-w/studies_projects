@@ -3,8 +3,7 @@
 
 #include "../token.hpp"
 
-namespace tk
-{
+namespace tk{
 
 class OperatorToken : public Token
 {
@@ -15,7 +14,7 @@ public:
     ~OperatorToken() = default;
 
     size_t getIndex() const override;
-    void creatNode(std::stack<P_ex> stack) const override;
+    void creatNode(std::stack<P_ex>& stack) const override;
     Group preyutiryGroup() const override ;
 
 private:
@@ -24,5 +23,7 @@ private:
     Group m_group;
     
 };
-}
+
+}//namespace tk
+
 #endif

@@ -4,8 +4,6 @@
 #include <memory>
 #include "../expressionNode.hpp"
 
-using P_ex =  std::unique_ptr<et::ExpressionNode>;
-
 namespace et
 {
 
@@ -17,7 +15,7 @@ public:
     BinaryOperatorNode& operator=(BinaryOperatorNode const& other) = delete;
     virtual ~BinaryOperatorNode() = default;
 
-    virtual int getValue() const = 0;
+    virtual float getValue() const = 0;
 
 protected:
     P_ex m_right;

@@ -1,8 +1,8 @@
 #include "mulNode.hpp"
 
-int et::MulNode::getValue() const
+float et::MulNode::getValue() const
 {
-    int leftValue = m_left->getValue();
-    int rightValue = m_right->getValue();
+    float leftValue = m_left->getValue();
+    float rightValue = m_right->getValue();
     return leftValue * rightValue;
 }

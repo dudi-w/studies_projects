@@ -9,15 +9,15 @@ namespace et
 class NumNode : public ExpressionNode
 {
 public:
-    explicit NumNode(int data);
+    explicit NumNode(float data);
     NumNode(NumNode const& other);
     NumNode& operator=(NumNode const& other);
     ~NumNode() = default;
 
-    int getValue() const;
+    float getValue() const override;
 
 private:
-    int m_data;
+    float m_data;
 };
 
 }

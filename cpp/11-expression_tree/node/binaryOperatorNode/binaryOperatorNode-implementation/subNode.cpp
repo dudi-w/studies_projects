@@ -1,8 +1,8 @@
 #include "subNode.hpp"
 
-int et::SubNode::getValue() const
+float et::SubNode::getValue() const
 {
-    int leftValue = m_left->getValue();
-    int rightValue = m_right->getValue();
+    float leftValue = m_left->getValue();
+    float rightValue = m_right->getValue();
     return leftValue - rightValue;
 }

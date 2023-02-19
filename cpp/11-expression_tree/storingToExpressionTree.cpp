@@ -1,3 +1,5 @@
+#include <assert.h>
+#include <stack>
 #include "storingToExpressionTree.hpp"
 
 bool isOperator(char op)
@@ -5,22 +7,25 @@ bool isOperator(char op)
     return (op == '+' || op == '-' || op == '*' || op == '/' );
 }
 
-int extractData(std::string const& strExpr, size_t& index)
+float extractData(std::string const& strExpr, size_t& index)
 {
     size_t begin = index;
-    while(std::isdigit(strExpr[index]))
+    while(std::isdigit(strExpr[index+1]))
     {
         ++index;
     }
-
-    int data = std::stoi(strExpr.substr(begin, index+1));
-
+    float data = std::stoi(strExpr.substr(begin, index+1));
     return data;
 }
 
 std::vector<P_token> tokenizer(std::string const& strExpr)
 {
     std::vector<P_token> tokenExpr;
+    
+    if(strExpr.empty()){
+        assert(!"empty expressin");
+    }
+
     for(size_t i = 0; i<strExpr.size() ;++i){
         
         if(strExpr[i] == ' '){
@@ -30,13 +35,14 @@ std::vector<P_token> tokenizer(std::string const& strExpr)
         if(isOperator(strExpr[i])){
             Group group =  et::preurityGroup[strExpr[i]];
             auto func =  et::bildFunctions[strExpr[i]];
-            auto oper =  std::make_unique<tk::OperatorToken>(i, func, group);
+            auto oper =  std::make_shared<tk::OperatorToken>(i, func, group);
+
             tokenExpr.push_back(std::move(oper));
         }
         
         else if(isdigit(strExpr[i])){
-            int data = extractData(strExpr, i);
-            auto num =  std::make_unique<tk::NumToken>(i, data, Group::NumGroup);
+            float data = extractData(strExpr, i);
+            auto num =  std::make_shared<tk::NumToken>(i, data, Group::NumGroup);
             tokenExpr.push_back(std::move(num));
         }
 
@@ -44,97 +50,53 @@ std::vector<P_token> tokenizer(std::string const& strExpr)
             assert(!"invalid expressin");
         }
     }
+
+    if(tokenExpr.empty()){
+        assert(!"empty expressin");
+    }
+
     return tokenExpr;
 }
-using P_to = std::vector<P_token>;
-P_to makePNorder(P_to const& tokenEper ,P_to::const_iterator begin , P_to::const_iterator end){
-    std::vector<P_token> newVector(tokenEper.size());
-    P_to::const_iterator candidate = begin; 
-    while(begin != end){
-        if((*(*begin)).preyutiryGroup() < (*(*candidate)).preyutiryGroup()){
-            candidate = 
-        }
-        ++begin;
-    }
-    
 
+void pushInPNorder(P_Vtok& orderVector, P_Vtok const& tokenEper,  P_Vtok::const_reverse_iterator begin , P_Vtok::const_reverse_iterator end)
+{
+    if(begin+1 == end ){
+        orderVector.push_back(*begin);
+        return;
+    }
+
+    auto candidate = begin;
+    auto itr = begin;
+    while(itr != end){
+        if((*itr)->preyutiryGroup() < (*candidate)->preyutiryGroup()){
+            candidate = itr;
+        }
+        ++itr;
+    }
+    orderVector.push_back(*candidate);
+
+    pushInPNorder(orderVector, tokenEper ,begin ,candidate);
+    pushInPNorder(orderVector, tokenEper , candidate+1, end);
+
+    return;
 }
 
-// void parser(std::string const& expression , et::ExpressionNode* root , size_t& count)
-// {
-    // if(root){
-        // abort();
-    // }
-// 
-    // if(expression.size()==1 && isdigit(expression[0])){
-        // root = creatNode(static_cast <int> (expression[0]));
-        // ++count;
-        // return;
-    // }
-// 
-    // size_t i = preurity(expression);
-    // et::OperatorNode* pNode = creatNode(expression[i]);
-    // root = pNode;
-    // ++count;
-// 
-    // parser(expression.substr(0,i) ,pNode->left() ,count);
-    // parser(expression.substr(i+1,expression.size()) ,pNode->right() ,count);
-    // return;
-// }
-// 
-// size_t preurity(std::string const& expression)
-// {
-    // size_t i;
-    // std::string::const_iterator it = expression.cbegin();
-    // size_t min = INFINITY;
-    // while (it != expression.cend()){
-        // min = std::min(rating(*it), min);///////????????
-    // }
-        // 
-    // return i;
-// }
-// 
-// unsigned int rating(char q)
-// {
-    // switch (q){
-        // case '+':
-            // return 1;
-// 
-        // case '-':
-            // return 1;
-// 
-        // case '*':
-            // return 2;
-// 
-        // case '/':
-            // return 2;
-// 
-        // default:
-            // return INFINITY;
-    // }
-// }
-// et::OperatorNode* creatNode(char preurity)
-// {
-    // switch (preurity)
-    // {
-        // case '+':
-            // return new et::AddNode;
-        // 
-        // case '-':
-            // return new et::SubNode;
-// 
-        // case '*':
-            // return new et::MulNode;
-// 
-        // case '/':
-            // return new et::DivNode;
-// 
-        // default:
-            // abort();
-    // }
-// }
-// 
-// et::NumNode* creatNode(int num)
-// {
-    // return new et::NumNode(num);
-// }
+P_Vtok makePN(P_Vtok const& tokenEper){
+    P_Vtok newVector;
+
+    pushInPNorder(newVector ,tokenEper ,tokenEper.crbegin() ,tokenEper.crend());
+    
+    return newVector;
+}
+
+et::ExpressionTree perser(P_Vtok& tokenEper)
+{
+    std::stack<P_ex> stack;
+
+    while(tokenEper.size()){
+        size_t lest = tokenEper.size()-1;
+        tokenEper.at(lest)->creatNode(stack);
+        tokenEper.pop_back();
+    }
+    return et::ExpressionTree(std::move(stack.top()), tokenEper.size());
+}

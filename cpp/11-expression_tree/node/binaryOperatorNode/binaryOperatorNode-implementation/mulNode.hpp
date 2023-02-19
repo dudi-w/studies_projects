@@ -13,8 +13,9 @@ public:
     MulNode& operator=(MulNode const& other) = delete;
     ~MulNode() = default;
 
-    int getValue() const override;
+    float getValue() const override;
 };
 
 }// namespace et
+
 #endif

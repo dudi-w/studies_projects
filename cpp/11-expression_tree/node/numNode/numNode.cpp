@@ -1,6 +1,6 @@
 #include "numNode.hpp"
 
-et::NumNode::NumNode(int data)
+et::NumNode::NumNode(float data)
 : m_data(data)
 {}
 
@@ -14,7 +14,7 @@ et::NumNode& et::NumNode::operator=(et::NumNode const& other)
     return *this;
 }
 
-int et::NumNode::getValue() const
+float et::NumNode::getValue() const
 {
     return m_data;
 }

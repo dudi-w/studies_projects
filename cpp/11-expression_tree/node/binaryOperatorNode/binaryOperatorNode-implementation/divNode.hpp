@@ -13,8 +13,9 @@ public:
     DivNode& operator=(DivNode const& other) = delete;
     ~DivNode() = default;
 
-    int getValue() const override;
+    float getValue() const override;
 };
 
 }// namespace et
+
 #endif

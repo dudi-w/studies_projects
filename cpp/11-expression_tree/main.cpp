@@ -1,32 +1,59 @@
 #include <iostream>
 #include <vector>
 #include "storingToExpressionTree.hpp"
-// #include "ETenum.hpp"
-// #include "tokens/token.hpp"
-// #include "tokens/token-implementation/numToken.hpp"
-// #include "tokens/token-implementation/operatorToken.hpp"
 
+void test1()
+{
+    std::string exprssin("1-3+5");
+    std::vector<P_token> tokens = tokenizer(exprssin);
+    std::vector<P_token> orderedTokens = makePN(tokens);
+    et::ExpressionTree tree1 = perser(orderedTokens);
+
+    std::cout<<"exprssin : "<<exprssin<<std::endl;
+    std::cout<<"resulte"<<'\t'<<tree1.getValue()<<std::endl;
+    return;
+}
+
+void test2()
+{
+    std::string exprssin("1-3*5+5");
+    std::vector<P_token> tokens = tokenizer(exprssin);
+    std::vector<P_token> orderedTokens = makePN(tokens);
+    et::ExpressionTree tree1 = perser(orderedTokens);
+
+    std::cout<<"exprssin : "<<exprssin<<std::endl;
+    std::cout<<"resulte"<<'\t'<<tree1.getValue()<<std::endl;
+    return;
+}
+
+void test3()
+{
+    std::string exprssin("1/3+5");
+    std::vector<P_token> tokens = tokenizer(exprssin);
+    std::vector<P_token> orderedTokens = makePN(tokens);
+    et::ExpressionTree tree1 = perser(orderedTokens);
+
+    std::cout<<"exprssin : "<<exprssin<<std::endl;
+    std::cout<<"resulte"<<'\t'<<tree1.getValue()<<std::endl;
+    return;
+}
+
+void test4()
+{
+    std::string exprssin("013+55");
+    std::vector<P_token> tokens = tokenizer(exprssin);
+    std::vector<P_token> orderedTokens = makePN(tokens);
+    et::ExpressionTree tree1 = perser(orderedTokens);
+
+    std::cout<<"exprssin : "<<exprssin<<std::endl;
+    std::cout<<"resulte"<<'\t'<<tree1.getValue()<<std::endl;
+    return;
+}
 int main(void)
 {
-    std::vector<P_token> tokens = tokenizer("1+2");
-
-    // tokens.push_back(&tk::NumToken(5,5, Group::NumGroup));
-    // tokens.push_back(&tk::NumToken(5,5, Group::NumGroup));
-    // std::cout << tokens[0].getIndex();
-    // std::cout << tokens[1].getIndex();
-    // std::unique_ptr<et::NumNode> right = std::make_unique<et::NumNode>(8);
-    // auto right =std::make_unique<et::NumNode>(8);
-    // auto left = std::make_unique<et::NumNode>(155);
-    // et::AddNode rot(right,left);
-    // et::NumNode* right5 = new et::NumNode(5);
-    // et::NumNode* right2 = new et::NumNode(2);
-    // et::MulNode* rightMull = new et::MulNode(right2,right5);
-    // et::NumNode* right1 = new et::NumNode(1);
-    // et::AddNode rot2(rightMull,right1);
-
-
-
-    // std::cout<<rot2.getValue()<<std::endl;
-
+    test1();
+    test2();
+    test3();
+    test4();
     return 0;
 }

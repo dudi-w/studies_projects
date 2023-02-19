@@ -13,8 +13,10 @@ public:
     AddNode& operator=(AddNode const& other) = delete;
     ~AddNode() = default;
     
-    int getValue() const override;
+    float getValue() const override;
 };
 
 }// namespace et
+
 #endif
+

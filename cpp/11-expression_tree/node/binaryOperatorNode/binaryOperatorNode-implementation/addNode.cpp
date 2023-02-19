@@ -1,8 +1,8 @@
 #include "addNode.hpp"
 
-int et::AddNode::getValue() const
+float et::AddNode::getValue() const
 {
-    int leftValue = m_left->getValue();
-    int rightValue = m_right->getValue();
+    float leftValue = m_left->getValue();
+    float rightValue = m_right->getValue();
     return leftValue + rightValue;
 }

@@ -1,7 +1,6 @@
 #ifndef MAP_BILDERS_HPP
 #define MAP_BILDERS_HPP
 
-#include <memory>
 #include <unordered_map>
 #include <functional>
 #include "ETenum.hpp"
@@ -12,13 +11,13 @@
 
 namespace et
 {
-P_ex bildEDD(P_ex right ,P_ex left);
+P_ex bildEDD(P_ex left, P_ex right);
 
-P_ex bildSUB(P_ex right ,P_ex left);
+P_ex bildSUB(P_ex left, P_ex right);
 
-P_ex bildMUL(P_ex right ,P_ex left);
+P_ex bildMUL(P_ex left, P_ex right);
 
-P_ex bildDIV(P_ex right ,P_ex left);
+P_ex bildDIV(P_ex left, P_ex right);
 
 static std::unordered_map<char,std::function<P_ex(P_ex right ,P_ex left)>> bildFunctions
 {

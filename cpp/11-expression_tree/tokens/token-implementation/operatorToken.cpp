@@ -11,7 +11,7 @@ size_t tk::OperatorToken::getIndex() const
     return m_index;
 }
 
-void tk::OperatorToken::creatNode(std::stack<P_ex> stack) const
+void tk::OperatorToken::creatNode(std::stack<P_ex>& stack) const
 {
     P_ex left = std::move(stack.top());
     stack.pop();
