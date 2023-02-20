@@ -1,9 +1,10 @@
 CXX = g++
 CC = $(CXX)
 
-CCXXFLAGS = -std=c++17 -Well -pedantic 
-CCXXFLAGS += -Werror
-CCXXFLAGS += -g3
+CXXFLAGS = -std=c++17 -Wall -pedantic 
+CXXFLAGS += -Werror
+CXXFLAGS += -Wextra
+CXXFLAGS += -g3
 
 main: main.o expressionTree/expressionTree.o\
 	map_bild_functions.o\
@@ -57,4 +58,4 @@ node/binaryOperatorNode/binaryOperatorNode-implementation/divNode.o : node/binar
 																node/expressionNode.hpp
 
 clean:
-	$(RM) -r *.o ./main */*.o */*/*.o */*/*/*.o
+	$(RM) -r ./main *.o */*.o */*/*.o */*/*/*.o
