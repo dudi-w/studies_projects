@@ -1,7 +1,7 @@
 #include <assert.h>
 #include "VirtualMachine.hpp"
 
-bool checkOpration(int32_t opNum, std::unordered_map<vm::OpCode, std::function<vm::Log (vm::VirtualMachine &)>> functions , vm::Log log);
+bool checkOpration(int32_t opNum, std::unordered_map<vm::OpCode, std::function<vm::Log (vm::VirtualMachine &)>> functions , vm::Log& log);
 bool checkAddres(size_t index , const std::vector<int32_t>& code , vm::Log& log);
 
 
@@ -246,8 +246,8 @@ bool checkAddres(size_t index , const std::vector<int32_t>& code , vm::Log& log)
     return true;
 }
 
-bool checkOpration(int32_t opNum, std::unordered_map<vm::OpCode, std::function<vm::Log (vm::VirtualMachine &)>> functions , vm::Log log){
-    if(opNum>= static_cast <int32_t> (functions.size())){
+bool checkOpration(int32_t opNum, std::unordered_map<vm::OpCode, std::function<vm::Log (vm::VirtualMachine &)>> functions , vm::Log& log){
+    if(opNum >= static_cast <int32_t> (functions.size())){
         log = vm::Log::Invalid_program;
         return false;
     }
