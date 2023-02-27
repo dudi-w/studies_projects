@@ -34,7 +34,7 @@ std::vector <std::shared_ptr<gm::ConstObject>> gm::createBricks(unsigned int row
     return bricks;
 }
 
-std::shared_ptr<sf::Text> gm::createScore(gm::TextureManager& textureManager)
+std::unique_ptr<sf::Text> gm::createScore(gm::TextureManager& textureManager)
 {  
     auto score = std::make_unique<sf::Text>();
     sf::Color color(sf::Color::Blue);
@@ -44,10 +44,10 @@ std::shared_ptr<sf::Text> gm::createScore(gm::TextureManager& textureManager)
     score->setPosition(sf::Vector2f(10,30));
     score->setString("Your score is : ");
 
-    return score;
+    return std::move(score);
 }
 
-std::shared_ptr<sf::Text> gm::createLife(gm::TextureManager& textureManager)
+std::unique_ptr<sf::Text> gm::createLife(gm::TextureManager& textureManager)
 {  
     auto life = std::make_unique<sf::Text>();
     sf::Color color(sf::Color::Red);
@@ -57,5 +57,5 @@ std::shared_ptr<sf::Text> gm::createLife(gm::TextureManager& textureManager)
     life->setPosition(sf::Vector2f(1050,30));
     life->setString("life : ");
 
-    return life;
+    return std::move(life);
 }

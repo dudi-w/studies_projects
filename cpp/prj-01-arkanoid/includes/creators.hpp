@@ -20,9 +20,9 @@ std::shared_ptr<gm::Ball> createBall(gm::TextureManager& textureManager, std::sh
 
 std::vector <std::shared_ptr<gm::ConstObject>> createBricks(unsigned int row , unsigned int column , gm::TextureManager& textureManager);
 
-std::shared_ptr<sf::Text> createScore(gm::TextureManager& textureManager);
+std::unique_ptr<sf::Text> createScore(gm::TextureManager& textureManager);
 
-std::shared_ptr<sf::Text> createLife(gm::TextureManager& textureManager);
+std::unique_ptr<sf::Text> createLife(gm::TextureManager& textureManager);
 
 } // namespace gm
 
