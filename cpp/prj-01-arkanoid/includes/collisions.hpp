@@ -10,6 +10,7 @@ namespace gm{
 
 class Collision
 {
+    virtual ~Collision() = default;
     virtual gm::Score doCollision() const = 0;
 };
 
