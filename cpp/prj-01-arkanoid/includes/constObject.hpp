@@ -9,9 +9,9 @@ namespace gm{
 
 class ConstObject : public SpriteObject
 {
-
 public:
     explicit ConstObject(sf::Vector2f position ,sf::Texture& texture ,gm::Score killScore ,uint16_t life = 1 );
+    ConstObject(ConstObject const& other) = default;
     ConstObject& operator=(ConstObject const& other) = default;
 	virtual ~ConstObject() = default;
 
