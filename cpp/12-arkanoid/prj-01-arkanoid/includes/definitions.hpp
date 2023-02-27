@@ -1,0 +1,12 @@
+#ifndef DEFINITIONS_HPP
+#define DEFINITIONS_HPP
+
+#define SCREEN_HEIGHT 800
+#define SCREEN_WIDTH 1300
+
+#define PLATFORM_SPEED 20
+
+#define BALL_X_SPEED 12
+#define BALL_Y_SPEED -12
+
+#endif

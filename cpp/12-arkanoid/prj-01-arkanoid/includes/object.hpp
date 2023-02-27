@@ -9,13 +9,9 @@ class Object
 {
 
 public:
-	Object(size ,position ,texture) = default;
 	virtual ~Object() = default;
 
-	virtual void drawObject(sf::RenderWindow window) const = 0;
-
-protected:
-	sf::Sprite m_sprite;
+	virtual sf::Drawable const& getDraw() const = 0;
 };
 
 } // namespace gm
