@@ -1,8 +1,6 @@
 #include "../includes/ball.hpp"
-#include <iostream>
 
-
-gm::Ball::Ball(sf::Vector2f position ,sf::Texture& texture)
+gm::Ball::Ball(sf::Vector2f const& position ,sf::Texture& texture)
 : MoveObject(position ,texture)
 , m_Movement(false)
 {

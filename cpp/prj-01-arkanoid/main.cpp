@@ -7,28 +7,22 @@
 
 void levelA(sf::RenderWindow& window, gm::Player& player, gm::TextureManager& textureManager)
 {
-        sf::Sprite Background(textureManager.m_background);
+    sf::Sprite Background(textureManager.m_background);
     Background.scale(sf::Vector2f(0.7,1));
 
-
     auto paddle = createPaddle(textureManager);
-
     auto ball = createBall(textureManager, paddle);
-    
     auto  bricks = createBricks(3,5,textureManager);
-
     auto score = createScore(textureManager);
-
     auto life = createLife(textureManager);
 
     sf::Event event;
-
     while (window.isOpen() && !player.isKill()){
         while (window.pollEvent(event)){
-            if (event.type == sf::Event::Closed){
+            if(event.type == sf::Event::Closed){
                 window.close();
             }
-            if (event.key.code == sf::Keyboard::Escape){
+            if(event.key.code == sf::Keyboard::Escape){
                 window.close();
             }
         }
@@ -47,7 +41,6 @@ void levelA(sf::RenderWindow& window, gm::Player& player, gm::TextureManager& te
         window.draw(ball->getDraw());
         window.draw(*score);
         window.draw(*life);
-
         for(auto brick : bricks){
             if(!brick->isKill()){
                 window.draw(brick->getDraw());

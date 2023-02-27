@@ -9,7 +9,8 @@ class Ball : public MoveObject
 {
 
 public:
-	explicit Ball(sf::Vector2f position ,sf::Texture& texture);
+	explicit Ball(sf::Vector2f const& position ,sf::Texture& texture);
+	Ball(Ball const& other) = default;
 	Ball& operator=(Ball const& other) = default;
 	~Ball() = default;
 

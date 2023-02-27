@@ -28,6 +28,15 @@ void collisionsManager(std::shared_ptr<gm::Platform>& paddle, \
                         std::vector <std::shared_ptr<gm::ConstObject>>&  bricks,\
                         gm::Player& myPlayer);
 
+static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 
+{
+    {gm::CollisionSide::Bottom, [](sf::Vector2f& direction){direction.y = -std::abs(direction.y);}},
+    {gm::CollisionSide::Up, [](sf::Vector2f& direction){direction.y = std::abs(direction.y);}},
+    {gm::CollisionSide::Right, [](sf::Vector2f& direction){direction.x = -std::abs(direction.x);}},
+    {gm::CollisionSide::Left, [](sf::Vector2f& direction){direction.x = std::abs(direction.x);}}
+};
+
+
 }// namespace gm
 
 #endif
