@@ -38,13 +38,3 @@ void gm::Ball::startMove()
 {
 	m_Movement = true;
 }
-
-sf::Clock const& gm::Ball::time() const
-{
-	return m_time;
-}
-
-void gm::Ball::resetTime()
-{
-	m_time.restart();
-}

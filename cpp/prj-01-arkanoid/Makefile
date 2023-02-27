@@ -13,9 +13,11 @@ CPPFLAGS = -I ./includes  -I ./src
 LDLIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 main : main.o\
+		src/resourcesManager.o\
 		src/player.o\
 		src/creators.o\
 		src/spriteObject.o\
+		src/textObject.o\
 		src/life.o\
 		src/platform.o\
 		src/ball.o\
@@ -51,7 +53,9 @@ src/collisionsManager.o : src/collisionsManager.cpp includes/collisionsManager.h
 
 src/eventManager.o : src/eventManager.cpp includes/eventManager.hpp
 
-# src/textObject.o : src/textObject.cpp includes/textObject.hpp 
+src/resourcesManager.o : includes/resourcesManager.hpp src/resourcesManager.cpp
+
+src/textObject.o : src/textObject.cpp includes/textObject.hpp 
 
 
 clean :

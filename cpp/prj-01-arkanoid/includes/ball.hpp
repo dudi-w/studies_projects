@@ -7,7 +7,6 @@ namespace gm{
     
 class Ball : public MoveObject
 {
-
 public:
 	explicit Ball(sf::Vector2f const& position ,sf::Texture& texture);
 	Ball(Ball const& other) = default;
@@ -18,8 +17,6 @@ public:
 	void reset() override;
 	bool isMoved() const;
 	void startMove();
-	sf::Clock const& time() const;
-	void resetTime();
 
 private:
 	bool m_Movement;

@@ -7,7 +7,6 @@ namespace gm{ // game namespace
     
 class Object
 {
-
 public:
 	virtual ~Object() = default;
 

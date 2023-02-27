@@ -7,7 +7,6 @@ namespace gm{
     
 class Platform : public MoveObject
 {
-
 public:
 	using MoveObject::MoveObject;
 	Platform& operator=(Platform const& other) = default;

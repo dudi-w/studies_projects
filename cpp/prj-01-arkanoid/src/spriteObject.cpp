@@ -1,6 +1,6 @@
 #include "../includes/spriteObject.hpp"
 
-gm::SpriteObject::SpriteObject(sf::Vector2f position ,sf::Texture& texture)
+gm::SpriteObject::SpriteObject(sf::Vector2f const& position ,sf::Texture& texture)
 : m_sprite(texture)
 {
 	m_sprite.setPosition(position);

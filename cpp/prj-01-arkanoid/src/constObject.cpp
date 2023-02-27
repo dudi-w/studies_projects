@@ -1,6 +1,6 @@
 #include "../includes/constObject.hpp"
 
-gm::ConstObject::ConstObject(sf::Vector2f position ,sf::Texture& texture ,gm::Score killScore ,uint16_t life)
+gm::ConstObject::ConstObject(sf::Vector2f const& position ,sf::Texture& texture ,gm::Score killScore ,uint16_t life)
 : SpriteObject(position ,texture)
 , m_killScore(killScore)
 , m_life(life)

@@ -2,6 +2,7 @@
 #define COLLISIONS_MANAGER_HPP
 
 #include <memory>
+#include <unordered_set>
 
 #include "definitions.hpp"
 #include "platform.hpp"
@@ -19,14 +20,17 @@ bool chekBallCollisionsLimit(std::shared_ptr<gm::Platform>& paddle, std::shared_
 
 gm::CollisionSide chekBoundingCollisions(sf::FloatRect const& boundingA , sf::FloatRect const& boundingB);
 
-std::vector<gm::BallBrickCollision> CheckCollisionsBetweenBallBricks(std::shared_ptr<gm::Ball>& ball, std::vector <std::shared_ptr<gm::ConstObject>>& bricks);
+std::vector<gm::BallBrickCollision> CheckCollisionsBetweenBallBricks(std::shared_ptr<gm::Ball>& ball, std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks);
 
 gm::BallPaddleCollision CheckCollisionsBetweenBallPaddle(std::shared_ptr<gm::Ball>& ball, std::shared_ptr<gm::Platform>& paddle);
 
+void deleteKilledObjects(std::unordered_set<std::shared_ptr<gm::ConstObject>>&  bricks);
+
 void collisionsManager(std::shared_ptr<gm::Platform>& paddle, \
                         std::shared_ptr<gm::Ball>& ball,\
-                        std::vector <std::shared_ptr<gm::ConstObject>>&  bricks,\
+                        std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks,\
                         gm::Player& myPlayer);
+
 
 static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 
 {

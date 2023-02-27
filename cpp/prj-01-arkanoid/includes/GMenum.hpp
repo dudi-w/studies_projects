@@ -20,7 +20,8 @@ enum class Score : int8_t
     brickType1 = 40,
 };
 
-static std::unordered_map<Score,int> scoreMap = {
+static std::unordered_map<Score,int> scoreMap =
+{
     {gm::Score::noScore , 0},
     {gm::Score::brickType1 , 40}
 };
