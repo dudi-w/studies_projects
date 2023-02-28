@@ -1,10 +1,19 @@
 #include "../includes/player.hpp"
 
-gm::Player::Player(std::string name ,uint16_t life)
-: m_name(name)
-, m_life(life)
+gm::Player::Player(uint16_t life)
+: m_life(life)
 , m_score(0)
 {}
+
+void gm::Player::setName(std::string const& name)
+{
+    m_name = name;
+}
+
+std::string const& gm::Player::getName() const
+{
+    return m_name;
+}
 
 uint16_t gm::Player::getLife() const
 {

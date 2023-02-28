@@ -3,12 +3,12 @@ CXX = g++
 CC = $(CXX)
 
 CXXFLAGS = -std=c++17 -Wall -pedantic
-CXXFLAGS += -Werror
+# CXXFLAGS += -Werror
 CXXFLAGS += -Wextra
 
-# CXXFLAGS += -g3
+CXXFLAGS += -g3
 
-CPPFLAGS = -I ./includes  -I ./src
+# CPPFLAGS = -I ./includes  -I ./src
 
 LDLIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 

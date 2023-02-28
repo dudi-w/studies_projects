@@ -10,11 +10,12 @@ namespace gm{
 class Player
 {
 public:
-    explicit Player(std::string name ,uint16_t life = 3);
+    explicit Player(uint16_t life = 3);
     Player(Player const& other) = default;
     Player& operator=(Player const& other) = default;
     ~Player() = default;
-
+    void setName(std::string const& name);
+    std::string const& getName() const;
     uint16_t getLife() const;
     bool isKill() const;
     void addLife();

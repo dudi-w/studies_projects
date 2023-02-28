@@ -1,8 +1,15 @@
+#include <iostream>
 #include "../includes/textObject.hpp"
 
 gm::TextObject::TextObject(sf::Vector2f const& position)
 {
     m_text.setPosition(position);
+    m_text.setString("dvfv");
+}
+
+gm::TextObject::TextObject(float x ,float y)
+{
+    m_text.setPosition(x,y);
 }
 
 sf::Drawable const& gm::TextObject::getDraw() const
@@ -20,10 +27,8 @@ void gm::TextObject::set_Color(sf::Color& color)
     m_text.setFillColor(color);
 }
 
-void gm::TextObject::set_font(std::string font_file)
+void gm::TextObject::set_font(sf::Font const& font)
 {
-    sf::Font font;
-    font.loadFromFile(font_file);
     m_text.setFont(font);
 }
 

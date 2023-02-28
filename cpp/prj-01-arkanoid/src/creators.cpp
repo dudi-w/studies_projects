@@ -35,8 +35,8 @@ std::unique_ptr<sf::Text> gm::createScore(gm::ResourcesManager& resourcesManager
     auto score = std::make_unique<sf::Text>();
     sf::Color color(sf::Color::Blue);
     score->setFillColor(color);
-    score->setCharacterSize(20);
-    score->setFont(resourcesManager.m_font);
+    score->setCharacterSize(30);
+    score->setFont(resourcesManager.m_font2);
     score->setPosition(sf::Vector2f(10,30));
     score->setString("Your score is : ");
 
@@ -48,8 +48,8 @@ std::unique_ptr<sf::Text> gm::createLife(gm::ResourcesManager& resourcesManager)
     auto life = std::make_unique<sf::Text>();
     sf::Color color(sf::Color::Red);
     life->setFillColor(color);
-    life->setCharacterSize(20);
-    life->setFont(resourcesManager.m_font);
+    life->setCharacterSize(30);
+    life->setFont(resourcesManager.m_font2);
     life->setPosition(sf::Vector2f(1050,30));
     life->setString("life : ");
 
