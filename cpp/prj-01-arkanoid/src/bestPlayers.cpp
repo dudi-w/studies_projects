@@ -31,8 +31,8 @@ sf::Drawable const& gm::BestPlayers::getDraw() const
 void gm::BestPlayers::PrepareTextForDisplay()
 {
     std::string text("the ten top players :\n");
-    auto it = m_playersDB.rbegin();
-    while(it != m_playersDB.rend()){
+    auto it = m_playersDB.crbegin();
+    while(it != m_playersDB.crend()){
         text+="\t"+it->second + " : ";
         text+=std::to_string(it->first)+".\n";
         ++it;

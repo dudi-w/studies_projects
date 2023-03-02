@@ -37,7 +37,7 @@ gm::CollisionSide gm::chekBoundingCollisions(sf::FloatRect const& boundingA , sf
             {std::abs(boundingA.left - (boundingB.left + boundingB.width)), gm::CollisionSide::Left}
         };
 
-        auto result = std::min_element(CollisionVector.begin(), CollisionVector.end());
+        auto result = std::min_element(CollisionVector.cbegin(), CollisionVector.cend());
         
         return result->second;
     }
@@ -61,9 +61,9 @@ gm::BallPaddleCollision gm::CheckCollisionsBetweenBallPaddle(std::shared_ptr<gm:
 
 void gm::deleteKilledObjects(std::unordered_set<std::shared_ptr<gm::ConstObject>>&  bricks)
 {
-    auto it = bricks.begin();
+    auto it = bricks.cbegin();
 
-    while(it != bricks.end()){
+    while(it != bricks.cend()){
         if((*it)->isKill()){
             it = bricks.erase(it);
         }else{
