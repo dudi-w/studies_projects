@@ -16,6 +16,7 @@ main : main.o\
 		src/resourcesManager.o\
 		src/player.o\
 		src/creators.o\
+		src/mode.o\
 		src/spriteObject.o\
 		src/textObject.o\
 		src/life.o\
@@ -27,6 +28,7 @@ main : main.o\
 		src/ballPaddleCollision.o\
 		src/collisionsManager.o\
 		src/eventManager.o\
+		src/bestPlayers.o\
 		includes/definitions.hpp
 
 main.o : main.cpp includes/definitions.hpp
@@ -55,8 +57,11 @@ src/eventManager.o : src/eventManager.cpp includes/eventManager.hpp
 
 src/resourcesManager.o : includes/resourcesManager.hpp src/resourcesManager.cpp
 
-src/textObject.o : src/textObject.cpp includes/textObject.hpp 
+src/textObject.o : src/textObject.cpp includes/textObject.hpp
 
+src/bestPlayers.o : src/bestPlayers.cpp includes/bestPlayers.hpp
+
+src/mode.o : src/mode.cpp includes/mode.hpp
 
 clean :
 	$(RM) main *.o */*.o
