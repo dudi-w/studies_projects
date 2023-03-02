@@ -69,8 +69,8 @@ void gm::BestPlayers::unloadToFile() const
     fs.clear();
     fs.open(m_fileName, std::ios::out);
 
-    auto it = m_playersDB.begin();
-    while(it != m_playersDB.end() && fs){
+    auto it = m_playersDB.cbegin();
+    while(it != m_playersDB.cend() && fs){
         fs<< it->second;
         fs<< ",";
         fs<< std::to_string(it->first);
