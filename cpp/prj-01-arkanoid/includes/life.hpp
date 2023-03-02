@@ -11,7 +11,7 @@ public:
 	explicit Life(uint16_t life);
     Life(Life const& other) = default;
     Life& operator=(Life const& other) = default;
-	virtual ~Life() = default;
+	~Life() = default;
 
     uint16_t getCount() const;
     bool isKill() const;

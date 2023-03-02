@@ -13,13 +13,14 @@ namespace gm{
 class BestPlayers : public Object 
 {
 public:
-    BestPlayers(std::string const& fileName ,gm::ResourcesManager& ResourcesManager);
+    explicit BestPlayers(std::string const& fileName ,gm::ResourcesManager const& ResourcesManager);
     BestPlayers(BestPlayers const& other) = default;
     BestPlayers& operator=(BestPlayers const& other) = default;
     ~BestPlayers();
 
-	virtual sf::Drawable const& getDraw() const override final;
+	sf::Drawable const& getDraw() const override;
     
+    bool isModified() const;
     void manageHighScores(gm::Player const& player);
 
 private:
@@ -28,8 +29,7 @@ private:
     void insertPlayer(uint16_t score, std::string const& player);
     void PrepareTextForDisplay();
     void loadFromFile();
-    void unloadToFile();
-    bool isModified();
+    void unloadToFile() const;
 
 private:
     std::string m_fileName;

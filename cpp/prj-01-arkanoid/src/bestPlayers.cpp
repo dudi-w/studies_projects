@@ -1,11 +1,10 @@
-#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include "../includes/bestPlayers.hpp"
 
 using rs = gm::ResourcesManager::Resource;
 
-gm::BestPlayers::BestPlayers(std::string  const& fileName, gm::ResourcesManager& resourcesManager)
+gm::BestPlayers::BestPlayers(std::string  const& fileName, gm::ResourcesManager const& resourcesManager)
 : m_fileName(fileName)
 , m_showResults(10,10)
 , m_modified(true)
@@ -13,9 +12,10 @@ gm::BestPlayers::BestPlayers(std::string  const& fileName, gm::ResourcesManager&
     m_showResults.set_character_size(50);
     sf::Color color(sf::Color::Black);
     m_showResults.set_Color(color);
-    m_showResults.set_font(resourcesManager.getFont(rs::font2));
+    m_showResults.set_font(resourcesManager.getFont(rs::font3));
 
     loadFromFile();
+    PrepareTextForDisplay();
 }
 
 gm::BestPlayers::~BestPlayers()
@@ -51,10 +51,7 @@ void gm::BestPlayers::loadFromFile()
     auto path = std::filesystem::path(m_fileName);
     if(std::filesystem::exists(path)){
         fs.open(m_fileName, std::ios::in);
-        while(fs && std::getline(fs , name ,',')){
-            std::getline(fs , score,'\n');
-            // fs.getline(&name[0],100,',');
-            // fs.getline(&score[0],sizeof(int16_t));
+        while(std::getline(fs , name ,',') && std::getline(fs , score,'\n')){
             m_playersDB.insert({stoi(score) ,name});
             name.clear();
             score.clear();
@@ -63,7 +60,7 @@ void gm::BestPlayers::loadFromFile()
     fs.close();
 }
 
-void gm::BestPlayers::unloadToFile()
+void gm::BestPlayers::unloadToFile() const
 {
     if(!isModified()){
         return;
@@ -105,16 +102,18 @@ void gm::BestPlayers::insertPlayer(uint16_t score, std::string const& player)
     m_modified = true;
 }
 
-bool gm::BestPlayers::isModified()
+bool gm::BestPlayers::isModified() const
 {
     return m_modified;
 }
 
 void gm::BestPlayers::manageHighScores(gm::Player const& player)
 {
-    insertPlayer(player.getScore(), player.getName());
-    if(m_playersDB.size()>10){
+    if(m_playersDB.size()>=10 && player.getScore() > getLowestScore()){
         removeLowestScore();
+        insertPlayer(player.getScore(), player.getName());
+    }else if(m_playersDB.size()<10){
+        insertPlayer(player.getScore(), player.getName());
     }
     PrepareTextForDisplay();
 }

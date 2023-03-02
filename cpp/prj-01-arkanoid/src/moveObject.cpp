@@ -1,6 +1,6 @@
 #include "../includes/moveObject.hpp"
 
-gm::MoveObject::MoveObject(sf::Vector2f const& position ,sf::Texture& texture)
+gm::MoveObject::MoveObject(sf::Vector2f const& position ,sf::Texture const& texture)
 : SpriteObject(position ,texture)
 , m_firstPosition(position)
 {}

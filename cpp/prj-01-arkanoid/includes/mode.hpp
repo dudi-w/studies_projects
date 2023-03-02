@@ -19,7 +19,7 @@ void getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::Resourc
 
 void topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
 
-void homescreenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
+void homescreenMODE(sf::RenderWindow& window, gm::ResourcesManager& resourcesManager);
 
 bool levelA_MODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
 

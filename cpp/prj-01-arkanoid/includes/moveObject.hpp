@@ -9,7 +9,7 @@ namespace gm{
 class MoveObject : public SpriteObject
 {
 public:
-    explicit MoveObject(sf::Vector2f const& position ,sf::Texture& texture);
+    explicit MoveObject(sf::Vector2f const& position ,sf::Texture const& texture);
     MoveObject(MoveObject const& other) = default;
     MoveObject& operator=(MoveObject const& other) = default;
 	virtual ~MoveObject() = default;

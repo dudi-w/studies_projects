@@ -20,7 +20,6 @@ public:
 
 	virtual sf::Drawable const& getDraw() const override final;
     
-	// virtual sf::Sprite& setShip() final;
     void set_character_size(uint8_t size);
     void set_Color(sf::Color& color);
     void set_font(sf::Font const& font);

@@ -1,9 +1,19 @@
+#include <regex>
 #include "../includes/mode.hpp"
 #include "../includes/creators.hpp"
 
-bool gm::checkValid(char const c)
+bool gm::checkValid(const char c)
 {
     return isdigit(c) || isalpha(c);
+}
+
+bool is_input_valid(const char input)
+{
+    if(input == ','){
+        return false;
+    }
+    std::regex regex("[a-zA-Z0-9!-\\/:-@\\[-\\`\\{-~\\p{Punct}\\s]+");
+    return std::regex_match(std::string(1,input), regex);
 }
 
 void gm::getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
@@ -39,7 +49,7 @@ void gm::getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::Res
             if(event.type == sf::Event::TextEntered){
                 if(event.text.unicode < 128){
                     char c = static_cast<char>(event.text.unicode);
-                    if(checkValid(c)){
+                    if(is_input_valid(c)){
                         output.push_back(c);
                         name.setMessage(output);
                     }
@@ -57,12 +67,19 @@ void gm::topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesM
 {
     sf::Sprite Background(resourcesManager.getTexture(rs::top10));
     Background.scale(sf::Vector2f(0.7,1));
-    gm::BestPlayers bestPlayers("top10.dat", resourcesManager);
+    gm::BestPlayers bestPlayers("./resources/top10.dat", resourcesManager);
+    sf::Sprite sandClock(resourcesManager.getTexture(rs::sandClock));
+    sandClock.setOrigin(sandClock.getTextureRect().width/2, sandClock.getTextureRect().height/2);
+    sandClock.setPosition(SCREEN_WIDTH/2 ,SCREEN_HEIGHT/2);
+    
     sf::Event event;
     sf::Clock clock;
-    while(window.isOpen() && 0){// clock.getElapsedTime() > sf::milliseconds(5)){
+    clock.restart();
+    while(window.isOpen() && clock.getElapsedTime() < sf::seconds(2)){
+        sandClock.rotate(5);
         window.clear(sf::Color::White);
         window.draw(Background);
+        window.draw(sandClock);
         window.draw(bestPlayers.getDraw());
         window.display();
     }
@@ -82,7 +99,7 @@ void gm::topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesM
     }
 }
 
-void gm::homescreenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
+void gm::homescreenMODE(sf::RenderWindow& window, gm::ResourcesManager& resourcesManager)
 {
     sf::Sprite Background(resourcesManager.getTexture(rs::homescreen));
     Background.scale(sf::Vector2f(0.7,1));
@@ -125,7 +142,7 @@ bool gm::levelA_MODE(sf::RenderWindow& window, gm::Player& player, gm::Resources
 
     auto paddle = createPaddle(resourcesManager);
     auto ball = createBall(resourcesManager, paddle);
-    auto bricks = createBricks(3,12,resourcesManager);
+    auto bricks = createBricks(3,5,resourcesManager);
     auto score = std::move(createScore(resourcesManager));
     auto life = std::move(createLife(resourcesManager));
 

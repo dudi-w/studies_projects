@@ -26,7 +26,7 @@ gm::BallPaddleCollision CheckCollisionsBetweenBallPaddle(std::shared_ptr<gm::Bal
 
 void deleteKilledObjects(std::unordered_set<std::shared_ptr<gm::ConstObject>>&  bricks);
 
-void collisionsManager(std::shared_ptr<gm::Platform>& paddle, \
+void collisionsManager(std::shared_ptr<gm::Platform>& paddle,\
                         std::shared_ptr<gm::Ball>& ball,\
                         std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks,\
                         gm::Player& myPlayer);
@@ -39,7 +39,6 @@ static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& dir
     {gm::CollisionSide::Right, [](sf::Vector2f& direction){direction.x = -std::abs(direction.x);}},
     {gm::CollisionSide::Left, [](sf::Vector2f& direction){direction.x = std::abs(direction.x);}}
 };
-
 
 }// namespace gm
 

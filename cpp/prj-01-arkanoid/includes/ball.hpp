@@ -8,7 +8,7 @@ namespace gm{
 class Ball : public MoveObject
 {
 public:
-	explicit Ball(sf::Vector2f const& position ,sf::Texture& texture);
+	explicit Ball(sf::Vector2f const& position ,sf::Texture const& texture);
 	Ball(Ball const& other) = default;
 	Ball& operator=(Ball const& other) = default;
 	~Ball() = default;

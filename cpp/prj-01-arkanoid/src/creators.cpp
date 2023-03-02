@@ -4,7 +4,7 @@ using rs = gm::ResourcesManager::Resource;
 
 std::shared_ptr<gm::Platform> gm::createPaddle(gm::ResourcesManager& resourcesManager)
 {
-    auto& paddelTexture = resourcesManager.getTexture(rs::paddle);
+    auto const& paddelTexture = resourcesManager.getTexture(rs::paddle);
     unsigned int x = (SCREEN_WIDTH-paddelTexture.getSize().x)/2;
     unsigned int y = SCREEN_HEIGHT-paddelTexture.getSize().y;
     return std::make_shared<gm::Platform>(sf::Vector2f(x,y),paddelTexture);
@@ -12,9 +12,9 @@ std::shared_ptr<gm::Platform> gm::createPaddle(gm::ResourcesManager& resourcesMa
 
 std::shared_ptr<gm::Ball> gm::createBall(gm::ResourcesManager& resourcesManager, std::shared_ptr<gm::Platform> paddle)
 {   
-    auto& ballTexture = resourcesManager.getTexture(rs::ball);
-    unsigned int x = (SCREEN_WIDTH-ballTexture.getSize().x)/2;
-    unsigned int y = (SCREEN_HEIGHT-ballTexture.getSize().y)-(paddle->setShip().getTextureRect().height);
+    auto const& ballTexture = resourcesManager.getTexture(rs::ball);
+    unsigned int x = SCREEN_WIDTH/2;
+    unsigned int y = (SCREEN_HEIGHT-ballTexture.getSize().y)-(paddle->setShip().getTextureRect().height/2);
     return std::make_shared<gm::Ball>(sf::Vector2f(x,y),ballTexture);
 }
 

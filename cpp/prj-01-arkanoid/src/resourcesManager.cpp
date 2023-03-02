@@ -10,12 +10,12 @@ void gm::ResourcesManager::insertTexture(std::string const& path, gm::ResourcesM
     m_textureMap[key].loadFromFile(path);
 }
 
-sf::Font& gm::ResourcesManager::getFont(ResourcesManager::Resource key)
+sf::Font const& gm::ResourcesManager::getFont(ResourcesManager::Resource key) const
 {
     return m_fontMap.find(key)->second;
 }
 
-sf::Texture& gm::ResourcesManager::getTexture(gm::ResourcesManager::Resource key)
+sf::Texture const& gm::ResourcesManager::getTexture(gm::ResourcesManager::Resource key) const
 {
     return m_textureMap.find(key)->second;
 }

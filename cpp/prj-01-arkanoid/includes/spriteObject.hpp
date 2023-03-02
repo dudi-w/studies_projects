@@ -11,7 +11,7 @@ namespace gm{ // game namespace
 class SpriteObject : public Object
 {
 public:
-	explicit SpriteObject(sf::Vector2f const& position ,sf::Texture& texture);
+	explicit SpriteObject(sf::Vector2f const& position ,sf::Texture const& texture);
 	SpriteObject(SpriteObject const& other) = default;
     SpriteObject& operator=(SpriteObject const& other) = default;
 	virtual ~SpriteObject() = default;

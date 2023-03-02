@@ -1,10 +1,8 @@
-#include <iostream>
 #include "../includes/textObject.hpp"
 
 gm::TextObject::TextObject(sf::Vector2f const& position)
 {
     m_text.setPosition(position);
-    m_text.setString("dvfv");
 }
 
 gm::TextObject::TextObject(float x ,float y)
