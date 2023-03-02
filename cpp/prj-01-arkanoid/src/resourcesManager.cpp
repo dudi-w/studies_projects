@@ -1,14 +1,22 @@
 #include "../includes/resourcesManager.hpp"
 
-gm::ResourcesManager::ResourcesManager(std::string background, std::string homescreen, std::string ball, std::string paddle, std::string brick, std::string exit, std::string play ,std::string Font1 ,std::string Font2)
+void gm::ResourcesManager::insertFunt(std::string const& path, gm::ResourcesManager::Resource key)
 {
-    m_background.loadFromFile(background);
-    m_homescreen.loadFromFile(homescreen);
-    m_ball.loadFromFile(ball);
-    m_paddle.loadFromFile(paddle);
-    m_brick.loadFromFile(brick);
-    m_exit.loadFromFile(exit);
-    m_play.loadFromFile(play);
-    m_font1.loadFromFile(Font1);
-    m_font2.loadFromFile(Font2);
+    m_fontMap[key].loadFromFile(path);
 }
+
+void gm::ResourcesManager::insertTexture(std::string const& path, gm::ResourcesManager::Resource key)
+{
+    m_textureMap[key].loadFromFile(path);
+}
+
+sf::Font& gm::ResourcesManager::getFont(ResourcesManager::Resource key)
+{
+    return m_fontMap.find(key)->second;
+}
+
+sf::Texture& gm::ResourcesManager::getTexture(gm::ResourcesManager::Resource key)
+{
+    return m_textureMap.find(key)->second;
+}
+

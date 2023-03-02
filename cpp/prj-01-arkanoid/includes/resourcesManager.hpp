@@ -1,8 +1,9 @@
 #ifndef TEXTURE_MANAGER_HPP
 #define TEXTURE_MANAGER_HPP
 
-#include <SFML/Graphics.hpp>
 #include <string>
+#include <unordered_map>
+#include <SFML/Graphics.hpp>
 
 namespace gm{
 
@@ -10,21 +11,37 @@ class ResourcesManager
 {
 public:
 
-    explicit ResourcesManager(std::string background, std::string homescreen, std::string ball, std::string paddle, std::string brick ,std::string exit  ,std::string play , std::string Font1 ,std::string Font2);
+    ResourcesManager() = default;
     ResourcesManager(ResourcesManager const& other) = default;
     ResourcesManager& operator=(ResourcesManager const& other) = default;
     ~ResourcesManager() = default;
 
 public:
-    sf::Texture m_background;
-    sf::Texture m_homescreen;
-    sf::Texture m_ball;
-    sf::Texture m_paddle;
-    sf::Texture m_brick;
-    sf::Texture m_exit;
-    sf::Texture m_play;
-    sf::Font m_font1;
-    sf::Font m_font2;
+    enum class Resource : int8_t
+    {
+        background,
+        homescreen,
+        top10,
+        ball,
+        paddle,
+        brick,
+        exit,
+        play,
+        font1,
+        font2,
+        font3,
+        font4
+    };
+
+    void insertFunt(std::string const& path, gm::ResourcesManager::Resource key);
+    void insertTexture(std::string const& path, gm::ResourcesManager::Resource key);
+    sf::Font& getFont(gm::ResourcesManager::Resource) ;
+    sf::Texture& getTexture(gm::ResourcesManager::Resource) ;
+
+    
+private:
+    std::unordered_map<gm::ResourcesManager::Resource, sf::Texture> m_textureMap;
+    std::unordered_map<gm::ResourcesManager::Resource, sf::Font> m_fontMap;
 };
 
 }
