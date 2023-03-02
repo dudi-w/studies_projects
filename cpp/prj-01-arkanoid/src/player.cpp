@@ -1,7 +1,8 @@
 #include "../includes/player.hpp"
 
 gm::Player::Player(uint16_t life)
-: m_life(life)
+: m_firstLife(life)
+, m_life(m_firstLife)
 , m_score(0)
 {}
 
@@ -48,4 +49,10 @@ void gm::Player::addScore(uint16_t n)
 void gm::Player::subScore(uint16_t n)
 {
     m_score.sub(n);
+}
+
+void gm::Player::restart()
+{
+    m_life = gm::Life(m_firstLife);
+    m_score = gm::Life(0);
 }
