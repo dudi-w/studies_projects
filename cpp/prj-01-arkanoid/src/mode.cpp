@@ -150,7 +150,7 @@ void gm::homescreenMODE(sf::RenderWindow& window, gm::ResourcesManager& resource
     exitIcon.setPosition((SCREEN_WIDTH/4)*3-(exitRect.x/2),(SCREEN_HEIGHT/2)-(exitRect.y/2));
 
     sf::Event event;
-    while (window.isOpen()){
+    if(window.isOpen()){
         window.clear(sf::Color::White);
         window.draw(Background);
         window.draw(exitIcon);
