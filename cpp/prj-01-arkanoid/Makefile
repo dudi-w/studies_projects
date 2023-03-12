@@ -4,13 +4,13 @@ CC = $(CXX)
 
 CXXFLAGS = -std=c++17 -Wall -pedantic
 CXXFLAGS += -Werror
-CXXFLAGS += -Wextra
+# CXXFLAGS += -Wextra
 
 CXXFLAGS += -g3
 
 # CPPFLAGS = -I ./includes  -I ./src
 
-LDLIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+LDLIBS += -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -no-pie
 
 main : main.o\
 		src/resourcesManager.o\
@@ -37,15 +37,21 @@ src/life.o : src/life.cpp includes/life.hpp
 
 src/player.o : src/player.cpp includes/player.hpp includes/life.hpp
 
-src/creators.o : includes/creators.hpp src/creators.cpp
+src/creators.o : src/creators.cpp includes/creators.hpp
 
 src/spriteObject.o : src/spriteObject.cpp includes/spriteObject.hpp includes/object.hpp
 
 src/platform.o : src/platform.cpp\
 				includes/platform.hpp\
-				includes/object.hpp\
+				includes/moveObject.hpp\
 				includes/spriteObject.hpp\
-				includes/moveObject.hpp
+				includes/object.hpp
+
+src/ball.o : src/ball.cpp\
+				includes/ball.hpp\
+				includes/moveObject.hpp\
+				includes/spriteObject.hpp\
+				includes/object.hpp
 
 src/ballBrickCollision.o : src/ballBrickCollision.cpp includes/ballBrickCollision.hpp
 

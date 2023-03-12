@@ -14,17 +14,30 @@ enum class CollisionSide : int8_t
     Bottom
 };
 
-enum class Score : int8_t
+enum class Type : int8_t
 {
-    noScore = 0,
-    brickType1 = 40,
+    noType,
+    brickType1,
+    brickType2,
+    brickType3,
+    brickType4,
+    brickType5,
+    brickType6,
+    brickType7,
+    brickType8,
+    brickType9,
+    brickType10
 };
 
-static std::unordered_map<Score,int> scoreMap =
-{
-    {gm::Score::noScore , 0},
-    {gm::Score::brickType1 , 40}
-};
+// enum class Level : int8_t
+// {
+//     Level1,
+//     Level2,
+//     Level3,
+//     Level4,
+//     Level5,
+//     Level6
+// };
 
 }// namespace gm
 

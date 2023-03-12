@@ -1,40 +1,74 @@
+#include <sstream>
+#include <fstream>
+#include <filesystem>
+
 #include "../includes/creators.hpp"
+// #include "../includes/brick.hpp"
+// #include "../includes/indestructBrick.hpp"
+
 
 using rs = gm::ResourcesManager::Resource;
 
 std::shared_ptr<gm::Platform> gm::createPaddle(gm::ResourcesManager& resourcesManager)
 {
     auto const& paddelTexture = resourcesManager.getTexture(rs::paddle);
-    unsigned int x = (SCREEN_WIDTH-paddelTexture.getSize().x)/2;
-    unsigned int y = SCREEN_HEIGHT-paddelTexture.getSize().y;
+    uint x = (SCREEN_WIDTH-paddelTexture.getSize().x)/2;
+    uint y = SCREEN_HEIGHT-paddelTexture.getSize().y;
     return std::make_shared<gm::Platform>(sf::Vector2f(x,y),paddelTexture);
 }
 
 std::shared_ptr<gm::Ball> gm::createBall(gm::ResourcesManager& resourcesManager, std::shared_ptr<gm::Platform> paddle)
 {   
     auto const& ballTexture = resourcesManager.getTexture(rs::ball);
-    unsigned int x = SCREEN_WIDTH/2;
-    unsigned int y = (SCREEN_HEIGHT-ballTexture.getSize().y)-(paddle->setShip().getTextureRect().height/2);
+    uint x = SCREEN_WIDTH/2;
+    uint y = (SCREEN_HEIGHT-ballTexture.getSize().y)-(paddle->setShip().getTextureRect().height/2);
     return std::make_shared<gm::Ball>(sf::Vector2f(x,y),ballTexture);
 }
 
-std::unordered_set<std::shared_ptr<gm::ConstObject>> gm::createBricks(unsigned int row , unsigned int column , gm::ResourcesManager& resourcesManager)
+std::unordered_set<std::shared_ptr<gm::ConstObject>> gm::createBricks(gm::ResourcesManager& resourcesManager)
 {
-    std::vector <sf::Color> colors = { sf::Color::Green, sf::Color::Blue, sf::Color::Cyan };
     std::unordered_set<std::shared_ptr<gm::ConstObject>> bricks;
     
-    unsigned int space = 3;
-    unsigned int offsetY = 100;
     auto& brickTexture = resourcesManager.getTexture(rs::brick);
-    unsigned int offsetX = (SCREEN_WIDTH - ((brickTexture.getSize().x + space) * column))/2;
+    uint space = 2;
+    uint offsetY = 50;
+    uint offsetX = 10;
+    uint i = 0;
+    uint j = 0;
 
-    for(unsigned int i = 0 ; i< row ; ++i){
-        for(unsigned int j = 0 ; j< column ; ++j){
-            auto brick = std::make_shared<gm::ConstObject>(sf::Vector2f (offsetX + (brickTexture.getSize().x+space)*j ,offsetY + (brickTexture.getSize().y+space)*i) ,brickTexture , gm::Score::brickType1);
-            brick->setShip().setColor(colors[i]);
-            bricks.insert(brick);
+    auto LevelFile = resourcesManager.deLevelFile();
+    std::string levelFileName = LevelFile.first;
+    uint level = LevelFile.second;
+
+    std::string line;
+    std::string brickCode;
+    std::fstream fs;
+    
+    fs.clear();
+    // std::vector<std::function<std::shared_ptr<gm::ConstObject>(uint i, uint j, sf::Texture const& texture, std::pair<int16_t, sf::Color> )>> factory;
+    auto path = std::filesystem::path(levelFileName);
+    if(std::filesystem::exists(path)){
+        fs.open(levelFileName, std::ios::in);
+        while(std::getline(fs , line)){
+            std::stringstream brickLine(line);
+            while(std::getline(brickLine ,brickCode ,',')){
+                std::cout<<brickCode<<std::endl;
+                gm::Type bricType = static_cast<gm::Type>(stoi(brickCode));
+                if(bricType != gm::Type::noType){
+                    auto brick = resourcesManager.m_factoryMap[bricType](offsetX +(brickTexture.getSize().x+space)*j ,offsetY + (brickTexture.getSize().y+space)*i, level ,brickTexture);
+                    bricks.insert(brick);
+                }
+                std::cout<<bricks.size()<<std::endl;
+                brickCode.clear();
+                ++j;
+            }
+            line.clear();
+            brickLine.clear();
+            j = 0;
+            ++i;
         }
     }
+    fs.close();
     return bricks;
 }
 

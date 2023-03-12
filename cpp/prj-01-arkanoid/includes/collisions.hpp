@@ -12,7 +12,7 @@ class Collision
 public:
     virtual ~Collision() = default;
 
-    virtual gm::Score doCollision() const = 0;
+    virtual uint16_t doCollision() const = 0;
 };
 
 }

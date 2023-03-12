@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <utility>
+#include <iostream>
 #include "../includes/collisionsManager.hpp"
 
 bool gm::chekBallCollisionsLimit(std::shared_ptr<gm::Platform>& paddle, std::shared_ptr<gm::Ball>& ball){
@@ -47,8 +48,10 @@ gm::CollisionSide gm::chekBoundingCollisions(sf::FloatRect const& boundingA , sf
 std::vector<gm::BallBrickCollision> gm::CheckCollisionsBetweenBallBricks(std::shared_ptr<gm::Ball>& ball, std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks){
     std::vector<gm::BallBrickCollision> collisions;
     for(auto brick : bricks){
-        gm::CollisionSide collisionSide = chekBoundingCollisions(ball->setShip().getGlobalBounds() ,brick->setShip().getGlobalBounds());
-        collisions.push_back(gm::BallBrickCollision(ball ,brick ,collisionSide));
+        // if(auto ptr = std::dynamic_pointer_cast<gm::Brick>(brick)){
+            gm::CollisionSide collisionSide = chekBoundingCollisions(ball->setShip().getGlobalBounds() ,brick->setShip().getGlobalBounds());
+            collisions.push_back(gm::BallBrickCollision(ball ,brick ,collisionSide));
+        // }
     }
     return collisions;
 }
@@ -78,13 +81,16 @@ void gm::collisionsManager(std::shared_ptr<gm::Platform>& paddle, std::shared_pt
         myPlayer.subLife();
     }
 
-    gm::Score score;
+    uint16_t score;
     auto collisions = CheckCollisionsBetweenBallBricks(ball ,bricks);
     for(auto collision : collisions){
-        if((score = collision.doCollision()) != gm::Score::noScore){
-            myPlayer.addScore(gm::scoreMap[score]);
+        if((score = collision.doCollision())){
+            // std::cout<<"score = "<<score<<std::endl;
+            myPlayer.addScore(score);
+            // return;
         }
     }
+    
     auto paddleCollision = CheckCollisionsBetweenBallPaddle(ball ,paddle);
     paddleCollision.doCollision();
     

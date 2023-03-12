@@ -13,15 +13,19 @@ using rs = gm::ResourcesManager::Resource;
 
 namespace gm{
 
-bool checkValid(char const c);
+// bool checkValid(std::string const& c);
+
+void restartGame(gm::Player& player, gm::ResourcesManager& resourcesManager);
+
+bool runGame(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
 
 void getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
 
-void topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
+bool topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
 
 void homescreenMODE(sf::RenderWindow& window, gm::ResourcesManager& resourcesManager);
 
-bool levelA_MODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
+bool gameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager);
 
 }
 

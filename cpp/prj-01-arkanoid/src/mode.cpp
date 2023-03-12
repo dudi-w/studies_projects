@@ -1,19 +1,55 @@
 #include <regex>
+#include <memory>
+// #include <iostream>
 #include "../includes/mode.hpp"
 #include "../includes/creators.hpp"
 
-bool gm::checkValid(const char c)
+uint indestructBrickCount(std::unordered_set<std::shared_ptr<gm::ConstObject>> bricks)
 {
-    return isdigit(c) || isalpha(c);
+    uint count = 0;
+    auto it = bricks.cbegin();
+    while(it != bricks.cend()){
+        if(auto ptr = std::dynamic_pointer_cast<gm::IndestructBrick>(*it)){
+            ++count;
+        }
+        ++it;
+    }
+    return count;
+}
+
+bool checkValid(std::string const& input)
+{
+    int count = 0;
+    for(auto c : input){
+        if(c!= 32){
+            ++count;
+        }
+        if(count>3){
+            return true;
+        }
+    }
+    return false;
 }
 
 bool is_input_valid(const char input)
 {
-    if(input == ','){
-        return false;
+    return std::regex_match(std::string(1,input), std::regex("[!-+--~]"));
+}
+
+void gm::restartGame(gm::Player& player, gm::ResourcesManager& resourcesManager)
+{
+    player.restart();
+    resourcesManager.restartQeueu();
+}
+
+bool gm::runGame(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager){
+    while(!resourcesManager.isEndGame()){
+        if(!gameMODE(window, player, resourcesManager)){
+            return false;
+        }
     }
-    std::regex regex("[a-zA-Z0-9!-\\/:-@\\[-\\`\\{-~\\p{Punct}\\s]+");
-    return std::regex_match(std::string(1,input), regex);
+    return !topTenMODE(window, player, resourcesManager);
+
 }
 
 void gm::getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
@@ -32,7 +68,7 @@ void gm::getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::Res
     auto color = sf::Color::Yellow;
     name.set_Color(color);
 
-    int i =0;
+    uint i =0;
     std::string output;
     sf::Event event;
     while(window.isOpen()){
@@ -55,7 +91,7 @@ void gm::getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::Res
                     }
                 }
             }
-            if(event.key.code == sf::Keyboard::Enter && output.size()>3){
+            if(event.key.code == sf::Keyboard::Enter && checkValid(output)){
                 player.setName(output);
                 return;
             }
@@ -63,7 +99,7 @@ void gm::getPlayerNameMODE(sf::RenderWindow& window, gm::Player& player, gm::Res
     }
 }
 
-void gm::topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
+bool gm::topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
 {
     sf::Sprite Background(resourcesManager.getTexture(rs::top10));
     Background.scale(sf::Vector2f(0.7,1));
@@ -75,7 +111,7 @@ void gm::topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesM
     sf::Event event;
     sf::Clock clock;
     clock.restart();
-    while(window.isOpen() && clock.getElapsedTime() < sf::seconds(2)){
+    while(window.isOpen() && clock.getElapsedTime() < sf::seconds(2.5)){
         sandClock.rotate(5);
         window.clear(sf::Color::White);
         window.draw(Background);
@@ -92,11 +128,12 @@ void gm::topTenMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesM
         window.display();
 
         while(window.waitEvent(event)){
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-                return;
+            if(event.type == sf::Event::KeyPressed){
+                return true;
             }
         }     
     }
+    return false;
 }
 
 void gm::homescreenMODE(sf::RenderWindow& window, gm::ResourcesManager& resourcesManager)
@@ -129,31 +166,38 @@ void gm::homescreenMODE(sf::RenderWindow& window, gm::ResourcesManager& resource
                     return;
                 }else if(exitIcon.getGlobalBounds().contains(position.x, position.y)){
                     window.close();
+                    return;
                 }
             }
         }        
     }
 }
 
-bool gm::levelA_MODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
+bool gm::gameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesManager& resourcesManager)
 {
     sf::Sprite Background(resourcesManager.getTexture(rs::background));
     Background.scale(sf::Vector2f(0.7,1));
 
     auto paddle = createPaddle(resourcesManager);
     auto ball = createBall(resourcesManager, paddle);
-    auto bricks = createBricks(3,5,resourcesManager);
+    auto bricks = createBricks(resourcesManager);
     auto score = std::move(createScore(resourcesManager));
     auto life = std::move(createLife(resourcesManager));
-
+    
+    uint indestructBricks = indestructBrickCount(bricks);
+    // std::cout<<bricks.size()<<std::endl;
     sf::Event event;
-    while (window.isOpen() && !player.isKill() && bricks.size()){
+    while (window.isOpen() && !player.isKill() && bricks.size() - indestructBricks){
         while (window.pollEvent(event)){
-            if(event.type == sf::Event::Closed){
-                window.close();
-            }
-            if(event.key.code == sf::Keyboard::Escape){
+            if(event.key.code == sf::Keyboard::Escape || event.type == sf::Event::Closed){
                 return false;
+            }
+            if(event.key.code == sf::Keyboard::Add){
+                while(window.waitEvent(event)){
+                    if(event.key.code == sf::Keyboard::Subtract){
+                        return true;
+                    }
+                }
             }
         }
 

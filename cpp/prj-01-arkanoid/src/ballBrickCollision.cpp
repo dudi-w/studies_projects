@@ -1,5 +1,6 @@
 #include "../includes/ballBrickCollision.hpp"
 #include "../includes/collisionsManager.hpp"
+#include <iostream>
 
 gm::BallBrickCollision::BallBrickCollision(std::shared_ptr<gm::Ball> ball ,std::shared_ptr<gm::ConstObject> brick ,gm::CollisionSide side)
 : m_ball(ball)
@@ -7,12 +8,12 @@ gm::BallBrickCollision::BallBrickCollision(std::shared_ptr<gm::Ball> ball ,std::
 , m_side(side)
 {}
 
-gm::Score gm::BallBrickCollision::doCollision() const
+uint16_t gm::BallBrickCollision::doCollision() const
 {
     sf::Vector2f direction = m_ball->getDirection();
 
     if(m_side == gm::CollisionSide::noCollisions){
-        return gm::Score::noScore;
+        return 0;
     }
 
     gm::ballCollisinCases[m_side](direction);
@@ -20,8 +21,9 @@ gm::Score gm::BallBrickCollision::doCollision() const
     m_brick->subLife();
 
     if(m_brick->isKill()){
+        // std::cout<<std::boolalpha<<m_brick->isKill()<<"doColl" <<std::endl;
         return m_brick->killScore();
     }else{
-        return gm::Score::noScore;
+        return 0;
     }
 }
