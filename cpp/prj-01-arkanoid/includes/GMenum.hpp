@@ -29,16 +29,6 @@ enum class Type : int8_t
     brickType10
 };
 
-// enum class Level : int8_t
-// {
-//     Level1,
-//     Level2,
-//     Level3,
-//     Level4,
-//     Level5,
-//     Level6
-// };
-
 }// namespace gm
 
 #endif

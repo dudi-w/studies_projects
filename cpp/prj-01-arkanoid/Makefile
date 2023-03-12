@@ -4,7 +4,7 @@ CC = $(CXX)
 
 CXXFLAGS = -std=c++17 -Wall -pedantic
 CXXFLAGS += -Werror
-# CXXFLAGS += -Wextra
+CXXFLAGS += -Wextra
 
 CXXFLAGS += -g3
 

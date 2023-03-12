@@ -4,15 +4,15 @@ gm::ResourcesManager::ResourcesManager()
 : m_factoryMap(
 {
     {gm::Type::brickType1 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 50, sf::Color::White, 1);}},
-    {gm::Type::brickType2 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 60, sf::Color(255,127,80),1);}},
-    {gm::Type::brickType3 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 70, sf::Color(0,255,255),1);}},
-    {gm::Type::brickType4 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 80, sf::Color::Green,1);}},
-    {gm::Type::brickType5 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 90, sf::Color::Red,1);}},
-    {gm::Type::brickType6 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 100, sf::Color::Blue,1);}},
-    {gm::Type::brickType7 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 110, sf::Color(255,153,204),1);}},
-    {gm::Type::brickType8 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 120, sf::Color(255,153,51),1);}},
-    {gm::Type::brickType9 , [](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 50 * level, sf::Color(255,215,0),1);}},
-    {gm::Type::brickType10 ,[](uint i, uint j, uint level, sf::Texture const& texture){ return std::make_shared<gm::IndestructBrick>( sf::Vector2f(i, j), texture, 0, sf::Color(160,160,160), 1);}}
+    {gm::Type::brickType2 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 60, sf::Color(255,127,80),1);}},
+    {gm::Type::brickType3 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 70, sf::Color(0,255,255),1);}},
+    {gm::Type::brickType4 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 80, sf::Color::Green,1);}},
+    {gm::Type::brickType5 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 90, sf::Color::Red,1);}},
+    {gm::Type::brickType6 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 100, sf::Color::Blue,1);}},
+    {gm::Type::brickType7 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 110, sf::Color(255,153,204),1);}},
+    {gm::Type::brickType8 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 120, sf::Color(255,153,51),1);}},
+    {gm::Type::brickType9 , [](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::Brick>( sf::Vector2f(i, j), texture, 50 * level, sf::Color(255,215,0),1);}},
+    {gm::Type::brickType10 ,[](uint i, uint j, [[maybe_unused]] uint level, sf::Texture const& texture){ return std::make_shared<gm::IndestructBrick>( sf::Vector2f(i, j), texture, 0, sf::Color(160,160,160), 1);}}
 })
 {
     insertTexture("./resources/2x1_NSwitch_ArkanoidEternalBattle.jpg", Resource::background);
@@ -28,7 +28,6 @@ gm::ResourcesManager::ResourcesManager()
     insertFont("./resources/Sportfield_Varsity-Outline2.otf", Resource::font2);
     insertFont("./resources/Famouse.ttf", Resource::font3);
     insertFont("./resources/MiracleFairway.otf", Resource::font4);
-    // restartQeueu();
 }
 
 void gm::ResourcesManager::insertFont(std::string const& path, gm::ResourcesManager::Resource key)

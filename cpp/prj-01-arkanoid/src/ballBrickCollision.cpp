@@ -21,7 +21,6 @@ uint16_t gm::BallBrickCollision::doCollision() const
     m_brick->subLife();
 
     if(m_brick->isKill()){
-        // std::cout<<std::boolalpha<<m_brick->isKill()<<"doColl" <<std::endl;
         return m_brick->killScore();
     }else{
         return 0;

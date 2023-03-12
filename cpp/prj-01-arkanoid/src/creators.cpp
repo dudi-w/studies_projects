@@ -3,8 +3,6 @@
 #include <filesystem>
 
 #include "../includes/creators.hpp"
-// #include "../includes/brick.hpp"
-// #include "../includes/indestructBrick.hpp"
 
 
 using rs = gm::ResourcesManager::Resource;
@@ -45,20 +43,17 @@ std::unordered_set<std::shared_ptr<gm::ConstObject>> gm::createBricks(gm::Resour
     std::fstream fs;
     
     fs.clear();
-    // std::vector<std::function<std::shared_ptr<gm::ConstObject>(uint i, uint j, sf::Texture const& texture, std::pair<int16_t, sf::Color> )>> factory;
     auto path = std::filesystem::path(levelFileName);
     if(std::filesystem::exists(path)){
         fs.open(levelFileName, std::ios::in);
         while(std::getline(fs , line)){
             std::stringstream brickLine(line);
             while(std::getline(brickLine ,brickCode ,',')){
-                std::cout<<brickCode<<std::endl;
                 gm::Type bricType = static_cast<gm::Type>(stoi(brickCode));
                 if(bricType != gm::Type::noType){
                     auto brick = resourcesManager.m_factoryMap[bricType](offsetX +(brickTexture.getSize().x+space)*j ,offsetY + (brickTexture.getSize().y+space)*i, level ,brickTexture);
                     bricks.insert(brick);
                 }
-                std::cout<<bricks.size()<<std::endl;
                 brickCode.clear();
                 ++j;
             }

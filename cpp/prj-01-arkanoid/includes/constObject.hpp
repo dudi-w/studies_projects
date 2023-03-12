@@ -15,7 +15,7 @@ public:
     ConstObject& operator=(ConstObject const& other) = default;
 	virtual ~ConstObject() = default;
 
-    // void setColor(sf::Uint8 red, sf::Uint8 green, sf::Uint8 blue, sf::Uint8 alpha = (sf::Uint8)255U);
+    void setColor(sf::Uint8 red, sf::Uint8 green, sf::Uint8 blue, sf::Uint8 alpha = (sf::Uint8)255U);
     void setColor(sf::Color color);
     void addLife();
     void subLife();

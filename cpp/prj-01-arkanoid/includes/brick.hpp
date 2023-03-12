@@ -1,7 +1,6 @@
 #ifndef BRICK_HPP
 #define BRICK_HPP
 
-#include <iostream>
 #include "constObject.hpp"
 
 namespace gm{
@@ -20,7 +19,6 @@ public:
 
 inline bool gm::Brick::isKill() const
 {
-    // std::cout<<std::boolalpha<<m_life.isKill() <<std::endl;
     return m_life.isKill();
 }
 

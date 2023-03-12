@@ -1,6 +1,5 @@
 #include <regex>
 #include <memory>
-// #include <iostream>
 #include "../includes/mode.hpp"
 #include "../includes/creators.hpp"
 
@@ -185,7 +184,6 @@ bool gm::gameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesMan
     auto life = std::move(createLife(resourcesManager));
     
     uint indestructBricks = indestructBrickCount(bricks);
-    // std::cout<<bricks.size()<<std::endl;
     sf::Event event;
     while (window.isOpen() && !player.isKill() && bricks.size() - indestructBricks){
         while (window.pollEvent(event)){

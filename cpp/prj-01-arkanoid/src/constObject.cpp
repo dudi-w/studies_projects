@@ -13,10 +13,10 @@ void gm::ConstObject::setColor(sf::Color color)
     m_sprite.setColor(color);
 }
 
-// void gm::ConstObject::setColor(sf::Uint8 red, sf::Uint8 green, sf::Uint8 blue, sf::Uint8 alpha = (sf::Uint8)255U)
-// {
-    // m_sprite.setColor(sf::Color(red, green, blue, alpha));
-// }
+void gm::ConstObject::setColor(sf::Uint8 red, sf::Uint8 green, sf::Uint8 blue, sf::Uint8 alpha)
+{
+    m_sprite.setColor(sf::Color(red, green, blue, alpha));
+}
 
 void gm::ConstObject::addLife()
 {
@@ -27,11 +27,6 @@ void gm::ConstObject::subLife()
 {
     m_life.sub(1);
 }
-
-// bool gm::ConstObject::isKill() const
-// {
-    // return m_life.isKill();
-// }
 
 uint16_t gm::ConstObject::killScore() const
 {
