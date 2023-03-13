@@ -38,7 +38,6 @@ private:
     std::shared_ptr<gm::Ball>& m_ball;
     std::unordered_set<std::shared_ptr<gm::ConstObject>>& m_bricks;
     gm::Player& m_player;
-    // static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> m_ballCollisinCases;
 };
 
 static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 

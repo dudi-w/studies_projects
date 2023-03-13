@@ -9,13 +9,6 @@ gm::CollisionsManager::CollisionsManager(std::shared_ptr<gm::Platform>& paddle, 
 , m_ball(ball)
 , m_bricks(bricks)
 , m_player(player)
-// , m_ballCollisinCases
-// ({
-//     {gm::CollisionSide::Bottom, [](sf::Vector2f& direction){direction.y = -std::abs(direction.y);}},
-//     {gm::CollisionSide::Up, [](sf::Vector2f& direction){direction.y = std::abs(direction.y);}},
-//     {gm::CollisionSide::Right, [](sf::Vector2f& direction){direction.x = -std::abs(direction.x);}},
-//     {gm::CollisionSide::Left, [](sf::Vector2f& direction){direction.x = std::abs(direction.x);}}
-// })
 {}
 
 void gm::CollisionsManager::CheckCollision()
