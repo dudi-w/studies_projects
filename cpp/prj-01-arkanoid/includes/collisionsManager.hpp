@@ -16,23 +16,32 @@
 
 namespace gm{
 
-bool chekBallCollisionsLimit(std::shared_ptr<gm::Platform>& paddle, std::shared_ptr<gm::Ball>& ball);
+class CollisionsManager
+{
+public:
+    explicit CollisionsManager(std::shared_ptr<gm::Platform>& paddle, std::shared_ptr<gm::Ball>& ball, std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks, gm::Player& myPlayer);
+    CollisionsManager(CollisionsManager const& other) = delete;
+    CollisionsManager& operator=(CollisionsManager const& other) = delete;
+    ~CollisionsManager() = default;
 
-gm::CollisionSide chekBoundingCollisions(sf::FloatRect const& boundingA , sf::FloatRect const& boundingB);
+    void CheckCollision();
 
-std::vector<gm::BallBrickCollision> CheckCollisionsBetweenBallBricks(std::shared_ptr<gm::Ball>& ball, std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks);
+private:
+    bool chekBallCollisionsLimit();
+    gm::CollisionSide chekBoundingCollisions(sf::FloatRect const& boundingA , sf::FloatRect const& boundingB);
+    std::vector<gm::BallBrickCollision> CheckCollisionsBetweenBallBricks();
+    gm::BallPaddleCollision CheckCollisionsBetweenBallPaddle();
+    void deleteKilledObjects();
 
-gm::BallPaddleCollision CheckCollisionsBetweenBallPaddle(std::shared_ptr<gm::Ball>& ball, std::shared_ptr<gm::Platform>& paddle);
+private:
+    std::shared_ptr<gm::Platform>& m_paddle;
+    std::shared_ptr<gm::Ball>& m_ball;
+    std::unordered_set<std::shared_ptr<gm::ConstObject>>& m_bricks;
+    gm::Player& m_player;
+    // static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> m_ballCollisinCases;
+};
 
-void deleteKilledObjects(std::unordered_set<std::shared_ptr<gm::ConstObject>>&  bricks);
-
-void collisionsManager(std::shared_ptr<gm::Platform>& paddle,\
-                        std::shared_ptr<gm::Ball>& ball,\
-                        std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks,\
-                        gm::Player& myPlayer);
-
-
-static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 
+ static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 
 {
     {gm::CollisionSide::Bottom, [](sf::Vector2f& direction){direction.y = -std::abs(direction.y);}},
     {gm::CollisionSide::Up, [](sf::Vector2f& direction){direction.y = std::abs(direction.y);}},

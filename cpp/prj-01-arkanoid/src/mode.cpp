@@ -183,6 +183,8 @@ bool gm::gameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesMan
     auto score = std::move(createScore(resourcesManager));
     auto life = std::move(createLife(resourcesManager));
     
+    gm::CollisionsManager collisionsManager(paddle ,ball ,bricks ,player);
+    
     uint indestructBricks = indestructBrickCount(bricks);
     sf::Event event;
     while (window.isOpen() && !player.isKill() && bricks.size() - indestructBricks){
@@ -200,7 +202,7 @@ bool gm::gameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesMan
         }
 
         gm::keystrokeManager(paddle ,ball);
-        gm::collisionsManager(paddle ,ball ,bricks ,player);
+        collisionsManager.CheckCollision();
 
         score->setString(score->getString().substring(0,16) + std::to_string(player.getScore()));
         life->setString(life->getString().substring(0,7) + std::to_string(player.getLife()));
