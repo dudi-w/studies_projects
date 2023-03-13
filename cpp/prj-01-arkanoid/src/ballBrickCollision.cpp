@@ -22,7 +22,6 @@ uint16_t gm::BallBrickCollision::doCollision() const
 
     if(m_brick->isKill()){
         return m_brick->killScore();
-    }else{
-        return 0;
     }
+    return 0;
 }
