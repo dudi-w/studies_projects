@@ -41,7 +41,7 @@ private:
     // static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> m_ballCollisinCases;
 };
 
- static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 
+static std::unordered_map<gm::CollisionSide,std::function<void(sf::Vector2f& direction)>> ballCollisinCases = 
 {
     {gm::CollisionSide::Bottom, [](sf::Vector2f& direction){direction.y = -std::abs(direction.y);}},
     {gm::CollisionSide::Up, [](sf::Vector2f& direction){direction.y = std::abs(direction.y);}},
