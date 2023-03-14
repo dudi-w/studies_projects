@@ -32,7 +32,7 @@ void gm::CollisionsManager::CheckCollisions()
 
 bool gm::CollisionsManager::chekBallCollisionsLimit()
 {    
-    sf::FloatRect bounding = m_ball->setShip().getGlobalBounds();
+    sf::FloatRect bounding = m_ball->getGlobalBounds();
     sf::Vector2f ballDirection = m_ball->getDirection();
 
     if(bounding.top < 0 ){
@@ -76,7 +76,7 @@ std::vector<gm::BallBrickCollision> gm::CollisionsManager::CheckCollisionsBetwee
 {
     std::vector<gm::BallBrickCollision> collisions;
     for(auto brick : m_bricks){
-        gm::CollisionSide collisionSide = chekBoundingCollisions(m_ball->setShip().getGlobalBounds() ,brick->setShip().getGlobalBounds());
+        gm::CollisionSide collisionSide = chekBoundingCollisions(m_ball->getGlobalBounds() ,brick->getGlobalBounds());
         collisions.push_back(gm::BallBrickCollision(m_ball ,brick ,collisionSide));
     }
     return collisions;
@@ -84,7 +84,7 @@ std::vector<gm::BallBrickCollision> gm::CollisionsManager::CheckCollisionsBetwee
 
 gm::BallPaddleCollision gm::CollisionsManager::CheckCollisionsBetweenBallPaddle()
 {
-    gm::CollisionSide collisionSide = chekBoundingCollisions(m_ball->setShip().getGlobalBounds() ,m_paddle->setShip().getGlobalBounds());
+    gm::CollisionSide collisionSide = chekBoundingCollisions(m_ball->getGlobalBounds() ,m_paddle->getGlobalBounds());
     return gm::BallPaddleCollision(m_ball ,m_paddle ,collisionSide);
 }
 

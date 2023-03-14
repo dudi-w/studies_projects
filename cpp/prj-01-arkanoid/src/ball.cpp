@@ -4,8 +4,8 @@ gm::Ball::Ball(sf::Vector2f const& position ,sf::Texture const& texture)
 : MoveObject(position ,texture)
 , m_Movement(false)
 {
-	setShip().setOrigin(setShip().getGlobalBounds().width/2,setShip().getGlobalBounds().height/2);
-	setShip().setPosition(position);
+	m_sprite.setOrigin(m_sprite.getGlobalBounds().width/2,m_sprite.getGlobalBounds().height/2);
+	m_sprite.setPosition(position);
 }
 
 void gm::Ball::move(sf::Vector2f direction)

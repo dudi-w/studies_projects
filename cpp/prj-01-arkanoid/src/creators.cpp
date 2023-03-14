@@ -19,7 +19,7 @@ std::shared_ptr<gm::Ball> gm::createBall(gm::ResourcesManager& resourcesManager,
 {   
     auto const& ballTexture = resourcesManager.getTexture(rs::ball);
     uint x = SCREEN_WIDTH/2;
-    uint y = (SCREEN_HEIGHT-ballTexture.getSize().y)-(paddle->setShip().getTextureRect().height/2);
+    uint y = (SCREEN_HEIGHT-ballTexture.getSize().y)-(paddle->getGlobalBounds().height/2);
     return std::make_shared<gm::Ball>(sf::Vector2f(x,y),ballTexture);
 }
 

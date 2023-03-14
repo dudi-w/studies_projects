@@ -3,7 +3,7 @@
 void gm::keystrokeManager(std::shared_ptr<gm::Platform>& paddle, std::shared_ptr<gm::Ball>& ball)
 {
 	sf::Vector2f direction(0,0);
-    sf::FloatRect GlobalBounds = paddle->setShip().getGlobalBounds();
+    sf::FloatRect GlobalBounds = paddle->getGlobalBounds();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && GlobalBounds.left > 0){
 		direction = sf::Vector2f(-PLATFORM_SPEED, 0);

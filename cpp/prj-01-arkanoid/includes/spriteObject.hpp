@@ -17,7 +17,7 @@ public:
 	virtual ~SpriteObject() = default;
 
 	virtual sf::Drawable const& getDraw() const override final;
-	virtual sf::Sprite& setShip() final;
+	virtual sf::FloatRect getGlobalBounds() const final;
 
 protected:
     sf::Sprite m_sprite;

@@ -11,7 +11,8 @@ sf::Drawable const& gm::SpriteObject::getDraw() const
 	return m_sprite;
 }
 
-sf::Sprite& gm::SpriteObject::setShip()
+sf::FloatRect gm::SpriteObject::getGlobalBounds() const
 {
-	return m_sprite;
+	return m_sprite.getGlobalBounds();
 }
+
