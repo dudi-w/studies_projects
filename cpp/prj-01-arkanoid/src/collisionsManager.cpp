@@ -2,7 +2,6 @@
 #include <utility>
 #include <iostream>
 #include "../includes/collisionsManager.hpp"
-#include "../includes/brick.hpp"
 
 gm::CollisionsManager::CollisionsManager(std::shared_ptr<gm::Platform>& paddle, std::shared_ptr<gm::Ball>& ball, std::unordered_set<std::shared_ptr<gm::ConstObject>>& bricks, gm::Player& player)
 : m_paddle(paddle)

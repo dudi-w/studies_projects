@@ -1,5 +1,6 @@
 #include "../includes/ballBrickCollision.hpp"
 #include "../includes/collisionsManager.hpp"
+#include "../includes/constObject.hpp"
 #include <iostream>
 
 gm::BallBrickCollision::BallBrickCollision(std::shared_ptr<gm::Ball> ball ,std::shared_ptr<gm::ConstObject> brick ,gm::CollisionSide side)
@@ -18,10 +19,11 @@ uint16_t gm::BallBrickCollision::doCollision() const
 
     gm::ballCollisinCases[m_side](direction);
     m_ball->setDirection(direction);
-    m_brick->subLife();
-
-    if(m_brick->isKill()){
-        return m_brick->killScore();
+    if(auto brick = std::dynamic_pointer_cast<gm::ConstObject>(m_brick)){
+        m_brick->subLife();
+        if(m_brick->isKill()){
+            return m_brick->killScore();
+        }
     }
     return 0;
 }
