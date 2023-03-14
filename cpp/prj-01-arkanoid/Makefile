@@ -6,7 +6,7 @@ CXXFLAGS = -std=c++17 -Wall -pedantic
 CXXFLAGS += -Werror
 CXXFLAGS += -Wextra
 
-CXXFLAGS += -g3
+# CXXFLAGS += -g3
 
 # CPPFLAGS = -I ./includes  -I ./src
 
@@ -24,6 +24,7 @@ main : main.o\
 		src/ball.o\
 		src/moveObject.o\
 		src/constObject.o\
+		src/ballLimitCollision.o\
 		src/ballBrickCollision.o\
 		src/ballPaddleCollision.o\
 		src/collisionsManager.o\
@@ -52,6 +53,8 @@ src/ball.o : src/ball.cpp\
 				includes/moveObject.hpp\
 				includes/spriteObject.hpp\
 				includes/object.hpp
+
+src/ballLimitCollision.o : src/ballLimitCollision.cpp includes/ballLimitCollision.hpp
 
 src/ballBrickCollision.o : src/ballBrickCollision.cpp includes/ballBrickCollision.hpp
 
