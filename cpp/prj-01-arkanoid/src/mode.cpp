@@ -202,7 +202,7 @@ bool gm::gameMODE(sf::RenderWindow& window, gm::Player& player, gm::ResourcesMan
         }
 
         gm::keystrokeManager(paddle ,ball);
-        collisionsManager.CheckCollision();
+        collisionsManager.CheckCollisions();
 
         score->setString(score->getString().substring(0,16) + std::to_string(player.getScore()));
         life->setString(life->getString().substring(0,7) + std::to_string(player.getLife()));

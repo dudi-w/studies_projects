@@ -11,7 +11,7 @@ gm::CollisionsManager::CollisionsManager(std::shared_ptr<gm::Platform>& paddle, 
 , m_player(player)
 {}
 
-void gm::CollisionsManager::CheckCollision()
+void gm::CollisionsManager::CheckCollisions()
 {
     if(!chekBallCollisionsLimit()){
         m_player.subLife();

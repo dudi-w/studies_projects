@@ -13,7 +13,6 @@
 #include "ballPaddleCollision.hpp"
 #include "player.hpp"
 
-
 namespace gm{
 
 class CollisionsManager
@@ -24,7 +23,7 @@ public:
     CollisionsManager& operator=(CollisionsManager const& other) = delete;
     ~CollisionsManager() = default;
 
-    void CheckCollision();
+    void CheckCollisions();
 
 private:
     bool chekBallCollisionsLimit();
