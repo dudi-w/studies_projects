@@ -7,14 +7,14 @@ gm::BallPaddleCollision::BallPaddleCollision(std::shared_ptr<gm::Ball> ball ,std
 , m_side(side)
 {}
 
-uint16_t gm::BallPaddleCollision::doCollision() const
+void gm::BallPaddleCollision::doCollision() const
 {
     if(m_side == gm::CollisionSide::noCollisions){
-        return 0;
+        return;
     }
 
     sf::Vector2f direction = m_ball->getDirection();
     gm::ballCollisinCases[m_side](direction);
     m_ball->setDirection(direction);
-    return 0;
+    return;
 }

@@ -11,6 +11,7 @@
 #include "collisions.hpp"
 #include "ballBrickCollision.hpp"
 #include "ballPaddleCollision.hpp"
+#include "ballLimitCollision.hpp"
 #include "player.hpp"
 
 namespace gm{
@@ -26,10 +27,10 @@ public:
     void CheckCollisions();
 
 private:
-    bool chekBallCollisionsLimit();
     gm::CollisionSide chekBoundingCollisions(sf::FloatRect const& boundingA , sf::FloatRect const& boundingB);
+    std::unique_ptr<gm::BallLimitCollision> chekBallCollisionsLimit();
     std::vector<gm::BallBrickCollision> CheckCollisionsBetweenBallBricks();
-    gm::BallPaddleCollision CheckCollisionsBetweenBallPaddle();
+    std::unique_ptr<gm::BallPaddleCollision> CheckCollisionsBetweenBallPaddle();
     void deleteKilledObjects();
 
 private:

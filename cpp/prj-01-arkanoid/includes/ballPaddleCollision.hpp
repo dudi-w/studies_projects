@@ -15,7 +15,7 @@ public:
     BallPaddleCollision& operator=(BallPaddleCollision const & other) = default;
     ~BallPaddleCollision() = default;
 
-    uint16_t doCollision() const override;
+    void doCollision() const override;
 
 private:
     std::shared_ptr<gm::Ball> m_ball;

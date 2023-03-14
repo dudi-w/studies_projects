@@ -12,46 +12,62 @@ gm::CollisionsManager::CollisionsManager(std::shared_ptr<gm::Platform>& paddle, 
 
 void gm::CollisionsManager::CheckCollisions()
 {
-    if(!chekBallCollisionsLimit()){
-        m_player.subLife();
-    }
+    std::vector<std::unique_ptr<gm::Collision>> Collisions;
+    Collisions.push_back(std::move(chekBallCollisionsLimit()));
+    Collisions[0]->doCollision();
+    // if(!chekBallCollisionsLimit()){
+    //     m_player.subLife();
+    // }
 
-    uint16_t score;
     auto collisions = CheckCollisionsBetweenBallBricks();
     for(auto collision : collisions){
-        if((score = collision.doCollision())){
-            m_player.addScore(score);
-        }
+        collision.doCollision();
     }
     
     auto paddleCollision = CheckCollisionsBetweenBallPaddle();
-    paddleCollision.doCollision();
+    paddleCollision->doCollision();
     
     deleteKilledObjects();
 }
 
-bool gm::CollisionsManager::chekBallCollisionsLimit()
+std::unique_ptr<gm::BallLimitCollision> gm::CollisionsManager::chekBallCollisionsLimit()
 {    
     sf::FloatRect bounding = m_ball->getGlobalBounds();
-    sf::Vector2f ballDirection = m_ball->getDirection();
-
-    if(bounding.top < 0 ){
-        ballDirection.y = std::abs(ballDirection.y);
-    }
-    else if(bounding.left < 0){
-        ballDirection.x = std::abs(ballDirection.x);
-    }
-    else if(bounding.left+bounding.width > SCREEN_WIDTH){
-        ballDirection.x = -std::abs(ballDirection.x);
-    }
-    else if(bounding.top+bounding.height > SCREEN_HEIGHT){
-        m_ball->reset();
-        m_paddle->reset();
-        return false;
+    gm::CollisionSide result;
+    if(bounding.top < 0 || bounding.left < 0 || bounding.left+bounding.width > SCREEN_WIDTH || bounding.top+bounding.height > SCREEN_HEIGHT){
+        std::vector< std::pair < int, gm::CollisionSide>> CollisionVector = {
+            {std::abs(bounding.top), gm::CollisionSide::Up},
+            {std::abs(bounding.top+bounding.height - SCREEN_HEIGHT), gm::CollisionSide::Bottom},
+            {std::abs(bounding.left+bounding.width - SCREEN_WIDTH), gm::CollisionSide::Right},
+            {std::abs(bounding.left), gm::CollisionSide::Left}
+        };
+        result = std::min_element(CollisionVector.cbegin(), CollisionVector.cend())->second;
+    }else{
+        result = gm::CollisionSide::noCollisions;
     }
 
-    m_ball->setDirection(ballDirection);
-    return true;
+    return std::make_unique<gm::BallLimitCollision>(m_ball, m_paddle, m_player , result);
+    
+    
+    // sf::Vector2f ballDirection = m_ball->getDirection();
+
+    // if(bounding.top < 0){
+    //     ballDirection.y = std::abs(ballDirection.y);
+    // }
+    // else if(bounding.left < 0){
+    //     ballDirection.x = std::abs(ballDirection.x);
+    // }
+    // else if(bounding.left+bounding.width > SCREEN_WIDTH){
+    //     ballDirection.x = -std::abs(ballDirection.x);
+    // }
+    // else if(bounding.top+bounding.height > SCREEN_HEIGHT){
+    //     m_ball->reset();
+    //     m_paddle->reset();
+    //     return false;
+    // }
+
+    // m_ball->setDirection(ballDirection);
+    // return true;
 }
 
 gm::CollisionSide gm::CollisionsManager::chekBoundingCollisions(sf::FloatRect const& boundingA , sf::FloatRect const& boundingB)
@@ -77,15 +93,15 @@ std::vector<gm::BallBrickCollision> gm::CollisionsManager::CheckCollisionsBetwee
     std::vector<gm::BallBrickCollision> collisions;
     for(auto brick : m_bricks){
         gm::CollisionSide collisionSide = chekBoundingCollisions(m_ball->getGlobalBounds() ,brick->getGlobalBounds());
-        collisions.push_back(gm::BallBrickCollision(m_ball ,brick ,collisionSide));
+        collisions.push_back(gm::BallBrickCollision(m_ball ,brick ,m_player ,collisionSide));
     }
     return collisions;
 }
 
-gm::BallPaddleCollision gm::CollisionsManager::CheckCollisionsBetweenBallPaddle()
+std::unique_ptr<gm::BallPaddleCollision> gm::CollisionsManager::CheckCollisionsBetweenBallPaddle()
 {
     gm::CollisionSide collisionSide = chekBoundingCollisions(m_ball->getGlobalBounds() ,m_paddle->getGlobalBounds());
-    return gm::BallPaddleCollision(m_ball ,m_paddle ,collisionSide);
+    return std::make_unique<gm::BallPaddleCollision>(m_ball ,m_paddle ,collisionSide);
 }
 
 void gm::CollisionsManager::deleteKilledObjects()

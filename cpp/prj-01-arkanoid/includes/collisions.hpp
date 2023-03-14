@@ -12,7 +12,7 @@ class Collision
 public:
     virtual ~Collision() = default;
 
-    virtual uint16_t doCollision() const = 0;
+    virtual void doCollision() const = 0;
 };
 
 }
