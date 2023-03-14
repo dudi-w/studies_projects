@@ -12,6 +12,7 @@ public:
     IndestructBrick& operator=(IndestructBrick const& other) = default;
 	~IndestructBrick() = default;
 
+    void subLife() = delete;
     bool isKill() const override;
 };
 
