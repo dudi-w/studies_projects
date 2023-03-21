@@ -18,6 +18,7 @@ public:
     SearchDB& operator=(SearchDB const& other) = default;
     ~SearchDB() {std::cout<<"~SearchDB\n"<<std::endl;}
 
+    void log() const;
     std::unordered_map<std::string ,size_t> const& searchWord(std::string const& word) const;
     size_t linkOccurrenceCount(std::string const& link1, std::string const& link2) const;
     void insertLinks(std::string const& srclink, std::vector<std::string> const& links);
@@ -26,7 +27,7 @@ public:
 
 private:
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_wordsIndex;
-    std::unordered_map<std::string ,std::map<std::string ,size_t>> m_linksMap;
+    std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_linksMap;
 };
 
 }//namespace se

@@ -3,8 +3,8 @@ CXX = g++
 CC = $(CXX)
 
 CXXFLAGS = -std=c++17 -Wall -pedantic
-# CXXFLAGS += -Werror
-# CXXFLAGS += -Wextra
+CXXFLAGS += -Werror
+CXXFLAGS += -Wextra
 
 # CXXFLAGS += -g3
 
@@ -13,6 +13,7 @@ CPPFLAGS = -I ./includes  -I ./src
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
 main : main.o\
+			src/simpleRequest.o\
 			src/linkParser.o\
 			src/wordParser.o\
 			src/linkWordParser.o\
@@ -21,9 +22,14 @@ main : main.o\
 			src/dataLoader.o\
 			src/crawler.o\
 			src/basePage.o\
-			src/analyzPage.o
+			src/analyzPage.o\
+			src/result.o\
+			src/textUI.o\
+			src/searchQueryHandler.o
 
 main.o : main.cpp
+
+src/simpleRequest.o : src/simpleRequest.cpp includes/simpleRequest.hpp
 
 src/analyzPage.o : src/analyzPage.cpp includes/analyzPage.hpp
 
@@ -42,6 +48,13 @@ src/linkWordParser.o : includes/linkWordParser.hpp src/linkWordParser.cpp
 src/getHTTP2.o : includes/getHTTP2.hpp src/getHTTP2.cpp
 
 src/searchDatabase.o : includes/searchDatabase.hpp src/searchDatabase.cpp
+
+src/result.o : includes/result.hpp src/result.cpp
+
+src/textUI.o : includes/textUI.hpp src/textUI.cpp
+
+src/searchQueryHandler.o : includes/searchQueryHandler.hpp src/searchQueryHandler.cpp
+
 
 clean :
 	$(RM) main *.o */*.o

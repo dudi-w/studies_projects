@@ -27,7 +27,7 @@ int test()
 	catch(curlpp::RuntimeError & e)
 	{
 		throw es::inValidURL("https://he.wikipedia.org/wiki/Dependency_injection");
-		std::cout << "ytfrtdf" << std::endl;
+		// std::cout << "ytfrtdf" << std::endl;
 		std::cout << e.what() << std::endl;
 	}
 

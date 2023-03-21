@@ -5,6 +5,8 @@
 #include "linkWordParser.hpp"
 #include "getHTTP2.hpp"
 #include "dataLoader.hpp"
+#include "textUI.hpp"
+#include "searchQueryHandler.hpp"
 // #include <malloc.h>
 
 // #include <fstream>
@@ -20,9 +22,26 @@ int main()
     // se::LinkWordParser wordLinkParsr(linkParsr ,wordParsr);
     se::SearchDB db;
     se::DataLoader loader("config.json", db);
-    std::cout<<"loader"<<std::endl;
+    std::cout<<"start laoding"<<std::endl;
     loader.startLaoding();
+    se::SearchQueryHandler queryHandler(db);
+    se::TextUI tui;
 
+    while(true){
+        auto request = tui.makeRequest();
+        queryHandler.receivesRequest(*request);
+        auto result = queryHandler.returnResult();
+        tui.setAndShowResult(*result);
+    }
+    
+    // auto resulte = db.searchWord("harry");
+    // auto it = resulte.begin();
+    // while(it != resulte.end()){
+        // std::cout<<it->first<<'\t'<<it->second<<'\n';
+        // ++it;
+    // }
+    // 
+// 
     
     // auto basePage = getHTTPpage(url);
     // auto page = std::make_unique<se::BasePage>(basePage);

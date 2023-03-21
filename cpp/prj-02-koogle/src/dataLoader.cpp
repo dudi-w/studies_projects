@@ -19,6 +19,7 @@ void se::DataLoader::startLaoding()
 {
     m_crawler->startCrawling();
     std::cout<<"\033[3;32mend Crawling\033[0m\n";
+    m_searchDatabase.log();
 }
 
 se::Configuration se::DataLoader::laodConfiguration(std::string const& configurationFilePath)
@@ -44,7 +45,7 @@ void se::DataLoader::updatePage(AnalyzPage const& page)
     auto srcPage = parsPage.getSrc();
     auto links = parsPage.getLinks();
     auto words = parsPage.getWords();
-    std::cout<<words.size()<<" "<< links.size()<<" "<< srcPage <<std::endl;
+    // std::cout<<words.size()<<" "<< links.size()<<" "<< srcPage <<std::endl;
     m_searchDatabase.insertLinks(srcPage, links);
     m_searchDatabase.insertWords(srcPage, words);
     m_crawler->insertInQueue(links);

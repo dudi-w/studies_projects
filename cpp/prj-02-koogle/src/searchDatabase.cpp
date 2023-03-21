@@ -1,5 +1,12 @@
 #include "searchDatabase.hpp"
 
+void se::SearchDB::log() const
+{
+    std::cout<<"End of storage"<<std::endl;
+    std::cout<<"\tNumber of words: "<<m_wordsIndex.size()<<std::endl;
+    std::cout<<"\tThe number of links: "<<m_linksMap.size()<<std::endl;
+}
+
 std::unordered_map<std::string ,size_t> const& se::SearchDB::searchWord(std::string const& word) const
 {
     return m_wordsIndex.at(word);//exception
@@ -21,7 +28,7 @@ void se::SearchDB::insertLinks(std::string const& srcLink, std::vector<std::stri
 {
     if(!m_linksMap.count(srcLink)){
         m_linksMap[srcLink];//???
-        for(auto const & link : links){
+        for(auto const& link : links){
             insertLink(srcLink ,link);
         }
     }else{

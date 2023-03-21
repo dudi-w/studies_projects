@@ -2,24 +2,30 @@
 #define TUI_HPP
 
 #include <iostream>
+#include <memory>
+#include <regex>
+
+#include "simpleRequest.hpp"
+#include "resultIF.hpp"
 
 namespace se{//Search Engin
 
 class TextUI
 {
 public:
-    TextUI() = default;
+    TextUI();
     TextUI(TextUI const& other) = default;
     TextUI& operator=(TextUI const& other) = default;
     ~TextUI() = default;
 
-    void stertRequest();
+    std::unique_ptr<se::Request> makeRequest() const;
+    void setAndShowResult(se::ResultIF&) const;
+
+private:
+    std::regex const m_checkInput;
 };
 
-void se::TextUI::stertRequest()
-{
-    std::cout<<
 }
 
-}
 #endif
+
