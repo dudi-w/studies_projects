@@ -12,7 +12,6 @@ public:
     virtual ~ResultIF() = default;
 
     virtual std::vector<std::pair<std::string, size_t>> getResult() const = 0;
-
 };
 
 }//namespace se

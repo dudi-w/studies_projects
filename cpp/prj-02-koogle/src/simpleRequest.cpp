@@ -1,10 +1,11 @@
 #include "simpleRequest.hpp"
+#include <iostream>
 
-se::SimpleRequest::SimpleRequest(std::string const& word)
-: m_word(word)
+se::SimpleRequest::SimpleRequest(std::string const& request)
+: m_word(request)
 {}
 
-std::vector<std::string> se::SimpleRequest::getRequest() const
+std::string const& se::SimpleRequest::getRequest() const
 {
-    return std::vector<std::string>{m_word};
+    return m_word;
 }

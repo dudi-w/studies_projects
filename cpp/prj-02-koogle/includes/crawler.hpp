@@ -5,7 +5,6 @@
 #include <queue>
 
 #include "crawlerIF.hpp"
-#include "getHTTP2.hpp"
 #include "analyzPage.hpp"
 #include "dataLoader.hpp"
 
@@ -24,9 +23,11 @@ public:
     void insertInQueue(std::vector<std::string> const& links) override;
 
 private:
+    void srcURLValidation();
     void insertLinkInQueue(std::string const& link);
     void insertURLAsSearched(std::string const& link);
     std::string getURLToSearch();
+
 
 private:
     std::unordered_set<std::string> m_searchedLinks;

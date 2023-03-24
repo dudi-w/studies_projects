@@ -51,16 +51,18 @@ void se::WordParser::cleanText()
 
 se::AnalyzPage se::WordParser::pars(std::unique_ptr<se::Page> const page)
 {
+    m_clwanWords.clear();
+    m_rowWords.clear();
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());
     searchForWords(output->root);
     cleanText();
-    gumbo_destroy_output(&kGumboDefaultOptions, output);
     se::AnalyzPage analyzPage(page->getSrc(), page->getBaseData());
     analyzPage.setWords(m_clwanWords);
+    gumbo_destroy_output(&kGumboDefaultOptions, output);
     return analyzPage;
 }
 
-void makeLowercase(std::string& word)
+void makeLowercase(std::string& string)
 {
-    std::transform(word.begin(), word.end(), word.begin(), [](unsigned char c){ return std::tolower(c);});
+    std::transform(string.begin(), string.end(), string.begin(), [](unsigned char c){ return std::tolower(c);});
 }

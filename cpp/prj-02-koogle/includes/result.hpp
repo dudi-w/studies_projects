@@ -13,6 +13,12 @@ public:
     Result& operator=(Result const& other) = default;
     virtual ~Result() = default;
 
+    Result operator+(Result const& other) const;
+    Result operator-(Result const& other) const;
+    Result operator|(Result const& other) const;
+    Result operator&(Result const& other) const;
+    Result operator^(Result const& other) const;
+
     virtual std::vector<std::pair<std::string, size_t>> getResult() const override;
 
 private:

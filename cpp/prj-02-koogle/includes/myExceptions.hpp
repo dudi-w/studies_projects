@@ -1,22 +1,25 @@
 #ifndef MY_EXCEPTIONS_HPP
 #define MY_EXCEPTIONS_HPP
 
-#include <curlpp/Exception.hpp>
 #include <stdexcept>
 #include <exception>
 
-namespace es{
+namespace se{
 
-class inValidURL : public curlpp::UnsetOption
+class InValidSrcURL : public std::runtime_error
 {
-
 public:
-    using curlpp::UnsetOption::UnsetOption;
+    using std::runtime_error::runtime_error;
 };
 
 class LaodJsonError : public std::runtime_error
 {
+public:
+    using std::runtime_error::runtime_error;
+};
 
+class CommunicationError : public std::runtime_error
+{
 public:
     using std::runtime_error::runtime_error;
 };

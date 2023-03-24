@@ -1,3 +1,4 @@
+#include "gumbo.h"
 #include "linkParser.hpp"
 #include "analyzPage.hpp"
 
@@ -52,7 +53,8 @@ se::AnalyzPage se::LinkParser::pars(std::unique_ptr<se::Page> const page)
     searchForLinks(output->root);
     fixLinks(page->getSrc());
     gumbo_destroy_output(&kGumboDefaultOptions, output);
-    se::AnalyzPage analyzPage(page->getSrc(), page->getBaseData());
+    se::AnalyzPage analyzPage(*page);
+    // se::AnalyzPage analyzPage(page->getSrc(), page->getBaseData());
     analyzPage.setLinks(m_links);
     return analyzPage;
 }

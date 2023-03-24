@@ -1,4 +1,5 @@
 #include "crawler.hpp"
+#include "getHTTP.hpp"
 #include "myExceptions.hpp"
 
 se::Crawler::Crawler(DataLoader& dataLoader, std::string srcURL, size_t maxPages, size_t maxDepth, bool bounded)
@@ -8,42 +9,40 @@ se::Crawler::Crawler(DataLoader& dataLoader, std::string srcURL, size_t maxPages
     m_configuration.maxPages = maxPages;
     m_configuration.maxDepth = maxDepth;
     m_configuration.bounded = bounded;
+    srcURLValidation();
+    m_crawlingQueue.push(m_configuration.srcURL);
 }
 
 se::Crawler::Crawler(DataLoader& dataLoader, Configuration configuration)
-: m_dataLoader(dataLoader)
+: Crawler(dataLoader, configuration.srcURL, configuration.maxPages, configuration.maxDepth, configuration.bounded)
 {
-    m_configuration.srcURL = configuration.srcURL;
-    m_configuration.maxPages = configuration.maxPages;
-    m_configuration.maxDepth = configuration.maxDepth;
-    m_configuration.bounded = configuration.bounded;
-    m_crawlingQueue.push(m_configuration.srcURL);
-    std::cout<<"\033[3;32mTEST Crawler"<<m_configuration.srcURL<<"\033[0m\n";
+    // m_configuration.srcURL = configuration.srcURL;
+    // m_configuration.maxPages = configuration.maxPages;
+    // m_configuration.maxDepth = configuration.maxDepth;
+    // m_configuration.bounded = configuration.bounded;
+    // srcURLValidation();
+    // m_crawlingQueue.push(m_configuration.srcURL);
 }
 
 void se::Crawler::startCrawling()
 {
     std::string url;
-    while(!m_crawlingQueue.empty() && m_searchedLinks.size() <= m_configuration.maxPages){
-        url = getURLToSearch();
-        if(url != ""){
+    while(!m_crawlingQueue.empty() && m_searchedLinks.size() < m_configuration.maxPages){
+        if(url = getURLToSearch() ; url != ""){
             try{
-                std::cout<<"m_searchedLinks.size() = "<<m_searchedLinks.size()<<std::endl;
+                isNetworkConnected();
                 auto page = getHTTPpage(url);
-                // auto newURLs = m_dataLoader.updatePage(page);
                 m_dataLoader.updatePage(page);
                 insertURLAsSearched(url);
-                // insertInQueue(newURLs);
                 url.clear();
             }
             catch(const curlpp::LibcurlRuntimeError& e)
             {
-                std::cout<<"ERROR: \033[3;31m"<<url<<"\033[0m"<<std::endl;
+                std::cout<<"\033[3;31mERROR: can't laod url \033[0m"<<url<<std::endl;
                 continue;
             }
         }
     }     
-    std::cout<<"\033[3;32mcatch(const curlpp::LibcurlRuntimeError& e)\033[0m\n";
 }
 
 void se::Crawler::insertURLAsSearched(std::string const& link)
@@ -52,7 +51,7 @@ void se::Crawler::insertURLAsSearched(std::string const& link)
         std::cout<<"\U0001F525 \033[1;33m"<<link<<"\033[0m; \U0001F525\n"<<std::endl;
         m_searchedLinks.insert(link);
     }else{
-        throw 1;
+        throw std::runtime_error("duplecat Searched " + link);
     }
 }
 
@@ -60,10 +59,8 @@ std::string se::Crawler::getURLToSearch()
 {
     if(!m_crawlingQueue.empty()){
         std::string link = m_crawlingQueue.front();
-        // std::cout<<"\033[3;32m!m_crawlingQueue.empty "<<m_crawlingQueue.size()<<link<<"\033[0m\n";
         m_crawlingQueue.pop();
         if(!m_searchedLinks.count(link)){
-            // std::cout<<"\033[3;32m!m_crawlingQueue.empty "<<link<<"\033[0m\n";
             return link;
         }else{
             return getURLToSearch();
@@ -75,7 +72,6 @@ std::string se::Crawler::getURLToSearch()
 
 void se::Crawler::insertLinkInQueue(std::string const& link)
 {
-    // std::cout<<"\033[3;31minsertInQueue\033[0m"<<std::endl;
     if(!m_searchedLinks.count(link)){
         m_crawlingQueue.push(link);
     }
@@ -84,9 +80,24 @@ void se::Crawler::insertLinkInQueue(std::string const& link)
 
 void se::Crawler::insertInQueue(std::vector<std::string> const& links)
 {
-    // std::cout<<"\033[3;31mm_crawlingQueue.size = "<<m_crawlingQueue.size()<<"\033[0m"<<std::endl;
     for(auto const& link : links){
-        // std::cout<<"\033[3;31mlink = "<<link<<"\033[0m"<<std::endl;
         this->insertLinkInQueue(link);
+    }
+}
+
+void se::Crawler::srcURLValidation()
+{
+    try{
+        getHTTPpage(m_configuration.srcURL);
+    }
+    catch(const curlpp::LibcurlRuntimeError & e)
+    {
+        throw se::InValidSrcURL("can't laod src url " + m_configuration.srcURL);
+    }
+}
+
+void isNetworkConnected() {
+    if(system("ping -c 1 google.com")) {
+        throw se::CommunicationError("Check your network connection");
     }
 }

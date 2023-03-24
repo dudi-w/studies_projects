@@ -18,14 +18,16 @@ main : main.o\
 			src/wordParser.o\
 			src/linkWordParser.o\
 			src/searchDatabase.o\
-			src/getHTTP2.o\
+			src/getHTTP.o\
 			src/dataLoader.o\
 			src/crawler.o\
 			src/basePage.o\
 			src/analyzPage.o\
 			src/result.o\
 			src/textUI.o\
-			src/searchQueryHandler.o
+			src/multiQueryHandler.o\
+			src/simpleQueryHandler.o\
+			src/smartQueryHandler.o
 
 main.o : main.cpp
 
@@ -45,7 +47,7 @@ src/wordParser.o : includes/wordParser.hpp src/wordParser.cpp
 
 src/linkWordParser.o : includes/linkWordParser.hpp src/linkWordParser.cpp
 
-src/getHTTP2.o : includes/getHTTP2.hpp src/getHTTP2.cpp
+src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
 
 src/searchDatabase.o : includes/searchDatabase.hpp src/searchDatabase.cpp
 
@@ -53,8 +55,11 @@ src/result.o : includes/result.hpp src/result.cpp
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp
 
-src/searchQueryHandler.o : includes/searchQueryHandler.hpp src/searchQueryHandler.cpp
+src/simpleQueryHandler.o : includes/simpleQueryHandler.hpp src/simpleQueryHandler.cpp includes/searchQueryHandler.hpp
 
+src/multiQueryHandler.o : includes/multiQueryHandler.hpp src/multiQueryHandler.cpp includes/searchQueryHandler.hpp
+
+src/smartQueryHandler.o : includes/smartQueryHandler.hpp src/smartQueryHandler.cpp includes/searchQueryHandler.hpp
 
 clean :
 	$(RM) main *.o */*.o

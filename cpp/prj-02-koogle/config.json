@@ -1,6 +1,6 @@
 {
     "srcURL": "https://harrypotter.fandom.com/wiki/Main_Page",
-    "maxPages": 2,
+    "maxPages": 5,
     "maxDepth": 3,
     "bounded": false
 }

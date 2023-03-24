@@ -8,15 +8,15 @@ namespace se{
 class SimpleRequest : public Request
 {
 public:
-    explicit SimpleRequest(std::string const& word);
+    explicit SimpleRequest(std::string const& request);
     SimpleRequest(SimpleRequest const& other) = default;
     SimpleRequest& operator=(SimpleRequest const& other) = default;
     virtual ~SimpleRequest() = default;
 
-    virtual std::vector<std::string> getRequest() const override;
+    virtual std::string const& getRequest() const override;
 
 private:
-    std::string m_word;
+    std::string m_words;
 };
 
 }

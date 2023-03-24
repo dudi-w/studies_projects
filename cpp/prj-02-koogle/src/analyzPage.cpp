@@ -1,4 +1,3 @@
-#include "analyzPage.hpp"
 #include "parser.hpp"
 
 se::AnalyzPage::AnalyzPage(BasePage const& other)
@@ -24,15 +23,3 @@ void se::AnalyzPage::setWords(std::vector<std::string> const& words)
 {
     m_words = words;
 }
-
-
-// void setLinks(se::Parser& parser, se::AnalyzPage& self, std::vector<std::string> links)
-// {
-//     self.
-// }
-
-// void setWords(se::Parser const& parser, std::vector<std::string> links)
-// {
-
-// }
-

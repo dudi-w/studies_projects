@@ -3,9 +3,7 @@
 
 #include <string>
 #include <vector>
-#include <map>
 #include <unordered_map>
-#include <stdexcept>
 #include <iostream>
 
 namespace se{//Search Engine
@@ -16,7 +14,7 @@ public:
     SearchDB() = default;
     SearchDB(SearchDB const& other) = default;
     SearchDB& operator=(SearchDB const& other) = default;
-    ~SearchDB() {std::cout<<"~SearchDB\n"<<std::endl;}
+    ~SearchDB() {std::cout<<"~SearchDB\n"<<std::endl;}//
 
     void log() const;
     std::unordered_map<std::string ,size_t> const& searchWord(std::string const& word) const;
@@ -24,6 +22,9 @@ public:
     void insertLinks(std::string const& srclink, std::vector<std::string> const& links);
     void insertLink(std::string const& srcLink, std::string const& link);
     void insertWords(std::string const& srcLink, std::vector<std::string> const& words);
+    bool wordExis(std::string const& word) const;
+    bool wordAndLinkExis(std::string const& word, std::string const& link) const;
+
 
 private:
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_wordsIndex;

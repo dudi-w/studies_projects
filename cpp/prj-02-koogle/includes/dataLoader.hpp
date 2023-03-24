@@ -1,13 +1,10 @@
 #ifndef DATA_LOADER_HPP
 #define DATA_LOADER_HPP
 
-#include <unordered_set>
-#include <queue>
 #include <string>
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-#include "getHTTP2.hpp"
 #include "analyzPage.hpp"
 #include "linkWordParser.hpp"
 #include "crawlerIF.hpp"
@@ -26,6 +23,7 @@ public:
 
     void startLaoding();
     se::Configuration laodConfiguration(std::string const& configurationFilePath);
+    void setCrawler(std::unique_ptr<CrawlerIF> crawler);
     void updatePage(AnalyzPage const& page);
 
 private:
@@ -37,5 +35,7 @@ private:
 };
 
 }//namespace se
+
+void from_json(const nlohmann::json& j, se::Configuration& config);
 
 #endif
