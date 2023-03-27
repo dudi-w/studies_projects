@@ -13,7 +13,7 @@ namespace se{//Search Engine
 class Crawler : public CrawlerIF
 {
 public:
-    explicit Crawler(se::DataLoader& dataLoader, std::string srcURL, size_t maxPages, size_t maxDepth, bool bounded);
+    explicit Crawler(se::DataLoader& dataLoader, std::vector<std::string> srcURL, size_t maxPages, size_t maxDepth, bool bounded);
     explicit Crawler(se::DataLoader& dataLoader, Configuration configuration);
     Crawler(Crawler const& other) = default;
     Crawler& operator=(Crawler const& other) = default;
@@ -37,5 +37,7 @@ private:
 };
 
 }//namespace se
+
+void isNetworkConnected();
 
 #endif

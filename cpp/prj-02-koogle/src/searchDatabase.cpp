@@ -12,12 +12,12 @@ void se::SearchDB::log() const
     // }
 }
 
-std::unordered_map<std::string ,size_t> const& se::SearchDB::searchWord(std::string const& word) const
+std::unordered_map<std::string ,size_t> const& se::SearchDB::getLinkOfWord(std::string const& word) const
 {
     return m_wordsIndex.at(word);//exception
 }
 
-size_t se::SearchDB::linkOccurrenceCount(std::string const& link1, std::string const& link2) const
+size_t se::SearchDB::getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const
 {
     try
     {

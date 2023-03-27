@@ -1,7 +1,10 @@
+#include <fstream>
+#include <nlohmann/json.hpp>
+
 #include "dataLoader.hpp"
 #include "crawler.hpp"
 
-se::DataLoader::DataLoader(std::string const& configurationFilePath, SearchDB& searchDatabase)
+se::DataLoader::DataLoader(std::string const& configurationFilePath, se::SetDB& searchDatabase)
 : m_searchDatabase(searchDatabase)
 , m_parser(m_linkParser, m_wordParser)
 {

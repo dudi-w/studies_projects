@@ -11,7 +11,7 @@ class Request
 public:
     virtual ~Request() = default;
 
-    virtual std::string const& getRequest() const = 0;
+    virtual std::vector<std::string> const& getRequest() const = 0;
 
 };
 

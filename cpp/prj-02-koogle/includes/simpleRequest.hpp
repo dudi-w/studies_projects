@@ -13,10 +13,10 @@ public:
     SimpleRequest& operator=(SimpleRequest const& other) = default;
     virtual ~SimpleRequest() = default;
 
-    virtual std::string const& getRequest() const override;
+    virtual std::vector<std::string> const& getRequest() const override;
 
 private:
-    std::string m_words;
+    std::vector<std::string> m_request;
 };
 
 }

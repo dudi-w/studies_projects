@@ -2,53 +2,86 @@
 #include "simpleRequest.hpp"
 #include "result.hpp"
 #include "wordParser.hpp"
+#include <limits>
 
-se::SmartQueryHandler::SmartQueryHandler(SearchDB const& searchDB)
-: m_SearchDB(searchDB)
+se::SmartQueryHandler::SmartQueryHandler(se::GetDB const& searchDB)
+: m_SearchDB(searchDB)///???
+, m_NMultiQueryHandler(searchDB)
+, m_PMultiQueryHandler(searchDB)
 {}
 
-void se::SmartQueryHandler::receivesRequest(se::Request& request)
+void se::SmartQueryHandler::receivesRequest(se::Request& request, size_t resultCount)
 {
+    auto startsWith = [](std::string const &s, std::string const &w){return !s.compare(0, w.size(), w);};
+    
     m_result.clear();
-    auto new_request = dynamic_cast<se::SimpleRequest&>(request);
-    std::string word = new_request.getRequest();
-    makeLowercase(word);
+    m_negativeRequests.clear();
+    m_requests.clear();
 
-    std::stringstream ss(word);
-    while(ss >> word){
-        if(m_SearchDB.wordExis(word)){
-            m_requests.push_back(word);
-        }else{
-            m_ptrResult = nullptr;
-            return;
-        }
+    std::vector<std::string> new_requests = request.getRequest();
+    if(new_requests.size() == 0){
+        m_ptrResult = nullptr;
+        return;
     }
 
-    auto& mapResult = m_SearchDB.searchWord(word);
-    
-    for(auto const& pair : mapResult){
+    for(auto& request : new_requests){
+        std::cout<<"\033[1;35m"<<request<<std::endl;
+        if(startsWith(request,"-")){
+            m_negativeRequests.push_back(request.substr(1));
+        }else{
+            m_requests.push_back(request);
+        }
+    }
+    if(m_requests.size() == 0 && m_negativeRequests.size() > 0){
+        m_ptrResult = nullptr;
+        return;
+    }
+    /***********************************************/
+    for(auto& i : m_requests){
+        std::cout<<"\033[1;33mm_requests = "<<i<<"\033[0m"<<std::endl;
+    }
+    for(auto& i : m_negativeRequests){
+        std::cout<<"\033[1;32m m_negativeRequests = "<<i<<"\033[0m"<<std::endl;
+    }
+    /**********************************************/
+    m_PMultiQueryHandler.receivesRequest(m_requests ,std::numeric_limits<int>::max());
+    auto P_Result = m_PMultiQueryHandler.returnResult();
+    if(P_Result == nullptr){
+        m_ptrResult = nullptr;
+        return;
+    }
+    se::Result myResult(*P_Result);
+    /**************************************************/
+    for(auto& i : m_requests){
+        std::cout<<"\033[1;33m"<<i<<"\033[0m"<<std::endl;
+    }
+    for(auto& i : m_negativeRequests){
+        std::cout<<"\033[1;32m"<<i<<"\033[0m"<<std::endl;
+    }
+    /**************************************************/
+    m_NMultiQueryHandler.receivesRequest(m_negativeRequests, std::numeric_limits<int>::max());
+    auto N_Result = m_NMultiQueryHandler.returnResult();
+    if(N_Result != nullptr){
+        std::cout<<"\033[1;32mN_Result->getResult().size() = "<<N_Result->getResult().size()<<"\033[0m"<<std::endl;
+        myResult = myResult - (*N_Result);
+    }
+    if(myResult.getResult().size()==0){
+        m_ptrResult = nullptr;
+        return;
+    }
+    for(auto const& pair : myResult.getResult()){
         m_result.push_back(pair);
     }
     std::sort(m_result.begin(), m_result.end(),[](auto pair1 ,auto pair2){return pair1.second > pair2.second;});
 
     auto it = m_result.begin();
-    u_char j = 0;
-    while(it != m_result.end() && j < 10){
-        if(!checkLinkExistsInAllWrds(m_requests ,it->first) && checkLinkMotExistsInWrds()){
-            it = m_result.erase(it);
-        }else{
-            ++j;
-            ++it;
-        }
-    }
-    if(it == m_result.begin()){
-        m_ptrResult = nullptr;
-        return;
+    for(size_t i = 0 ; i < resultCount && it != m_result.end(); ++i){
+        ++it;
     }
     m_ptrResult = std::make_unique<se::Result>(std::vector(m_result.begin(),it));
 }
 
-std::unique_ptr<se::ResultIF> se::SmartQueryHandler::returnResult()
+std::unique_ptr<se::Result> se::SmartQueryHandler::returnResult()
 {
     return std::move(m_ptrResult);
 }

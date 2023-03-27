@@ -8,7 +8,7 @@
 #include "analyzPage.hpp"
 #include "linkWordParser.hpp"
 #include "crawlerIF.hpp"
-#include "searchDatabase.hpp"
+#include "setDatabase.hpp"
 #include "configuration.hpp"
 
 namespace se{//Search Engine
@@ -16,10 +16,10 @@ namespace se{//Search Engine
 class DataLoader
 {
 public:
-    explicit DataLoader(std::string const& configurationFilePath, SearchDB& searchDatabase);
+    explicit DataLoader(std::string const& configurationFilePath, se::SetDB& searchDatabase);
     DataLoader(DataLoader const& other) = default;
     DataLoader& operator=(DataLoader const& other) = default;
-    ~DataLoader() {std::cout<<"~DataLoader\n"<<std::endl;}
+    ~DataLoader() = default;
 
     void startLaoding();
     se::Configuration laodConfiguration(std::string const& configurationFilePath);
@@ -27,7 +27,7 @@ public:
     void updatePage(AnalyzPage const& page);
 
 private:
-    se::SearchDB& m_searchDatabase;
+    se::SetDB& m_searchDatabase;
     se::WordParser m_wordParser;
     se::LinkParser m_linkParser;
     se::LinkWordParser m_parser;

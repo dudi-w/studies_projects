@@ -6,7 +6,7 @@
 #include <regex>
 
 #include "simpleRequest.hpp"
-#include "resultIF.hpp"
+#include "result.hpp"
 
 namespace se{//Search Engin
 
@@ -19,7 +19,7 @@ public:
     ~TextUI() = default;
 
     std::unique_ptr<se::Request> makeRequest() const;
-    void setAndShowResult(std::unique_ptr<se::ResultIF>& result) const;
+    void setAndShowResult(std::unique_ptr<se::Result>& result) const;
 
 private:
     std::regex const m_checkInput;

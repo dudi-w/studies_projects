@@ -2,7 +2,7 @@
 #include "getHTTP.hpp"
 #include "myExceptions.hpp"
 
-se::Crawler::Crawler(DataLoader& dataLoader, std::string srcURL, size_t maxPages, size_t maxDepth, bool bounded)
+se::Crawler::Crawler(DataLoader& dataLoader, std::vector<std::string> srcURL, size_t maxPages, size_t maxDepth, bool bounded)
 : m_dataLoader(dataLoader)
 {
     m_configuration.srcURL = srcURL;
@@ -10,19 +10,14 @@ se::Crawler::Crawler(DataLoader& dataLoader, std::string srcURL, size_t maxPages
     m_configuration.maxDepth = maxDepth;
     m_configuration.bounded = bounded;
     srcURLValidation();
-    m_crawlingQueue.push(m_configuration.srcURL);
+    for(auto& url : m_configuration.srcURL){
+        m_crawlingQueue.push(url);
+    }
 }
 
 se::Crawler::Crawler(DataLoader& dataLoader, Configuration configuration)
 : Crawler(dataLoader, configuration.srcURL, configuration.maxPages, configuration.maxDepth, configuration.bounded)
-{
-    // m_configuration.srcURL = configuration.srcURL;
-    // m_configuration.maxPages = configuration.maxPages;
-    // m_configuration.maxDepth = configuration.maxDepth;
-    // m_configuration.bounded = configuration.bounded;
-    // srcURLValidation();
-    // m_crawlingQueue.push(m_configuration.srcURL);
-}
+{}
 
 void se::Crawler::startCrawling()
 {
@@ -30,7 +25,7 @@ void se::Crawler::startCrawling()
     while(!m_crawlingQueue.empty() && m_searchedLinks.size() < m_configuration.maxPages){
         if(url = getURLToSearch() ; url != ""){
             try{
-                isNetworkConnected();
+                // isNetworkConnected();
                 auto page = getHTTPpage(url);
                 m_dataLoader.updatePage(page);
                 insertURLAsSearched(url);
@@ -88,16 +83,18 @@ void se::Crawler::insertInQueue(std::vector<std::string> const& links)
 void se::Crawler::srcURLValidation()
 {
     try{
-        getHTTPpage(m_configuration.srcURL);
+        isNetworkConnected();
+        getHTTPpage(m_configuration.srcURL.front());
     }
     catch(const curlpp::LibcurlRuntimeError & e)
     {
-        throw se::InValidSrcURL("can't laod src url " + m_configuration.srcURL);
+        throw se::InValidSrcURL("can't laod src url " + m_configuration.srcURL.front());
     }
 }
 
-void isNetworkConnected() {
-    if(system("ping -c 1 google.com")) {
+void isNetworkConnected()
+{
+    if(system("ping -c 1 google.com >> /dev/null")) {
         throw se::CommunicationError("Check your network connection");
     }
 }

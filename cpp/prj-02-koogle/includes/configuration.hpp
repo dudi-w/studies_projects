@@ -7,7 +7,7 @@ namespace se{
 
 struct Configuration
 {
-    std::string srcURL;
+    std::vector<std::string> srcURL;
     size_t maxPages;
     size_t maxDepth;
     bool bounded;
