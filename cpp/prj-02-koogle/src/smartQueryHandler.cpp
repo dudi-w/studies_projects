@@ -1,18 +1,17 @@
+#include <limits>
+
 #include "smartQueryHandler.hpp"
 #include "simpleRequest.hpp"
 #include "result.hpp"
 #include "wordParser.hpp"
-#include <limits>
 
 se::SmartQueryHandler::SmartQueryHandler(se::GetDB const& searchDB)
-: m_SearchDB(searchDB)///???
-, m_NMultiQueryHandler(searchDB)
+: m_NMultiQueryHandler(searchDB)
 , m_PMultiQueryHandler(searchDB)
 {}
 
 void se::SmartQueryHandler::receivesRequest(se::Request& request, size_t resultCount)
 {
-    auto startsWith = [](std::string const &s, std::string const &w){return !s.compare(0, w.size(), w);};
     
     m_result.clear();
     m_negativeRequests.clear();
@@ -26,6 +25,7 @@ void se::SmartQueryHandler::receivesRequest(se::Request& request, size_t resultC
 
     for(auto& request : new_requests){
         std::cout<<"\033[1;35m"<<request<<std::endl;
+        auto startsWith = [](std::string const &s, std::string const &w){return !s.compare(0, w.size(), w);};
         if(startsWith(request,"-")){
             m_negativeRequests.push_back(request.substr(1));
         }else{
@@ -84,22 +84,4 @@ void se::SmartQueryHandler::receivesRequest(se::Request& request, size_t resultC
 std::unique_ptr<se::Result> se::SmartQueryHandler::returnResult()
 {
     return std::move(m_ptrResult);
-}
-
-bool se::SmartQueryHandler::checkLinkExistsInAllWrds(std::vector<std::string> const& words, std::string const& link){
-    for(size_t i = 0 ; i < words.size() ; ++i){
-        if(not m_SearchDB.wordAndLinkExis(words[i], link)){
-            return false;
-        }
-    }
-    return true;
-}
-
-bool se::SmartQueryHandler::checkLinkMotExistsInWrds(std::vector<std::string> const& words, std::string const& link){
-    for(size_t i = 0 ; i < words.size() ; ++i){
-        if(m_SearchDB.wordAndLinkExis(words[i], link)){
-            return false;
-        }
-    }
-    return true;
 }

@@ -21,11 +21,6 @@ public:
     virtual std::unique_ptr<se::Result> returnResult() override;
 
 private:
-    bool checkLinkExistsInAllWrds(std::vector<std::string> const& words, std::string const& link);
-    bool checkLinkMotExistsInWrds(std::vector<std::string> const& words, std::string const& link);
-
-private:
-    se::GetDB const& m_SearchDB;
     se::NMultiQueryHandler m_NMultiQueryHandler;
     se::PMultiQueryHandler m_PMultiQueryHandler;
     std::vector<std::string> m_requests;

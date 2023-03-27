@@ -19,11 +19,7 @@ public:
     virtual std::unique_ptr<se::Result> returnResult() override;
 
 private:
-
-    bool checkLinkExistsInAllWrds(std::vector<std::string> const& words, std::string const& link);
-
-private:
-    se::GetDB const& m_searchDB;
+    // se::GetDB const& m_searchDB;
     se::SimpleQueryHandler m_simpleQueryHandler;
     std::vector<std::string> m_requests;
     std::vector<std::pair<std::string, size_t>> m_result;
@@ -55,11 +51,7 @@ public:
     virtual std::unique_ptr<se::Result> returnResult() override;
 
 private:
-
-    bool checkLinkExistsInAllWrds(std::vector<std::string> const& words, std::string const& link);
-
-private:
-    se::GetDB const& m_searchDB;
+    // se::GetDB const& m_searchDB;
     se::SimpleQueryHandler m_simpleQueryHandler;
     std::vector<std::string> m_requests;
     std::vector<std::pair<std::string, size_t>> m_result;

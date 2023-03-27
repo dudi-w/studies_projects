@@ -4,8 +4,7 @@
 #include "wordParser.hpp"
 
 se::PMultiQueryHandler::PMultiQueryHandler(se::GetDB const& searchDB)
-: m_searchDB(searchDB)///???
-, m_simpleQueryHandler(m_searchDB)
+: m_simpleQueryHandler(searchDB)
 {}
 
 
@@ -62,19 +61,10 @@ std::unique_ptr<se::Result> se::PMultiQueryHandler::returnResult()
     return std::move(m_ptrResult);
 }
 
-bool se::PMultiQueryHandler::checkLinkExistsInAllWrds(std::vector<std::string> const& words, std::string const& link){
-    for(size_t i = 0 ; i < words.size() ; ++i){
-        if(!m_searchDB.wordAndLinkExis(words[i], link)){
-            return false;
-        }
-    }
-    return true;
-}
-
 se::NMultiQueryHandler::NMultiQueryHandler(se::GetDB const& searchDB)
-: m_searchDB(searchDB)///???
-, m_simpleQueryHandler(m_searchDB)
+: m_simpleQueryHandler(searchDB)
 {}
+
 void se::NMultiQueryHandler::receivesRequest(se::Request& request, size_t resultCount = 10)
 {
     receivesRequest(request.getRequest(), resultCount);
@@ -119,13 +109,4 @@ void se::NMultiQueryHandler::receivesRequest(std::vector<std::string> const& req
 std::unique_ptr<se::Result> se::NMultiQueryHandler::returnResult()
 {
     return std::move(m_ptrResult);
-}
-
-bool se::NMultiQueryHandler::checkLinkExistsInAllWrds(std::vector<std::string> const& words, std::string const& link){
-    for(size_t i = 0 ; i < words.size() ; ++i){
-        if(!m_searchDB.wordAndLinkExis(words[i], link)){
-            return false;
-        }
-    }
-    return true;
 }
