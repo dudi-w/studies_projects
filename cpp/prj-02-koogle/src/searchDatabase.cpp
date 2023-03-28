@@ -4,7 +4,7 @@
 
 void se::SearchDB::log() const
 {
-    std::cout<<"\033[3;32End of storage\033[0m\n"<<std::endl;
+    std::cout<<"\033[3;32mEnd of storage\033[0m\n"<<std::endl;
     std::cout<<"\tNumber of words: "<<m_wordsIndex.size()<<std::endl;
     std::cout<<"\tThe number of links: "<<m_linksMap.size()<<std::endl;
 }
