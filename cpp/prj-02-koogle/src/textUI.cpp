@@ -20,7 +20,7 @@ std::unique_ptr<se::Request> se::TextUI::makeRequest() const
 
 void se::TextUI::setAndShowResult(se::Result& result) const
 {
-    if(result.getResult().size() > 1){//vecResult.size()==0;
+    if(result.getResult().size() > 0){
         auto vecResult = result.getResult();
         for(auto& res : vecResult){
             std::cout<<std::left <<" "<<std::setw(90) << res.first<<std::right << std::setw(10) << res.second << std::endl;
