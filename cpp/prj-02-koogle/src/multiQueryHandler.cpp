@@ -77,7 +77,7 @@ void se::MultiQueryHandler::makeForPositive()
 
 void se::MultiQueryHandler::sortResult(size_t resultCount)
 {
-    std::vector<std::pair<std::string, size_t>> vecResult;
+    linkVec vecResult;
     for(auto const& pair : m_result.getResult()){
         vecResult.push_back(pair);
     }

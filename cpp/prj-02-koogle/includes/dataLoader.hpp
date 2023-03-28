@@ -22,8 +22,10 @@ public:
     ~DataLoader() = default;
 
     void startLaoding();
-    se::Configuration laodConfiguration(std::string const& configurationFilePath);
     void updatePage(AnalyzPage const& page);
+    
+private:
+    se::Configuration laodConfiguration(std::string const& configurationFilePath);
 
 private:
     se::SetDB& m_searchDatabase;

@@ -2,9 +2,7 @@
 #define PARSER_HPP
 
 #include <memory>
-#include <gumbo.h>
-#include <iostream>
-#include <regex>
+
 #include "page.hpp"
 #include "analyzPage.hpp"
 

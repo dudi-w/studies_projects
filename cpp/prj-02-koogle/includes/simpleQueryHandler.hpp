@@ -20,7 +20,7 @@ public:
 
 private:
     se::GetDB const& m_SearchDB;
-    std::vector<std::pair<std::string, size_t>> m_VecResult;
+    linkVec m_VecResult;
     se::Result m_result;
 };
 

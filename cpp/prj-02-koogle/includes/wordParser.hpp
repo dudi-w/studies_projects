@@ -1,6 +1,9 @@
 #ifndef WORD_PARSER_HPP
 #define WORD_PARSER_HPP
 
+#include <gumbo.h>
+#include <regex>
+
 #include "parser.hpp"
 
 namespace se{

@@ -1,6 +1,8 @@
 #ifndef LINK_PARSER_HPP
 #define LINK_PARSER_HPP
 
+#include <gumbo.h>
+
 #include "parser.hpp"
 
 namespace se{

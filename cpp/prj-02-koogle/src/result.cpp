@@ -3,15 +3,15 @@
 #include "result.hpp"
 
 
-se::Result::Result(std::vector<std::pair<std::string, size_t>> result)
+se::Result::Result(linkVec result)
 : m_result(result)
 {}
 
-se::Result::Result(std::vector<std::pair<std::string, size_t>>::iterator begin, std::vector<std::pair<std::string, size_t>>::iterator end)
+se::Result::Result(linkVec::iterator begin, linkVec::iterator end)
 : m_result(begin, end)
 {}
 
-std::vector<std::pair<std::string, size_t>> se::Result::getResult() const
+linkVec se::Result::getResult() const
 {
     return m_result;
 }
@@ -23,8 +23,8 @@ std::vector<std::pair<std::string, size_t>> se::Result::getResult() const
 
 se::Result se::Result::operator-(Result const& other) const
 {
-    std::vector<std::pair<std::string, size_t>> this_result = getResult();
-    std::vector<std::pair<std::string, size_t>> other_result = other.getResult();
+    linkVec this_result = getResult();
+    linkVec other_result = other.getResult();
 
     auto it = other_result.begin();
     while(it != other_result.end()){
@@ -39,8 +39,8 @@ se::Result se::Result::operator-(Result const& other) const
 
 se::Result se::Result::operator|(Result const& other) const
 {
-    std::vector<std::pair<std::string, size_t>> result = getResult();
-    std::vector<std::pair<std::string, size_t>> other_result = other.getResult();
+    linkVec result = getResult();
+    linkVec other_result = other.getResult();
 
     auto it = other_result.begin();
     while(it != other_result.end()){
@@ -57,9 +57,9 @@ se::Result se::Result::operator|(Result const& other) const
 
 se::Result se::Result::operator&(Result const& other) const
 {
-    std::vector<std::pair<std::string, size_t>> result;
-    std::vector<std::pair<std::string, size_t>> this_result = getResult();
-    std::vector<std::pair<std::string, size_t>> other_result = other.getResult();
+    linkVec result;
+    linkVec this_result = getResult();
+    linkVec other_result = other.getResult();
 
     auto it = other_result.begin();
     while(it != other_result.end()){
@@ -77,7 +77,7 @@ se::Result se::Result::operator&(Result const& other) const
 
 // }
 
-std::vector<std::pair<std::string, size_t>>::iterator findLink(std::vector<std::pair<std::string, size_t>>::iterator first, std::vector<std::pair<std::string, size_t>>::iterator last, std::string const& val)
+linkVec::iterator findLink(linkVec::iterator first, linkVec::iterator last, std::string const& val)
 {
     while(first != last){
         if(first->first == val){
