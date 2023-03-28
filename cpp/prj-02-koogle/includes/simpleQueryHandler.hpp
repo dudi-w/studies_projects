@@ -15,12 +15,13 @@ public:
     virtual ~SimpleQueryHandler() = default;
 
     virtual void receivesRequest(se::Request& request, size_t resultCount = 10) override;
-    virtual std::unique_ptr<se::Result> returnResult() override;
+    void receivesRequest(std::string const& requests, size_t resultCount = 10);
+    virtual se::Result returnResult() override;
 
 private:
     se::GetDB const& m_SearchDB;
-    std::vector<std::pair<std::string, size_t>> m_result;
-    std::unique_ptr<se::Result> m_ptrResult;
+    std::vector<std::pair<std::string, size_t>> m_VecResult;
+    se::Result m_result;
 };
 
 }//namespace se

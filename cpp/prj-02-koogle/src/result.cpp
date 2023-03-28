@@ -2,8 +2,13 @@
 
 #include "result.hpp"
 
+
 se::Result::Result(std::vector<std::pair<std::string, size_t>> result)
 : m_result(result)
+{}
+
+se::Result::Result(std::vector<std::pair<std::string, size_t>>::iterator begin, std::vector<std::pair<std::string, size_t>>::iterator end)
+: m_result(begin, end)
 {}
 
 std::vector<std::pair<std::string, size_t>> se::Result::getResult() const

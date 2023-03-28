@@ -6,12 +6,13 @@
 #include "textUI.hpp"
 #include "smartQueryHandler.hpp"
 #include "crawler.hpp"
+#include "searchDatabase.hpp"
+
 
 int main()
 {
     se::SearchDB db;
     se::DataLoader loader("config.json", db);
-    // se::DataLoader loader("home/mefathim-tech-11/s06.dudivi/cpp/prj-02-koogle/config.json", db);
     loader.startLaoding();
     se::SmartQueryHandler queryHandler(db);
     se::TextUI tui;

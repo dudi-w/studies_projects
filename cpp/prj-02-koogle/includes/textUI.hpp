@@ -19,7 +19,7 @@ public:
     ~TextUI() = default;
 
     std::unique_ptr<se::Request> makeRequest() const;
-    void setAndShowResult(std::unique_ptr<se::Result>& result) const;
+    void setAndShowResult(se::Result& result) const;
 
 private:
     std::regex const m_checkInput;

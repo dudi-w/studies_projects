@@ -17,25 +17,6 @@ void se::LinkParser::searchForLinks(GumboNode* node)
     }
 }
 
-void se::LinkParser::extractHTTP(std::string const& srcPage)
-{
-    std::regex txt_regex("https?:");
-    std::smatch HTTPmatch;
-    if(std::regex_search(srcPage, HTTPmatch, txt_regex)){
-        m_srcHTTP = static_cast<std::string>(HTTPmatch[0]);
-    }
-}
-
-void se::LinkParser::extractSrcPrefix(std::string const& srcPage)
-{
-    std::regex preRegex("^https?:\\/\\/(?:[a-zA-Z0-9]+)(?:\\.[a-zA-Z0-9]+)+");
-    std::smatch preMatch;
-    if(std::regex_search(srcPage, preMatch, preRegex)){
-        m_srcPrefix = preMatch[0];
-    }
-}
-
-
 void se::LinkParser::fixLinks(std::string const& srcUrl)
 {
     auto it = m_links.begin();
@@ -47,14 +28,13 @@ void se::LinkParser::fixLinks(std::string const& srcUrl)
 
 se::AnalyzPage se::LinkParser::pars(std::unique_ptr<se::Page> const page)
 {
-    extractHTTP(page->getSrc());
-    extractSrcPrefix(page->getSrc());
+    extractHTTP(page->getSrc(), m_srcHTTP);
+    extractPrefix(page->getSrc(), m_srcPrefix);
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());
     searchForLinks(output->root);
     fixLinks(page->getSrc());
     gumbo_destroy_output(&kGumboDefaultOptions, output);
     se::AnalyzPage analyzPage(*page);
-    // se::AnalyzPage analyzPage(page->getSrc(), page->getBaseData());
     analyzPage.setLinks(m_links);
     return analyzPage;
 }
@@ -76,5 +56,24 @@ std::string se::LinkParser::relToAbsLink(std::string const &srcUrl, std::string 
         std::regex_search(srcUrl, r, e);
         std::string prefix = r[0].str();
         return prefix + url;
+    }
+}
+
+void extractHTTP(std::string const& srcPage, std::string& result)
+{
+    std::regex txt_regex("https?:");
+    std::smatch HTTPmatch;
+    if(std::regex_search(srcPage, HTTPmatch, txt_regex)){
+        result = static_cast<std::string>(HTTPmatch[0]);
+    }
+}
+
+void extractPrefix(std::string const& srcPage, std::string& result)
+{
+    std::regex preRegex("^https?:\\/\\/(?:[a-zA-Z0-9]+)(?:\\.[a-zA-Z0-9]+)+");
+    std::smatch preMatch;
+    if(std::regex_search(srcPage, preMatch, preRegex)){
+        result = preMatch[0];
+        // std::cout<<"extractPrefix = "<<result<<std::endl;
     }
 }

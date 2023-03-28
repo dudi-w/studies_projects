@@ -18,15 +18,18 @@ public:
     virtual ~SmartQueryHandler() = default;
 
     virtual void receivesRequest(se::Request& request, size_t resultCount = 10) override;
-    virtual std::unique_ptr<se::Result> returnResult() override;
+    virtual se::Result returnResult() override;
 
 private:
-    se::NMultiQueryHandler m_NMultiQueryHandler;
-    se::PMultiQueryHandler m_PMultiQueryHandler;
+    void reset();
+    void sortResult(size_t resultCount = 10);
+
+private:
+    se::MultiQueryHandler m_multiQueryHandler;
     std::vector<std::string> m_requests;
     std::vector<std::string> m_negativeRequests;
-    std::vector<std::pair<std::string, size_t>> m_result;
-    std::unique_ptr<se::Result> m_ptrResult;
+    std::vector<std::pair<std::string, size_t>> m_vetResult;
+    se::Result m_result;
 };
 
 }//namespace se

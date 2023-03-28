@@ -24,6 +24,24 @@ public:
     using std::runtime_error::runtime_error;
 };
 
+class InValidArg : public std::logic_error
+{
+public:
+    using std::logic_error::logic_error;
+};
+
+class StorageError : public std::logic_error
+{
+public:
+    using std::logic_error::logic_error;
+};
+
+class SeatchError : public std::logic_error
+{
+public:
+    using std::logic_error::logic_error;
+};
+
 }//namespace es
 
 #endif

@@ -23,7 +23,6 @@ public:
 
     void startLaoding();
     se::Configuration laodConfiguration(std::string const& configurationFilePath);
-    void setCrawler(std::unique_ptr<CrawlerIF> crawler);
     void updatePage(AnalyzPage const& page);
 
 private:

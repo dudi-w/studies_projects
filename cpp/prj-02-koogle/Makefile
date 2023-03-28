@@ -5,31 +5,31 @@ CC = $(CXX)
 CXXFLAGS = -std=c++17 -Wall -pedantic
 CXXFLAGS += -Werror
 CXXFLAGS += -Wextra
-
 CXXFLAGS += -g3
 
 CPPFLAGS = -I ./includes  -I ./src
 
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
-main : main.o\
-			src/simpleRequest.o\
-			src/smartRequest.o\
-			src/linkParser.o\
-			src/wordParser.o\
-			src/linkWordParser.o\
-			src/searchDatabase.o\
-			src/getHTTP.o\
-			src/dataLoader.o\
-			src/crawler.o\
-			src/basePage.o\
-			src/analyzPage.o\
-			src/result.o\
-			src/textUI.o\
-			src/multiQueryHandler.o\
-			src/simpleQueryHandler.o\
-			src/smartQueryHandler.o\
-			# src/queryHandlerFactory.o
+OBJECTS = main.o \
+		src/simpleRequest.o \
+		src/smartRequest.o \
+		src/linkParser.o \
+		src/wordParser.o \
+		src/linkWordParser.o \
+		src/searchDatabase.o \
+		src/getHTTP.o \
+		src/dataLoader.o \
+		src/crawler.o \
+		src/basePage.o \
+		src/analyzPage.o \
+		src/result.o \
+		src/textUI.o \
+		src/multiQueryHandler.o \
+		src/simpleQueryHandler.o \
+		src/smartQueryHandler.o
+
+main : $(OBJECTS)
 
 main.o : main.cpp
 
@@ -65,7 +65,5 @@ src/multiQueryHandler.o : includes/multiQueryHandler.hpp src/multiQueryHandler.c
 
 src/smartQueryHandler.o : includes/smartQueryHandler.hpp src/smartQueryHandler.cpp includes/searchQueryHandler.hpp
 
-# src/queryHandlerFactory.o : includes/queryHandlerFactory.hpp src/queryHandlerFactory.cpp includes/searchQueryHandler.hpp
-
 clean :
-	$(RM) main *.o */*.o
+	$(RM) $(OBJECTS) main

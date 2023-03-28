@@ -14,7 +14,7 @@ public:
     virtual ~SearchQueryHandler() = default;
 
     virtual void receivesRequest(se::Request& request, size_t resultCount) = 0;
-    virtual std::unique_ptr<se::Result> returnResult() = 0;
+    virtual se::Result returnResult() = 0;
 };
 
 }//namespace se

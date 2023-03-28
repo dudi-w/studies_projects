@@ -15,13 +15,7 @@ se::DataLoader::DataLoader(std::string const& configurationFilePath, se::SetDB& 
 void se::DataLoader::startLaoding()
 {
     m_crawler->startCrawling();
-    std::cout<<"\033[3;32mEnd Crawling\033[0m\n";
     m_searchDatabase.log();
-}
-
-void se::DataLoader::setCrawler(std::unique_ptr<CrawlerIF> crawler)
-{
-    m_crawler = std::move(crawler);
 }
 
 se::Configuration se::DataLoader::laodConfiguration(std::string const& configurationFilePath)
@@ -55,6 +49,5 @@ void from_json(const nlohmann::json& j, se::Configuration& config)
 {
     j.at("srcURL").get_to(config.srcURL);
     j.at("maxPages").get_to(config.maxPages);
-    j.at("maxDepth").get_to(config.maxDepth);
     j.at("bounded").get_to(config.bounded);
 }

@@ -16,8 +16,6 @@ public:
     virtual se::AnalyzPage pars(std::unique_ptr<se::Page> page) override;
 
 private:
-    void extractHTTP(std::string const& srcPage);
-    void extractSrcPrefix(std::string const& srcPage);
     void searchForLinks(GumboNode* node);
     void fixLinks(std::string const& srcUrl);
     std::string relToAbsLink(std::string const &baseUrl, std::string const &relUrl) const;
@@ -29,4 +27,8 @@ private:
 };
 
 }
+
+void extractHTTP(std::string const& srcPage, std::string& result);
+void extractPrefix(std::string const& srcPage, std::string& result);
+
 #endif
