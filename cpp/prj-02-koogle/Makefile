@@ -41,7 +41,8 @@ src/analyzPage.o : src/analyzPage.cpp includes/analyzPage.hpp
 
 src/crawler.o : src/crawler.cpp includes/crawler.hpp
 
-src/dataLoader.o : src/dataLoader.cpp includes/dataLoader.hpp
+src/dataLoader.o : src/dataLoader.cpp includes/dataLoader.hpp \
+	includes/setDatabase.hpp includes/configuration.hpp
 
 src/basePage.o :  src/basePage.cpp includes/basePage.hpp
 
@@ -53,7 +54,8 @@ src/linkWordParser.o : includes/linkWordParser.hpp src/linkWordParser.cpp
 
 src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
 
-src/searchDatabase.o : includes/searchDatabase.hpp src/searchDatabase.cpp
+src/searchDatabase.o : includes/searchDatabase.hpp includes/gatDatabase.hpp \
+	includes/setDatabase.hpp src/searchDatabase.cpp 
 
 src/result.o : includes/result.hpp src/result.cpp
 
