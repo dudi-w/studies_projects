@@ -106,7 +106,7 @@ bool se::Crawler::ifBounded(std::string const& link) const
         std::string currentHomeAddress;
         extractPrefix(link, currentHomeAddress);
         auto lambda = [currentHomeAddress](auto const& HomeAddress){return HomeAddress == currentHomeAddress;};
-        return std::any_of(m_homeAddress.begin(), m_homeAddress.end(), lambda);
+        return std::any_of(m_homeAddress.cbegin(), m_homeAddress.cend(), lambda);
     }
 
 }
