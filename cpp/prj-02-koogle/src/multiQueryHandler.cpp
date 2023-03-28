@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <limits>
 
 #include "multiQueryHandler.hpp"
 #include "simpleRequest.hpp"
@@ -25,9 +26,9 @@ void se::MultiQueryHandler::receivesRequest(std::vector<std::string> const& requ
     }
     auto lambdaNeg = [](std::string const& request){return request[0] == '-';};
     auto lambdaPos = [](std::string const& request){return request[0] != '-';};
-    if(std::all_of(m_requests.cend(), m_requests.cend(), lambdaNeg)){
+    if(std::all_of(m_requests.cbegin(), m_requests.cend(), lambdaNeg)){
         makeForNegative();
-    }else if(std::all_of(m_requests.cend(), m_requests.cend(), lambdaPos)){
+    }else if(std::all_of(m_requests.cbegin(), m_requests.cend(), lambdaPos)){
         makeForPositive();
     }else{
         throw se::InValidArg("Mixed arguments!");
@@ -44,8 +45,7 @@ void se::MultiQueryHandler::reset()
 void se::MultiQueryHandler::makeForNegative()
 {
     for(size_t i = 0; i < m_requests.size(); ++i){
-        std::cout<<"m_requests[i].substr(1)"<<m_requests[i].substr(1)<<std::endl;
-        m_simpleQueryHandler.receivesRequest(m_requests[i].substr(1), __INT32_MAX__);///???
+        m_simpleQueryHandler.receivesRequest(m_requests[i].substr(1), std::numeric_limits<int>::max());
         auto result = m_simpleQueryHandler.returnResult();
         if(result.getResult().size() != 0){
             m_result = m_result | result;
@@ -55,8 +55,7 @@ void se::MultiQueryHandler::makeForNegative()
 
 void se::MultiQueryHandler::makeForPositive()
 {
-    std::cout<<"makeForPositive = "<<m_requests[0].substr(1)<<std::endl;
-    m_simpleQueryHandler.receivesRequest(m_requests[0], __INT32_MAX__);//max
+    m_simpleQueryHandler.receivesRequest(m_requests[0], std::numeric_limits<int>::max());
     auto result = m_simpleQueryHandler.returnResult();
     if(result.getResult().size() == 0){
         return;
@@ -66,7 +65,7 @@ void se::MultiQueryHandler::makeForPositive()
 
     for(size_t i = 1; i < m_requests.size(); ++i){
         std::cout<<"makeForPositive = "<<m_requests[i].substr(1)<<std::endl;
-        m_simpleQueryHandler.receivesRequest(m_requests[i],__INT32_MAX__);///max
+        m_simpleQueryHandler.receivesRequest(m_requests[i],std::numeric_limits<int>::max());
         result = m_simpleQueryHandler.returnResult();
         if(result.getResult().size() == 0){
             m_result = se::Result({});
