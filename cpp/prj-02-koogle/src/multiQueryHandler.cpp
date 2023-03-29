@@ -64,7 +64,6 @@ void se::MultiQueryHandler::makeForPositive()
     m_result = se::Result(result.getResult());
 
     for(size_t i = 1; i < m_requests.size(); ++i){
-        std::cout<<"makeForPositive = "<<m_requests[i].substr(1)<<std::endl;
         m_simpleQueryHandler.receivesRequest(m_requests[i],std::numeric_limits<int>::max());
         result = m_simpleQueryHandler.returnResult();
         if(result.getResult().size() == 0){
