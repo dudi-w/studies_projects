@@ -21,8 +21,8 @@ se::Crawler::Crawler(DataLoader& dataLoader, std::vector<std::string> srcURL, si
     }
 }
 
-se::Crawler::Crawler(DataLoader& dataLoader, Configuration configuration)
-: Crawler(dataLoader, configuration.srcURL, configuration.maxPages, configuration.bounded)
+se::Crawler::Crawler(DataLoader& dataLoader, se::Configuration const& configuration)
+: Crawler(dataLoader, configuration.getSrcURLs(), configuration.maxPages(), configuration.isBounded())
 {}
 
 void se::Crawler::startCrawling()

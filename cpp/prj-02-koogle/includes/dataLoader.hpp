@@ -2,8 +2,6 @@
 #define DATA_LOADER_HPP
 
 #include <string>
-#include <fstream>
-#include <nlohmann/json.hpp>
 
 #include "analyzPage.hpp"
 #include "linkWordParser.hpp"
@@ -25,9 +23,6 @@ public:
     void updatePage(AnalyzPage const& page);
     
 private:
-    se::Configuration laodConfiguration(std::string const& configurationFilePath);
-
-private:
     se::SetDB& m_searchDatabase;
     se::WordParser m_wordParser;
     se::LinkParser m_linkParser;
@@ -36,7 +31,5 @@ private:
 };
 
 }//namespace se
-
-void from_json(const nlohmann::json& j, se::Configuration& config);
 
 #endif
