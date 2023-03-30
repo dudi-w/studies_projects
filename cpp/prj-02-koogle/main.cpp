@@ -1,4 +1,4 @@
-#include "searchDatabase.hpp"
+#include "matabase.hpp"
 #include "dataLoader.hpp"
 #include "textUI.hpp"
 #include "smartQueryHandler.hpp"
@@ -6,7 +6,7 @@
 
 int main()
 {
-    se::SearchDB db;
+    se::Matabase db;
     se::DataLoader loader("config.json", db);
     loader.startLaoding();
 

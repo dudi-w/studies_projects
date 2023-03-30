@@ -12,7 +12,7 @@ CPPFLAGS = -I ./includes  -I ./src
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
 OBJECTS = main.o src/configuration.o src/simpleRequest.o src/smartRequest.o src/linkParser.o \
-		src/wordParser.o src/linkWordParser.o src/searchDatabase.o 	src/getHTTP.o \
+		src/wordParser.o src/linkWordParser.o src/matabase.o 	src/getHTTP.o \
 		src/dataLoader.o src/crawler.o src/basePage.o src/analyzPage.o 	src/result.o \
 		src/textUI.o src/multiQueryHandler.o src/simpleQueryHandler.o src/smartQueryHandler.o\
 		src/server.o
@@ -37,7 +37,7 @@ src/wordParser.o : includes/wordParser.hpp src/wordParser.cpp includes/parser.hp
 src/linkWordParser.o : includes/linkWordParser.hpp src/linkWordParser.cpp includes/parser.hpp
 src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
 
-src/searchDatabase.o : includes/searchDatabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/searchDatabase.cpp 
+src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp 
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp
 src/server.o : includes/server.hpp src/server.cpp includes/searchQueryHandler.hpp includes/textUI.hpp

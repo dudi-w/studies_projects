@@ -11,13 +11,13 @@
 
 namespace se{//Search Engine
 
-class SearchDB : public SetDB , public GetDB
+class Matabase : public SetDB , public GetDB
 {
 public:
-    SearchDB() = default;
-    SearchDB(SearchDB const& other) = default;
-    SearchDB& operator=(SearchDB const& other) = default;
-    virtual ~SearchDB() = default;
+    Matabase() = default;
+    Matabase(Matabase const& other) = default;
+    Matabase& operator=(Matabase const& other) = default;
+    virtual ~Matabase() = default;
 
     virtual std::unordered_map<std::string ,size_t> const& getLinkOfWord(std::string const& word) const override;
     virtual size_t getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const override;
