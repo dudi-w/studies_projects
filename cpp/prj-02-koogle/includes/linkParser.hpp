@@ -5,7 +5,7 @@
 
 #include "parser.hpp"
 
-namespace se{
+namespace se{//Search Engine
 
 class LinkParser : public Parser
 {
@@ -28,7 +28,7 @@ private:
     std::vector<std::string> m_links;
 };
 
-}
+}//namespace se
 
 void extractHTTP(std::string const& srcPage, std::string& result);
 void extractPrefix(std::string const& srcPage, std::string& result);

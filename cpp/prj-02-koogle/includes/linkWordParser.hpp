@@ -5,7 +5,7 @@
 #include "wordParser.hpp"
 #include "linkParser.hpp"
 
-namespace se{
+namespace se{//Search Engine
 
 class LinkWordParser : public Parser
 {
@@ -22,6 +22,6 @@ private:
     Parser& m_wordParser;
 };
 
-}
+}//namespace se
 
 #endif
