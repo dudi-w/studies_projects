@@ -36,7 +36,7 @@ public:
     using std::logic_error::logic_error;
 };
 
-class SeatchError : public std::logic_error
+class SearchError : public std::logic_error
 {
 public:
     using std::logic_error::logic_error;

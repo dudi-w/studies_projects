@@ -12,10 +12,10 @@ CPPFLAGS = -I ./includes  -I ./src
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
 OBJECTS = main.o src/configuration.o src/simpleRequest.o src/smartRequest.o src/linkParser.o \
-		src/wordParser.o src/linkWordParser.o src/matabase.o 	src/getHTTP.o \
-		src/dataLoader.o src/crawler.o src/basePage.o src/analyzPage.o 	src/result.o \
-		src/textUI.o src/multiQueryHandler.o src/simpleQueryHandler.o src/smartQueryHandler.o\
-		src/server.o
+		src/wordParser.o src/linkWordParser.o src/matabase.o src/getHTTP.o \
+		src/pageFetcher.o src/crawlerQueue.o src/crawler.o src/basePage.o\
+		src/analyzPage.o src/result.o src/textUI.o src/multiQueryHandler.o\
+		src/simpleQueryHandler.o src/smartQueryHandler.o src/server.o
 
 main : $(OBJECTS)
 
@@ -29,14 +29,16 @@ src/basePage.o :  src/basePage.cpp includes/basePage.hpp includes/basePage.hpp
 
 src/configuration.o : src/configuration.cpp includes/configuration.hpp
 src/crawler.o : src/crawler.cpp includes/crawler.hpp includes/crawlerIF.hpp\
-	includes/analyzPage.hpp includes/dataLoader.hpp
-src/dataLoader.o : src/dataLoader.cpp includes/dataLoader.hpp includes/setDatabase.hpp\
-	includes/configuration.hpp includes/analyzPage.hpp includes/linkWordParser.hpp includes/crawlerIF.hpp
+	includes/analyzPage.hpp includes/setDatabase.hpp includes/configuration.hpp\
+	includes/analyzPage.hpp includes/linkWordParser.hpp
+src/pageFetcher.o : src/pageFetcher.cpp includes/pageFetcher.hpp\
+	includes/analyzPage.hpp includes/crawlerIF.hpp
 src/linkParser.o : includes/linkParser.hpp includes/parser.hpp src/linkParser.cpp
 src/wordParser.o : includes/wordParser.hpp src/wordParser.cpp includes/parser.hpp
 src/linkWordParser.o : includes/linkWordParser.hpp src/linkWordParser.cpp includes/parser.hpp
 src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
-
+src/crawlerQueue.o : includes/crawlerQueue.hpp src/crawlerQueue.cpp includes/configuration.hpp\
+	includes/analyzPage.hpp includes/myExceptions.hpp includes/getHTTP.hpp includes/linkParser.hpp
 src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp 
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp

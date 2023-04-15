@@ -1,5 +1,5 @@
 #include "matabase.hpp"
-#include "dataLoader.hpp"
+#include "crawler.hpp"
 #include "textUI.hpp"
 #include "smartQueryHandler.hpp"
 #include "server.hpp"
@@ -7,8 +7,10 @@
 int main()
 {
     se::Matabase db;
-    se::DataLoader loader("config.json", db);
-    loader.startLaoding();
+    {
+    se::Crawler crawler("config.json", db);
+    crawler.startCrawling();
+    }
 
     se::SmartQueryHandler queryHandler(db);
     se::TextUI tui;

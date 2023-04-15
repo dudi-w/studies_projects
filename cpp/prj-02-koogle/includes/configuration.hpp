@@ -11,7 +11,7 @@ namespace se{
 class Configuration
 {
 public:
-    static Configuration& getInstens(std::string const& configurationFilePath);
+    static Configuration& getInstance(std::string const& configurationFilePath);
     ~Configuration() = default;
 
     std::vector<std::string> const& getSrcURLs() const;

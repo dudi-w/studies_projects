@@ -21,7 +21,7 @@ bool se::Configuration::isBounded() const
     return m_bounded;
 }
 
-se::Configuration& se::Configuration::getInstens(std::string const& configurationFilePath)
+se::Configuration& se::Configuration::getInstance(std::string const& configurationFilePath)
 {
     static se::Configuration configuration(configurationFilePath);
     return configuration;

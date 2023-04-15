@@ -76,6 +76,7 @@ void extractPrefix(std::string const& srcPage, std::string& result)
     std::smatch preMatch;
     if(std::regex_search(srcPage, preMatch, preRegex)){
         result = preMatch[0];
-        // std::cout<<"extractPrefix = "<<result<<std::endl;
+    }else{
+        result = "";
     }
 }

@@ -1,119 +1,36 @@
+#include <fstream>
+#include <nlohmann/json.hpp>
+
 #include "crawler.hpp"
-#include "getHTTP.hpp"
-#include "linkParser.hpp"
-#include "myExceptions.hpp"
 
-se::Crawler::Crawler(DataLoader& dataLoader, std::vector<std::string> srcURL, size_t maxPages, bool bounded)
-: m_dataLoader(dataLoader)
+se::Crawler::Crawler(std::string const& configurationFilePath, se::SetDB& searchDatabase)
+: m_mataDatabase(searchDatabase)
+, m_parser(m_linkParser, m_wordParser)
+, m_pageFetcher(*this)
 {
-    m_configuration.srcURL = srcURL;
-    m_configuration.maxPages = maxPages;
-    m_configuration.bounded = bounded;
-    srcURLValidation();
-    for(size_t i =0 ; i < m_configuration.srcURL.size(); ++i){
-        m_crawlingQueue.push(m_configuration.srcURL[i]);
-        if(m_configuration.bounded){
-            m_homeAddress.reserve(m_configuration.srcURL.size());
-            std::string prefix;
-            extractPrefix(m_configuration.srcURL[i], prefix);
-            m_homeAddress.push_back(prefix);
-        }
-    }
+    auto& configuration = se::Configuration::getInstance(configurationFilePath);
+    m_queue = se::CrawlerQueue(configuration);
 }
-
-se::Crawler::Crawler(DataLoader& dataLoader, se::Configuration const& configuration)
-: Crawler(dataLoader, configuration.getSrcURLs(), configuration.maxPages(), configuration.isBounded())
-{}
 
 void se::Crawler::startCrawling()
 {
-    std::string url;
-    while(!m_crawlingQueue.empty() && m_searchedLinks.size() < m_configuration.maxPages){
-        if(url = getURLToSearch() ; url != ""){
-            try{
-                // isNetworkConnected();
-                auto page = getHTTPpage(url);
-                m_dataLoader.updatePage(page);
-                insertURLAsSearched(url);
-                url.clear();
-            }
-            catch(const curlpp::LibcurlRuntimeError& e)
-            {
-                std::cout<<"\033[3;31mERROR: can't laod url \033[0m"<<url<<std::endl;
-                continue;
-            }
-        }
-    }     
+    m_pageFetcher.startDownlaod();
+    m_mataDatabase.log();
 }
 
-void se::Crawler::insertURLAsSearched(std::string const& link)
+void se::Crawler::updatePage(AnalyzPage const& page)
 {
-    if(!m_searchedLinks.count(link)){
-        std::cout<<"\U0001F525 \033[1;33m"<<link<<"\033[0m; \U0001F525\n"<<std::endl;
-        m_searchedLinks.insert(link);
-    }else{
-        throw se::SeatchError("duplecat Searched " + link);
-    }
+    auto parsPage = m_parser.pars(std::make_unique<se::BasePage>(page));
+    auto srcPage = parsPage.getSrc();
+    auto links = parsPage.getLinks();
+    auto words = parsPage.getWords();
+    m_mataDatabase.insertLinks(srcPage, links);
+    m_mataDatabase.insertWords(srcPage, words);
+    m_queue.markURLAsSearched(page.getSrc());
+    m_queue.inQueue(links);
 }
 
-std::string se::Crawler::getURLToSearch()
+std::string se::Crawler::getURLtoDownlaod()
 {
-    if(!m_crawlingQueue.empty()){
-        std::string link = m_crawlingQueue.front();
-        m_crawlingQueue.pop();
-        if(!m_searchedLinks.count(link)){
-            return link;
-        }else{
-            return getURLToSearch();
-        }
-    }else{
-        return "";
-    }
-}
-
-void se::Crawler::insertLinkInQueue(std::string const& link)
-{
-    if(!m_searchedLinks.count(link) && ifBounded(link)){
-        m_crawlingQueue.push(link);
-    }
-
-}
-
-void se::Crawler::insertInQueue(std::vector<std::string> const& links)
-{
-    for(auto const& link : links){
-        this->insertLinkInQueue(link);
-    }
-}
-
-void se::Crawler::srcURLValidation()
-{
-    try{
-        isNetworkConnected();
-        getHTTPpage(m_configuration.srcURL.front());
-    }
-    catch(const curlpp::LibcurlRuntimeError & e)
-    {
-        throw se::InValidSrcURL("can't laod src url " + m_configuration.srcURL.front());
-    }
-}
-
-bool se::Crawler::ifBounded(std::string const& link) const
-{
-    if(!m_configuration.bounded){
-        return true;
-    }else{
-        std::string currentHomeAddress;
-        extractPrefix(link, currentHomeAddress);
-        auto lambda = [currentHomeAddress](auto const& HomeAddress){return HomeAddress == currentHomeAddress;};
-        return std::any_of(m_homeAddress.cbegin(), m_homeAddress.cend(), lambda);
-    }
-
-}
-
-void isNetworkConnected()
-{
-    if(system("ping -c 1 google.com >> /dev/null")) {
-        throw se::CommunicationError("Check your network connection");
-    }
+    return m_queue.deQueue();
 }

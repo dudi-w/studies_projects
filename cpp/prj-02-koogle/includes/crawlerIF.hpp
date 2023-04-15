@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "analyzPage.hpp"
+
 namespace se{//Search Engine
 
 class CrawlerIF
@@ -11,8 +13,8 @@ class CrawlerIF
 public:
     virtual ~CrawlerIF() = default;
 
-    virtual void startCrawling() = 0;
-    virtual void insertInQueue(std::vector<std::string> const& links) = 0;
+    virtual std::string getURLtoDownlaod() = 0;
+    virtual void updatePage(AnalyzPage const& page) = 0;
 };
 
 }//namespace se
