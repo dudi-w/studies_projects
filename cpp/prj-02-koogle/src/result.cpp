@@ -16,11 +16,6 @@ linkVec se::Result::getResult() const
     return m_result;
 }
 
-// se::Result se::Result::operator+(Result const& other) const
-// {
-
-// }
-
 se::Result se::Result::operator-(Result const& other) const
 {
     linkVec this_result = getResult();
@@ -71,11 +66,6 @@ se::Result se::Result::operator&(Result const& other) const
     }
     return se::Result(result);
 }
-
-// se::Result se::Result::operator^(Result const& other) const
-// {
-
-// }
 
 linkVec::iterator findLink(linkVec::iterator first, linkVec::iterator last, std::string const& val)
 {
