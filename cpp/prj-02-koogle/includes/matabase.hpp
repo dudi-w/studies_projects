@@ -8,7 +8,7 @@
 #include "setDatabase.hpp"
 #include "getDatabase.hpp"
 
-
+using strC = std::string const&;
 namespace se{//Search Engine
 
 class Matabase : public SetDB , public GetDB
@@ -19,15 +19,15 @@ public:
     Matabase& operator=(Matabase const& other) = default;
     virtual ~Matabase() = default;
 
-    virtual std::unordered_map<std::string ,size_t> const& getLinkOfWord(std::string const& word) const override;
-    virtual size_t getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const override;
-    virtual void insertLinks(std::string const& srclink, std::vector<std::string> const& links) override;
-    virtual void insertLink(std::string const& srcLink, std::string const& link) override;
-    virtual void insertWords(std::string const& srcLink, std::vector<std::string> const& words) override;
+    virtual std::unordered_map<std::string ,size_t> const& getLinkOfWord(strC word) const override;
+    virtual size_t getLinkOccurrenceCount(strC link1, strC link2) const override;
+    virtual void insertLinks(strC srclink, std::vector<std::string> const& links) override;
+    virtual void insertLink(strC srcLink, strC link) override;
+    virtual void insertWords(strC srcLink, std::vector<std::string> const& words) override;
     virtual void log() const override;
     
-    virtual bool wordExis(std::string const& word) const override;
-    bool wordAndLinkExis(std::string const& word, std::string const& link) const;
+    virtual bool wordExis(strC word) const override;
+    bool wordAndLinkExis(strC word, strC link) const;
 
 private:
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_wordsIndex;
