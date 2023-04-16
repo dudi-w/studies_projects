@@ -4,7 +4,7 @@ CC = $(CXX)
 
 CXXFLAGS = -std=c++17 -Wall -pedantic
 CXXFLAGS += -Werror
-CXXFLAGS += -Wextra
+# CXXFLAGS += -Wextra
 CXXFLAGS += -g3
 
 CPPFLAGS = -I ./includes  -I ./src
@@ -14,12 +14,21 @@ LDLIBS += -lcurlpp -lcurl -lgumbo
 OBJECTS = main.o src/configuration.o src/tools.o src/simpleRequest.o src/smartRequest.o src/linkParser.o \
 		src/wordParser.o src/linkWordParser.o src/matabase.o src/getHTTP.o \
 		src/pageFetcher.o src/crawlerQueue.o src/crawler.o src/basePage.o\
-		src/analyzPage.o src/result.o src/textUI.o src/multiQueryHandler.o\
+		src/analyzPage.o src/result.o src/queryIFfactory.o src/textUI.o src/multiQueryHandler.o\
 		src/simpleQueryHandler.o src/smartQueryHandler.o src/server.o
 
+OBJECTS_CLIENT = mainClient.o src/clientQueryHandler.o src/textUI.o\
+	src/result.o src/server.o src/simpleRequest.o src/smartRequest.o src/tools.o
+
+RUNFILE = main mainClient
+
+all : $(RUNFILE)
+
 main : $(OBJECTS)
+mainClient : $(OBJECTS_CLIENT)
 
 main.o : main.cpp
+mainClient.o : mainClient.cpp
 
 src/simpleRequest.o : src/simpleRequest.cpp includes/simpleRequest.hpp
 src/smartRequest.o : src/smartRequest.cpp includes/smartRequest.hpp
@@ -42,7 +51,9 @@ src/crawlerQueue.o : includes/crawlerQueue.hpp src/crawlerQueue.cpp includes/con
 	includes/analyzPage.hpp includes/myExceptions.hpp includes/getHTTP.hpp includes/linkParser.hpp
 src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp 
 
-src/textUI.o : includes/textUI.hpp src/textUI.cpp
+
+src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryUI.hpp
+src/queryIFfactory.o : includes/queryIFfactory.hpp src/queryIFfactory.cpp includes/QueryUI.hpp includes/textUI.hpp
 src/server.o : includes/server.hpp src/server.cpp includes/searchQueryHandler.hpp includes/textUI.hpp
 src/simpleQueryHandler.o : includes/simpleQueryHandler.hpp\
 	src/simpleQueryHandler.cpp includes/searchQueryHandler.hpp
@@ -53,5 +64,8 @@ src/smartQueryHandler.o : includes/smartQueryHandler.hpp\
 	includes/simpleQueryHandler.hpp includes/multiQueryHandler.hpp 
 src/result.o : includes/result.hpp src/result.cpp
 
+src/clientQueryHandler.o : includes/clientQueryHandler.hpp\
+	src/clientQueryHandler.cpp includes/searchQueryHandler.hpp
+
 clean :
-	$(RM) $(OBJECTS) main
+	$(RM) $(OBJECTS) $(OBJECTS_CLIENT) $(RUNFILE)
