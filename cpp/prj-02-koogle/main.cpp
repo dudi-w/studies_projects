@@ -1,8 +1,9 @@
 #include "matabase.hpp"
 #include "crawler.hpp"
-#include "textUI.hpp"
+// #include "textUI.hpp"
 #include "smartQueryHandler.hpp"
 #include "server.hpp"
+#include "queryIFfactory.hpp"
 
 int main()
 {
@@ -13,8 +14,9 @@ int main()
     }
 
     se::SmartQueryHandler queryHandler(matabase);
-    se::TextUI TUI;
-    se::Server server(queryHandler, TUI);
+    se::QueryIFfactory querysIFfactory;
+    se::QuerysIF& UIF = querysIFfactory.getIF();
+    se::Server server(queryHandler, UIF);
     server.strart();
 
     return EXIT_SUCCESS;
