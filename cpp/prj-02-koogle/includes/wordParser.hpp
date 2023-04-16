@@ -31,6 +31,4 @@ private:
 
 }
 
-void makeLowercase(std::string& word);
-
 #endif
