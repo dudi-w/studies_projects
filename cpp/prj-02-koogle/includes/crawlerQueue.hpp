@@ -42,6 +42,4 @@ private:
 
 }//namespace se
 
-void isNetworkConnected();
-
 #endif

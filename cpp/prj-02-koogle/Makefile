@@ -11,7 +11,7 @@ CPPFLAGS = -I ./includes  -I ./src
 
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
-OBJECTS = main.o src/configuration.o src/simpleRequest.o src/smartRequest.o src/linkParser.o \
+OBJECTS = main.o src/configuration.o src/tools.o src/simpleRequest.o src/smartRequest.o src/linkParser.o \
 		src/wordParser.o src/linkWordParser.o src/matabase.o src/getHTTP.o \
 		src/pageFetcher.o src/crawlerQueue.o src/crawler.o src/basePage.o\
 		src/analyzPage.o src/result.o src/textUI.o src/multiQueryHandler.o\
@@ -27,7 +27,8 @@ src/smartRequest.o : src/smartRequest.cpp includes/smartRequest.hpp
 src/analyzPage.o : src/analyzPage.cpp includes/analyzPage.hpp includes/basePage.hpp
 src/basePage.o :  src/basePage.cpp includes/basePage.hpp includes/basePage.hpp
 
-src/configuration.o : src/configuration.cpp includes/configuration.hpp
+src/tools.o : src/tools.cpp includes/tools.hpp
+src/configuration.o : src/configuration.cpp includes/configuration.hpp includes/tools.hpp
 src/crawler.o : src/crawler.cpp includes/crawler.hpp includes/crawlerIF.hpp\
 	includes/analyzPage.hpp includes/setDatabase.hpp includes/configuration.hpp\
 	includes/analyzPage.hpp includes/linkWordParser.hpp

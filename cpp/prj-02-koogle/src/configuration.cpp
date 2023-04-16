@@ -1,5 +1,7 @@
-#include "configuration.hpp"
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include "configuration.hpp"
+#include "tools.hpp"
 
 se::Configuration::Configuration(std::string const& configurationFilePath)
 {
@@ -39,11 +41,4 @@ void se::Configuration::laodConfiguration(std::string const& configurationFilePa
     {
         throw std::runtime_error("load configuration file failed ,check yuor configuration file");
     }  
-}
-
-void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded)
-{
-    j.at("srcURL").get_to(srcURL);
-    j.at("maxPages").get_to(maxPages);
-    j.at("bounded").get_to(bounded);
 }

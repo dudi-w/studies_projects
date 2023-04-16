@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <nlohmann/json.hpp>
 
 namespace se{
 
@@ -32,7 +31,5 @@ private:
 };
 
 }
-
-void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded);
 
 #endif

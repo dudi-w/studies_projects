@@ -3,6 +3,7 @@
 #include "myExceptions.hpp"
 #include "getHTTP.hpp"
 #include "linkParser.hpp"
+#include "tools.hpp"
 
 se::CrawlerQueue::CrawlerQueue(se::Configuration const& configuration)
 {
@@ -91,9 +92,3 @@ bool se::CrawlerQueue::ifBounded(std::string const& link) const
     }
 }
 
-void isNetworkConnected()
-{
-    if(system("ping -c 1 google.com >> /dev/null")) {
-        throw se::CommunicationError("Check your network connection");
-    }
-}
