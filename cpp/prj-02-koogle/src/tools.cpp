@@ -14,3 +14,9 @@ void isNetworkConnected()
         throw se::CommunicationError("Check your network connection");
     }
 }
+
+void makeLowercase(std::string& string)
+{
+    std::transform(string.begin(), string.end(), string.begin(), [](unsigned char c){ return std::tolower(c);});
+}
+

@@ -5,5 +5,6 @@
 
 void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded);
 void isNetworkConnected();
+void makeLowercase(std::string& word);
 
 #endif
