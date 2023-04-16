@@ -6,15 +6,15 @@
 
 int main()
 {
-    se::Matabase db;
+    se::Matabase matabase;
     {
-    se::Crawler crawler("config.json", db);
+    se::Crawler crawler("config.json", matabase);
     crawler.startCrawling();
     }
 
-    se::SmartQueryHandler queryHandler(db);
-    se::TextUI tui;
-    se::Server server(queryHandler, tui);
+    se::SmartQueryHandler queryHandler(matabase);
+    se::TextUI TUI;
+    se::Server server(queryHandler, TUI);
     server.strart();
 
     return EXIT_SUCCESS;
