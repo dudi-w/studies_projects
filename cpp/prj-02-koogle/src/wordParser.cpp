@@ -3,6 +3,7 @@
 
 #include "wordParser.hpp"
 #include "analyzPage.hpp"
+#include "tools.hpp"
 
 se::WordParser::WordParser()
 : m_cleanTextRegex("(?=[^_])\\b(?:\\w+){3,}\\b(?:\\b|\\s)")
@@ -60,9 +61,4 @@ se::AnalyzPage se::WordParser::pars(std::unique_ptr<se::Page> const page)
     analyzPage.setWords(m_clwanWords);
     gumbo_destroy_output(&kGumboDefaultOptions, output);
     return analyzPage;
-}
-
-void makeLowercase(std::string& string)
-{
-    std::transform(string.begin(), string.end(), string.begin(), [](unsigned char c){ return std::tolower(c);});
 }

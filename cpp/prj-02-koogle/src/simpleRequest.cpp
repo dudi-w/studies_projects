@@ -1,6 +1,6 @@
 #include "simpleRequest.hpp"
 #include "wordParser.hpp"
-#include <iostream>
+#include "tools.hpp"
 
 se::SimpleRequest::SimpleRequest(std::string const& request)
 {
