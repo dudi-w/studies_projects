@@ -5,6 +5,8 @@ test/
 *.vscode/
 *README.cpp
 main
+cpp/prj-02-koogle/mainClient
 *.txt
 *.gi
 cpp/prj-02-koogle-test
+
