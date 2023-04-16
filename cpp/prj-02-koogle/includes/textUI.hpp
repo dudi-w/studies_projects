@@ -7,10 +7,11 @@
 
 #include "simpleRequest.hpp"
 #include "result.hpp"
+#include "QueryUI.hpp"
 
 namespace se{//Search Engin
 
-class TextUI
+class TextUI : public QuerysIF
 {
 public:
     TextUI();
@@ -18,8 +19,8 @@ public:
     TextUI& operator=(TextUI const& other) = default;
     ~TextUI() = default;
 
-    std::unique_ptr<se::Request> makeRequest() const;
-    void setAndShowResult(se::Result& result) const;
+    virtual std::unique_ptr<se::Request> makeRequest() const override;
+    virtual void setAndShowResult(se::Result& result) const override;
 
 private:
     std::regex const m_checkInput;

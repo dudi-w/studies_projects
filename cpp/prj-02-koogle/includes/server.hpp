@@ -9,7 +9,7 @@ namespace se{//Search Engine
 class Server
 {
 public:
-    explicit Server(se::SearchQueryHandler& queryHandler, se::TextUI& tui );
+    explicit Server(se::SearchQueryHandler& queryHandler, se::QuerysIF& tui );
     Server(Server const& other) = default;
     Server& operator=(Server const& other) = default;
     ~Server() = default;
@@ -18,7 +18,7 @@ public:
 
 private:
     se::SearchQueryHandler& m_queryHandler;
-    se::TextUI& m_tui;
+    se::QuerysIF& m_tui;
 };
 
 }//namespace se

@@ -1,6 +1,6 @@
 #include "server.hpp"
 
-se::Server::Server(se::SearchQueryHandler& queryHandler, se::TextUI& tui )
+se::Server::Server(se::SearchQueryHandler& queryHandler, se::QuerysIF& tui )
 : m_queryHandler(queryHandler)
 , m_tui(tui)
 {}
