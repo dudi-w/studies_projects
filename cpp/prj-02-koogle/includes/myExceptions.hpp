@@ -42,21 +42,28 @@ public:
     using std::logic_error::logic_error;
 };
 
-class communicationError : public std::runtime_error
-{
-    using std::runtime_error::runtime_error;
-};
-
-class CreateSocketError : public se::communicationError
+class CreateSocketError : public se::CommunicationError
 {
 public:
-    using se::communicationError::communicationError;
+    using se::CommunicationError::CommunicationError;
 };
 
-class BindingSocketError : public se::communicationError
+class BindingSocketError : public se::CommunicationError
 {
 public:
-    using se::communicationError::communicationError;
+    using se::CommunicationError::CommunicationError;
+};
+
+class listenError : public se::CommunicationError
+{
+public:
+    using se::CommunicationError::CommunicationError;
+};
+
+class acceptError : public se::CommunicationError
+{
+public:
+    using se::CommunicationError::CommunicationError;
 };
 
 }//namespace es

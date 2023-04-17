@@ -10,6 +10,10 @@ se::SmartRequest::SmartRequest(std::string const& request)
     }
 }
 
+se::SmartRequest::SmartRequest(std::vector<std::string>& request)
+: m_request(request)
+{}
+
 
 std::vector<std::string> const& se::SmartRequest::getRequest() const
 {
