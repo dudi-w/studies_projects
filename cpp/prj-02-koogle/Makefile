@@ -7,18 +7,18 @@ CXXFLAGS += -Werror
 CXXFLAGS += -Wextra
 CXXFLAGS += -g3
 
-CPPFLAGS = -I ./includes -I ./includes/crawler -I ./includes/parser -I ./includes/queryHandler -I ./src -I ./src/crawler -I ./src/parser -I ./src/queryHandler
+CPPFLAGS = -I ./includes -I ./includes/crawler -I ./includes/parsers -I ./includes/queryHandler -I ./src -I ./src/crawler -I ./src/parsers -I ./src/queryHandler
 
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
 OBJECTS = mainServer.o src/configuration.o src/tools.o src/simpleRequest.o src/smartRequest.o\
-		src/linkParser.o src/wordParser.o src/linkWordParser.o src/matabase.o src/getHTTP.o\
-		src/pageFetcher.o src/crawlerQueue.o src/crawler.o src/basePage.o\
-		src/analyzPage.o src/result.o src/queryIFfactory.o src/textUI.o src/multiQueryHandler.o\
-		src/simpleQueryHandler.o src/smartQueryHandler.o src/searchQueryFacilita.o src/TCPqueryIF.o\
+		src/parsers/linkParser.o src/parsers/wordParser.o src/parsers/linkWordParser.o src/matabase.o src/getHTTP.o\
+		src/pageFetcher.o src/crawler/crawlerQueue.o src/crawler/crawler.o src/basePage.o\
+		src/analyzPage.o src/result.o src/queryIFfactory.o src/textUI.o src/queryHandler/multiQueryHandler.o\
+		src/queryHandler/simpleQueryHandler.o src/queryHandler/smartQueryHandler.o src/searchQueryFacilita.o src/TCPqueryIF.o\
 		src/TCPsocketFile.o src/TCPserver.o
 
-OBJECTS_CLIENT = mainClient.o src/clientQueryHandler.o src/textUI.o\
+OBJECTS_CLIENT = mainClient.o src/queryHandler/clientQueryHandler.o src/textUI.o\
 	src/result.o src/searchQueryFacilita.o src/simpleRequest.o src/smartRequest.o\
 	src/tools.o src/TCPsocketFile.o src/TCPclient.o
 
@@ -40,32 +40,32 @@ src/basePage.o :  src/basePage.cpp includes/basePage.hpp includes/basePage.hpp
 
 src/tools.o : src/tools.cpp includes/tools.hpp
 src/configuration.o : src/configuration.cpp includes/configuration.hpp includes/tools.hpp
-src/crawler.o : src/crawler.cpp includes/crawler.hpp includes/crawlerIF.hpp\
+src/crawler/crawler.o : src/crawler/crawler.cpp includes/crawler/crawler.hpp includes/crawler/crawlerIF.hpp\
 	includes/analyzPage.hpp includes/setDatabase.hpp includes/configuration.hpp\
-	includes/analyzPage.hpp includes/linkWordParser.hpp
+	includes/analyzPage.hpp includes/parsers/linkWordParser.hpp
 src/pageFetcher.o : src/pageFetcher.cpp includes/pageFetcher.hpp\
-	includes/analyzPage.hpp includes/crawlerIF.hpp
-src/linkParser.o : includes/linkParser.hpp includes/parser.hpp src/linkParser.cpp
-src/wordParser.o : includes/wordParser.hpp src/wordParser.cpp includes/parser.hpp
-src/linkWordParser.o : includes/linkWordParser.hpp src/linkWordParser.cpp includes/parser.hpp
+	includes/analyzPage.hpp includes/crawler/crawlerIF.hpp
+src/parsers/linkParser.o : includes/parsers/linkParser.hpp includes/crawler/crawlerQueue.hpp src/parsers/linkParser.cpp
+src/parsers/wordParser.o : includes/parsers/wordParser.hpp src/parsers/wordParser.cpp includes/crawler/crawlerQueue.hpp
+src/parsers/linkWordParser.o : includes/parsers/linkWordParser.hpp src/parsers/linkWordParser.cpp includes/crawler/crawlerQueue.hpp
 src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
-src/crawlerQueue.o : includes/crawlerQueue.hpp src/crawlerQueue.cpp includes/configuration.hpp\
-	includes/analyzPage.hpp includes/myExceptions.hpp includes/getHTTP.hpp includes/linkParser.hpp
+src/crawler/crawlerQueue.o : includes/crawler/crawlerQueue.hpp src/crawler/crawlerQueue.cpp includes/configuration.hpp\
+	includes/analyzPage.hpp includes/myExceptions.hpp includes/getHTTP.hpp includes/parsers/linkParser.hpp
 src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp 
 
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryUI.hpp
 src/queryIFfactory.o : includes/queryIFfactory.hpp src/queryIFfactory.cpp includes/QueryUI.hpp includes/textUI.hpp
-src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp includes/searchQueryHandler.hpp includes/QueryUI.hpp
-src/simpleQueryHandler.o : includes/simpleQueryHandler.hpp\
-	src/simpleQueryHandler.cpp includes/searchQueryHandler.hpp
-src/multiQueryHandler.o : includes/multiQueryHandler.hpp\
-	src/multiQueryHandler.cpp includes/searchQueryHandler.hpp includes/simpleQueryHandler.hpp
-src/smartQueryHandler.o : includes/smartQueryHandler.hpp\
-	src/smartQueryHandler.cpp includes/searchQueryHandler.hpp\
-	includes/simpleQueryHandler.hpp includes/multiQueryHandler.hpp 
-src/clientQueryHandler.o : includes/clientQueryHandler.hpp\
-	src/clientQueryHandler.cpp includes/searchQueryHandler.hpp
+src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp includes/queryHandler/searchQueryHandler.hpp includes/QueryUI.hpp
+src/queryHandler/simpleQueryHandler.o : includes/queryHandler/simpleQueryHandler.hpp\
+	src/queryHandler/simpleQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp
+src/queryHandler/multiQueryHandler.o : includes/queryHandler/multiQueryHandler.hpp\
+	src/queryHandler/multiQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp includes/queryHandler/simpleQueryHandler.hpp
+src/queryHandler/smartQueryHandler.o : includes/queryHandler/smartQueryHandler.hpp\
+	src/queryHandler/smartQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp\
+	includes/queryHandler/simpleQueryHandler.hpp includes/queryHandler/multiQueryHandler.hpp 
+src/queryHandler/clientQueryHandler.o : includes/queryHandler/clientQueryHandler.hpp\
+	src/queryHandler/clientQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp
 src/result.o : includes/result.hpp src/result.cpp
 
 src/TCPsocketFile.o : includes/TCPsocketFile.hpp src/TCPsocketFile.cpp
