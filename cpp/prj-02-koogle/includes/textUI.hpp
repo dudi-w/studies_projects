@@ -5,8 +5,6 @@
 #include <memory>
 #include <regex>
 
-#include "simpleRequest.hpp"
-#include "result.hpp"
 #include "QueryUI.hpp"
 
 namespace se{//Search Engin
@@ -19,10 +17,11 @@ public:
     TextUI& operator=(TextUI const& other) = default;
     ~TextUI() = default;
 
-    virtual std::unique_ptr<se::Request> makeRequest() const override;
-    virtual void setAndShowResult(se::Result& result) const override;
+    virtual std::unique_ptr<se::Request> makeRequest() override;
+    virtual void recieveResult(se::Result& result) const override;
 
 private:
+    std::string m_request;
     std::regex const m_checkInput;
 };
 

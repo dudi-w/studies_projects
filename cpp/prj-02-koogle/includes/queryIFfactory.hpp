@@ -1,12 +1,15 @@
 #ifndef QUERY_FACTORY_HPP
 #define QUERY_FACTORY_HPP
 
+#include <memory>
+
 #include "QueryUI.hpp"
 #include "textUI.hpp"
+#include "TCPqueryIF.hpp"
 
 namespace se{//Search Engine
 
-class QueryIFfactory
+class QueryIFfactory//?QueryIFfactory
 {
 public:
     QueryIFfactory() = default;
@@ -15,8 +18,9 @@ public:
     ~QueryIFfactory() = default;
 
     se::QuerysIF& getIF();
+
 private:
-    se::TextUI m_tui;
+    std::unique_ptr<se::QuerysIF> m_query;
 };
 
 }//namespace se

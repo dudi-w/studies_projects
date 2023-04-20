@@ -12,8 +12,11 @@ se::SimpleRequest::SimpleRequest(std::string const& request)
     while (iss >> word){
         m_request.push_back(word);
     }
-
 }
+
+se::SimpleRequest::SimpleRequest(std::vector<std::string> const& request)
+: m_request(request)
+{}
 
 std::vector<std::string> const& se::SimpleRequest::getRequest() const
 {

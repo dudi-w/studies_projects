@@ -3,13 +3,14 @@
 
 #include "searchQueryHandler.hpp"
 #include "getDatabase.hpp"
+#include "TCPclient.hpp"
 
 namespace se{//Search Engine
 
 class ClientQueryHandler : public SearchQueryHandler
 {
 public:
-    ClientQueryHandler();
+    explicit ClientQueryHandler(std::string const& serverAddress, uint16_t port);
     ClientQueryHandler(ClientQueryHandler const& other) = default;
     ClientQueryHandler& operator=(ClientQueryHandler const& other) = default;
     virtual ~ClientQueryHandler() = default;
@@ -18,8 +19,9 @@ public:
     virtual se::Result returnResult() override;
 
 public:
-    // linkVec m_VecResult;
-    se::Result m_result;
+
+    se::TCPclient m_TCPclient;
+    std::unique_ptr<se::TCPsocketFile> m_fileDescription;
 };
 
 }//namespace se

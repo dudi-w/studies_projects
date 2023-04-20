@@ -9,6 +9,7 @@ class SmartRequest : public Request
 {
 public:
     explicit SmartRequest(std::string const& request);
+    explicit SmartRequest(std::vector<std::string>& request);
     SmartRequest(SmartRequest const& other) = default;
     SmartRequest& operator=(SmartRequest const& other) = default;
     virtual ~SmartRequest() = default;

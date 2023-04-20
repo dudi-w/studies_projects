@@ -9,6 +9,7 @@ class SimpleRequest : public Request
 {
 public:
     explicit SimpleRequest(std::string const& request);
+    explicit SimpleRequest(std::vector<std::string> const& request);
     SimpleRequest(SimpleRequest const& other) = default;
     SimpleRequest& operator=(SimpleRequest const& other) = default;
     virtual ~SimpleRequest() = default;

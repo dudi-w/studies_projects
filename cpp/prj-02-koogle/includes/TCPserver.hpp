@@ -18,11 +18,11 @@ public:
 public:
     void createSocket();
     void bindSocket();
-    void listenForClient();
-    se::TCPsocketFile acceptToReceive();
+    void listenForClient() const;
+    std::unique_ptr<se::TCPsocketFile> acceptTorecieve() const;
 
 private:
-    void closeSocket() const;//TODO insert in ~TCPserver()
+    void closeSocket() const;
     void logConnect(struct sockaddr_in& clientAddress) const;
 
 private:

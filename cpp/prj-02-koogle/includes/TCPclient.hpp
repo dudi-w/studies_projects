@@ -16,10 +16,10 @@ public:
     ~TCPclient();
 
 public:
-    void createSocket();
-    se::TCPsocketFile connectToServer();
+    std::unique_ptr<se::TCPsocketFile> connectToServer();
 
 private:
+    void createSocket();
     void closeSocket() const;
 
 private:

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
+#include <memory>
 
 #include "TCPserver.hpp"
 #include "myExceptions.hpp"
@@ -37,28 +38,29 @@ void se::TCPserver::bindSocket()
     }
 }
 
-void se::TCPserver::listenForClient()
+void se::TCPserver::listenForClient() const
 {
     if(listen(m_server_fd, SOMAXCONN) < 0){
         throw se::listenError("Listen failure");
     }
 }
 
-se::TCPsocketFile se::TCPserver::acceptToReceive()
+std::unique_ptr<se::TCPsocketFile> se::TCPserver::acceptTorecieve() const
 {
-    int clientSocket;
+    int clientFileDesciptor;//?
     struct sockaddr_in clientAddress;
     int addrlen = sizeof(m_address);
-    if((clientSocket = accept(m_server_fd, (struct sockaddr*)&clientAddress, (socklen_t*)&addrlen)) < 0){
+    if((clientFileDesciptor = accept(m_server_fd, (struct sockaddr*)&clientAddress, (socklen_t*)&addrlen)) < 0){
         throw se::acceptError("Accept failure");
     }
     logConnect(clientAddress);
-    return se::TCPsocketFile(clientSocket);
+    return std::make_unique<se::TCPsocketFile>(clientFileDesciptor);
 }
 
 void se::TCPserver::closeSocket() const
 {
     close(m_server_fd);
+    std::cout << "Socket colsed = "<<m_server_fd<<std::endl;
 }
 
 void se::TCPserver::logConnect(struct sockaddr_in& clientAddress) const
@@ -67,6 +69,6 @@ void se::TCPserver::logConnect(struct sockaddr_in& clientAddress) const
     // ipAddress.reserve(INET_ADDRSTRLEN);
     ipAddress.resize(INET_ADDRSTRLEN);
     inet_ntop(AF_INET, &(clientAddress.sin_addr), ipAddress.data(), INET_ADDRSTRLEN);
-    ipAddress.resize((strlen(ipAddress.data())));
-    std::cout << "connect to client\n\tClient IP address is: " << ipAddress << "\n\tClient port is:"<<clientAddress.sin_port<<std::endl;
+    // ipAddress.resize((strlen(ipAddress.data())));//?
+    std::clog << "connect to client\n\tClient IP address is: " << ipAddress << "\n\tClient port is:"<<clientAddress.sin_port<<std::endl;
 }

@@ -1,13 +1,13 @@
 #include "clientQueryHandler.hpp"
-#include "server.hpp"
+#include "searchQueryFacilita.hpp"
 #include "textUI.hpp"
 
 int main()
 {
-    se::ClientQueryHandler queryHandler;
+    se::ClientQueryHandler queryHandler("127.0.0.1", 8080);
     se::TextUI TUI;
-    se::Server server(queryHandler, TUI);
-    server.strart();
+    se::SearchQueryFacilita queryFacilitator(queryHandler, TUI);
+    queryFacilitator.strart();
 
     return EXIT_SUCCESS;
 }
