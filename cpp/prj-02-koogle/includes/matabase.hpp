@@ -19,7 +19,7 @@ public:
     Matabase& operator=(Matabase const& other) = default;
     virtual ~Matabase() = default;
 
-    virtual std::unordered_map<std::string ,size_t> const& getLinkOfWord(strC word) const override;
+    virtual std::unordered_map<std::string ,size_t> const getLinkOfWord(strC word) const override;
     virtual size_t getLinkOccurrenceCount(strC link1, strC link2) const override;
     virtual void insertLinks(strC srclink, std::vector<std::string> const& links) override;
     virtual void insertLink(strC srcLink, strC link) override;

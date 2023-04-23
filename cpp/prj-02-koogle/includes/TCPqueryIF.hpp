@@ -11,7 +11,7 @@
 
 namespace se{//Search Engin
 
-class TCPquerysIF : public QuerysIF
+class TCPquerysIF : public QueryBuilder
 {
 public:
     explicit TCPquerysIF(uint16_t port = -1);

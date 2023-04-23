@@ -55,12 +55,15 @@ src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setData
 
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryUI.hpp
-src/queryIFfactory.o : includes/queryIFfactory.hpp src/queryIFfactory.cpp includes/QueryUI.hpp includes/textUI.hpp
-src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp includes/queryHandler/searchQueryHandler.hpp includes/QueryUI.hpp
+src/queryIFfactory.o : includes/queryIFfactory.hpp src/queryIFfactory.cpp\
+	includes/QueryUI.hpp includes/textUI.hpp
+src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp\
+	includes/queryHandler/searchQueryHandler.hpp includes/QueryUI.hpp
 src/queryHandler/simpleQueryHandler.o : includes/queryHandler/simpleQueryHandler.hpp\
 	src/queryHandler/simpleQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp
 src/queryHandler/multiQueryHandler.o : includes/queryHandler/multiQueryHandler.hpp\
-	src/queryHandler/multiQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp includes/queryHandler/simpleQueryHandler.hpp
+	src/queryHandler/multiQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp\
+	includes/queryHandler/simpleQueryHandler.hpp
 src/queryHandler/smartQueryHandler.o : includes/queryHandler/smartQueryHandler.hpp\
 	src/queryHandler/smartQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp\
 	includes/queryHandler/simpleQueryHandler.hpp includes/queryHandler/multiQueryHandler.hpp 
@@ -68,7 +71,7 @@ src/queryHandler/clientQueryHandler.o : includes/queryHandler/clientQueryHandler
 	src/queryHandler/clientQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp
 src/result.o : includes/result.hpp src/result.cpp
 
-src/TCPsocketFile.o : includes/TCPsocketFile.hpp src/TCPsocketFile.cpp
+src/TCPsocketFile.o : includes/TCPsocketFile.hpp src/TCPsocketFile.cpp includes/tools.hpp includes/myExceptions.hpp
 src/TCPserver.o : includes/TCPserver.hpp src/TCPserver.cpp includes/TCPsocketFile.hpp
 src/TCPclient.o : includes/TCPclient.hpp src/TCPclient.cpp includes/TCPsocketFile.hpp
 src/TCPqueryIF.o : includes/TCPqueryIF.hpp src/TCPqueryIF.cpp includes/TCPsocketFile.hpp includes/TCPserver.hpp

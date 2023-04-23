@@ -1,5 +1,5 @@
 {
     "srcURL": ["https://harrypotter.fandom.com/wiki/Main_Page", "https://godzilla.fandom.com/wiki/Main_Page"], 
-    "maxPages": 10,
+    "maxPages": 1,
     "bounded": true
 }

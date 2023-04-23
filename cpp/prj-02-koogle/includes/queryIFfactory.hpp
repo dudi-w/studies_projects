@@ -17,10 +17,10 @@ public:
     QueryIFfactory& operator=(QueryIFfactory const& other) = default;
     ~QueryIFfactory() = default;
 
-    se::QuerysIF& getIF();
+    se::QueryBuilder& getIF();
 
 private:
-    std::unique_ptr<se::QuerysIF> m_query;
+    std::unique_ptr<se::QueryBuilder> m_query;
 };
 
 }//namespace se

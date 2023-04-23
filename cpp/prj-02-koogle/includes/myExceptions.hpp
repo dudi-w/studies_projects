@@ -66,6 +66,18 @@ public:
     using se::CommunicationError::CommunicationError;
 };
 
+class readError : public se::CommunicationError
+{
+public:
+    using se::CommunicationError::CommunicationError;
+};
+
+class writeError : public se::CommunicationError
+{
+public:
+    using se::CommunicationError::CommunicationError;
+};
+
 }//namespace es
 
 #endif

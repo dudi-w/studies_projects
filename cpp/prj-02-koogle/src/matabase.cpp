@@ -10,22 +10,13 @@ void se::Matabase::log() const
     std::cout<<"\tThe number of links: "<<m_linksMap.size()<<std::endl;
 }
 
-std::unordered_map<std::string ,size_t> const& se::Matabase::getLinkOfWord(std::string const& word) const
+std::unordered_map<std::string ,size_t> const se::Matabase::getLinkOfWord(std::string const& word) const
 {
+    /*lock in readMode*/
     return m_wordsIndex.at(word);//exception
+    /*unlock*/
 }
 
-size_t se::Matabase::getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const
-{
-    try
-    {
-        return m_linksMap.at(link1).at(link2);
-    }
-    catch(std::out_of_range& e)
-    {
-        return 0;
-    }
-}
 
 void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::string> const& links)
 {
@@ -56,6 +47,18 @@ void se::Matabase::insertWords(std::string const& srcLink, std::vector<std::stri
         }else{
             m_wordsIndex[word][srcLink] += 1;
         }
+    }
+}
+
+size_t se::Matabase::getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const
+{
+    try
+    {
+        return m_linksMap.at(link1).at(link2);
+    }
+    catch(std::out_of_range& e)
+    {
+        return 0;
     }
 }
 

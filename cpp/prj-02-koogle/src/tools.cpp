@@ -34,7 +34,6 @@ void makeLowercase(std::string& string)
 se::SimpleRequest convertToRequest(std::string const& message)
 {
     std::stringstream strs(message);
-    std::cout<<"returnAsRequest  "<<message<<std::endl;
     std::vector<std::string> query;
     nlohmann::json j;
     strs >> j;

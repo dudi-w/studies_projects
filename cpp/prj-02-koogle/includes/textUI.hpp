@@ -9,7 +9,7 @@
 
 namespace se{//Search Engin
 
-class TextUI : public QuerysIF
+class TextUI : public QueryBuilder
 {
 public:
     TextUI();

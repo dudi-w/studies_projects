@@ -8,10 +8,10 @@
 
 namespace se{//Search Engin
 
-class QuerysIF//?QuerysIF
+class QueryBuilder//?QuerysIF
 {
 public:
-    virtual ~QuerysIF() = default;
+    virtual ~QueryBuilder() = default;
 
     virtual std::unique_ptr<se::Request> makeRequest() = 0;
     virtual void recieveResult(se::Result& result) const = 0;//? recieveResult??

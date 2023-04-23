@@ -9,7 +9,7 @@ namespace se{//Search Engine
 class SearchQueryFacilita
 {
 public:           
-    explicit SearchQueryFacilita(se::SearchQueryHandler& queryHandler, se::QuerysIF& queryIF );
+    explicit SearchQueryFacilita(se::SearchQueryHandler& queryHandler, se::QueryBuilder& queryIF );
     SearchQueryFacilita(SearchQueryFacilita const& other) = default;
     SearchQueryFacilita& operator=(SearchQueryFacilita const& other) = default;
     ~SearchQueryFacilita() = default;
@@ -18,7 +18,7 @@ public:
 
 private:
     se::SearchQueryHandler& m_queryHandler;
-    se::QuerysIF& m_queryIF;
+    se::QueryBuilder& m_queryIF;
 };
 
 }//namespace se

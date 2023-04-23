@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-se::SearchQueryFacilita::SearchQueryFacilita(se::SearchQueryHandler& queryHandler, se::QuerysIF& queryIF )
+se::SearchQueryFacilita::SearchQueryFacilita(se::SearchQueryHandler& queryHandler, se::QueryBuilder& queryIF )
 : m_queryHandler(queryHandler)
 , m_queryIF(queryIF)
 {}
