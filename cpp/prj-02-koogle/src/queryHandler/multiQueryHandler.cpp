@@ -2,7 +2,7 @@
 #include <limits>
 
 #include "multiQueryHandler.hpp"
-#include "simpleRequest.hpp"
+#include "request.hpp"
 #include "result.hpp"
 #include "wordParser.hpp"
 #include "myExceptions.hpp"
@@ -12,7 +12,7 @@ se::MultiQueryHandler::MultiQueryHandler(se::GetDB const& searchDB)
 , m_result({})
 {}
 
-void se::MultiQueryHandler::receivesRequest(se::Request& request, size_t resultCount = 10)
+void se::MultiQueryHandler::receivesRequest(se::RequestIF& request, size_t resultCount = 10)
 {
     receivesRequest(request.getRequest(), resultCount);
 }

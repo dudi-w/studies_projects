@@ -1,7 +1,7 @@
 #include <limits>
 
 #include "smartQueryHandler.hpp"
-#include "simpleRequest.hpp"
+#include "request.hpp"
 #include "result.hpp"
 #include "wordParser.hpp"
 
@@ -17,7 +17,7 @@ void se::SmartQueryHandler::reset()
     m_result = se::Result({});
 }
 
-void se::SmartQueryHandler::receivesRequest(se::Request& request, size_t resultCount)
+void se::SmartQueryHandler::receivesRequest(se::RequestIF& request, size_t resultCount)
 {
     reset();
     std::vector<std::string> new_requests = request.getRequest();

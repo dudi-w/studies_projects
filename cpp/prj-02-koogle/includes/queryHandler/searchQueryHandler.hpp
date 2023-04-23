@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "request.hpp"
+#include "requestIF.hpp"
 #include "result.hpp"
 
 namespace se{//Search Engine
@@ -13,7 +13,7 @@ class SearchQueryHandler
 public:
     virtual ~SearchQueryHandler() = default;
 
-    virtual void receivesRequest(se::Request& request, size_t resultCount) = 0;
+    virtual void receivesRequest(se::RequestIF& request, size_t resultCount) = 0;
     virtual se::Result returnResult() = 0;
 };
 

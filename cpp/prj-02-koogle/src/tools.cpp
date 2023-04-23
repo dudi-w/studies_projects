@@ -1,6 +1,6 @@
 #include "tools.hpp"
 #include "myExceptions.hpp"
-#include <iostream>//?
+#include <iostream>
 
 void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded)
 {
@@ -31,14 +31,14 @@ void makeLowercase(std::string& string)
     std::transform(string.begin(), string.end(), string.begin(), [](unsigned char c){ return std::tolower(c);});
 }
 
-se::SimpleRequest convertToRequest(std::string const& message)
+se::Request convertToRequest(std::string const& message)
 {
     std::stringstream strs(message);
     std::vector<std::string> query;
     nlohmann::json j;
     strs >> j;
     from_json(j, query);
-    return se::SimpleRequest(query);
+    return se::Request(query);
 }
 
 se::Result convertToResult(std::string const& message)
@@ -58,7 +58,7 @@ std::string convertToString(se::Result const& result)
     return data.dump();
 }
 
-std::string convertToString(se::SmartRequest const& request)
+std::string convertToString(se::Request const& request)
 {
     nlohmann::json data;
     data["request"] = request.getRequest();

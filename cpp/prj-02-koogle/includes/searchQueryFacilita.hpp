@@ -2,7 +2,7 @@
 #define QUERYFACILITA_HPP
 
 #include "searchQueryHandler.hpp"
-#include "QueryUI.hpp"
+#include "QueryBuilderIF.hpp"
 
 namespace se{//Search Engine
 

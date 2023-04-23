@@ -1,5 +1,5 @@
 #include "simpleQueryHandler.hpp"
-#include "simpleRequest.hpp"
+#include "request.hpp"
 #include "result.hpp"
 #include "wordParser.hpp"
 #include "myExceptions.hpp"
@@ -9,7 +9,7 @@ se::SimpleQueryHandler::SimpleQueryHandler(se::GetDB const& searchDB)
 , m_result({})
 {}
 
-void se::SimpleQueryHandler::receivesRequest(se::Request& request, size_t resultCount)
+void se::SimpleQueryHandler::receivesRequest(se::RequestIF& request, size_t resultCount)
 {
     if(request.getRequest().size() != 1){
         throw se::InValidArg("Only one argument is required");

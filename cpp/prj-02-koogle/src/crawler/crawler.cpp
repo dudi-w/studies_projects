@@ -20,17 +20,23 @@ void se::Crawler::startCrawling()
 
 void se::Crawler::updatePage(AnalyzPage const& page)
 {
+    /*lock*/
     auto parsPage = m_parser.pars(std::make_unique<se::BasePage>(page));
+    /*unlock*/
     auto srcPage = parsPage.getSrc();
     auto links = parsPage.getLinks();
     auto words = parsPage.getWords();
     m_mataDatabase.insertLinks(srcPage, links);
     m_mataDatabase.insertWords(srcPage, words);
+    /*lock*/
     m_queue.markURLAsSearched(page.getSrc());
     m_queue.inQueue(links);
+    /*unlock*/
 }
 
 std::string se::Crawler::getURLtoDownlaod()
 {
+    /* lock */
     return m_queue.deQueue();
+    /* lock */
 }

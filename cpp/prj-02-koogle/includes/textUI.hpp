@@ -5,7 +5,7 @@
 #include <memory>
 #include <regex>
 
-#include "QueryUI.hpp"
+#include "QueryBuilderIF.hpp"
 
 namespace se{//Search Engin
 
@@ -17,7 +17,7 @@ public:
     TextUI& operator=(TextUI const& other) = default;
     ~TextUI() = default;
 
-    virtual std::unique_ptr<se::Request> makeRequest() override;
+    virtual std::unique_ptr<se::RequestIF> makeRequest() override;
     virtual void recieveResult(se::Result& result) const override;
 
 private:

@@ -11,7 +11,7 @@ CPPFLAGS = -I ./includes -I ./includes/crawler -I ./includes/parsers -I ./includ
 
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
-OBJECTS = mainServer.o src/configuration.o src/tools.o src/simpleRequest.o src/smartRequest.o\
+OBJECTS = mainServer.o src/configuration.o src/tools.o src/request.o\
 		src/parsers/linkParser.o src/parsers/wordParser.o src/parsers/linkWordParser.o src/matabase.o src/getHTTP.o\
 		src/pageFetcher.o src/crawler/crawlerQueue.o src/crawler/crawler.o src/basePage.o\
 		src/analyzPage.o src/result.o src/queryIFfactory.o src/textUI.o src/queryHandler/multiQueryHandler.o\
@@ -19,7 +19,7 @@ OBJECTS = mainServer.o src/configuration.o src/tools.o src/simpleRequest.o src/s
 		src/TCPsocketFile.o src/TCPserver.o
 
 OBJECTS_CLIENT = mainClient.o src/queryHandler/clientQueryHandler.o src/textUI.o\
-	src/result.o src/searchQueryFacilita.o src/simpleRequest.o src/smartRequest.o\
+	src/result.o src/searchQueryFacilita.o src/request.o\
 	src/tools.o src/TCPsocketFile.o src/TCPclient.o
 
 RUNFILES = mainServer mainClient
@@ -32,8 +32,7 @@ mainClient : $(OBJECTS_CLIENT)
 mainServer.o : mainServer.cpp
 mainClient.o : mainClient.cpp
 
-src/simpleRequest.o : src/simpleRequest.cpp includes/simpleRequest.hpp
-src/smartRequest.o : src/smartRequest.cpp includes/smartRequest.hpp
+src/request.o : src/request.cpp includes/request.hpp includes/requestIF.hpp
 
 src/analyzPage.o : src/analyzPage.cpp includes/analyzPage.hpp includes/basePage.hpp
 src/basePage.o :  src/basePage.cpp includes/basePage.hpp includes/basePage.hpp
@@ -54,11 +53,11 @@ src/crawler/crawlerQueue.o : includes/crawler/crawlerQueue.hpp src/crawler/crawl
 src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp 
 
 
-src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryUI.hpp
-src/queryIFfactory.o : includes/queryIFfactory.hpp src/queryIFfactory.cpp\
-	includes/QueryUI.hpp includes/textUI.hpp
+src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryBuilderIF.hpp
+src/queryIFfactory.o : includes/queryBuilderFactory.hpp src/queryIFfactory.cpp\
+	includes/QueryBuilderIF.hpp includes/textUI.hpp
 src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp\
-	includes/queryHandler/searchQueryHandler.hpp includes/QueryUI.hpp
+	includes/queryHandler/searchQueryHandler.hpp includes/QueryBuilderIF.hpp
 src/queryHandler/simpleQueryHandler.o : includes/queryHandler/simpleQueryHandler.hpp\
 	src/queryHandler/simpleQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp
 src/queryHandler/multiQueryHandler.o : includes/queryHandler/multiQueryHandler.hpp\

@@ -15,7 +15,7 @@ public:
     ClientQueryHandler& operator=(ClientQueryHandler const& other) = default;
     virtual ~ClientQueryHandler() = default;
 
-    virtual void receivesRequest(se::Request& request, size_t resultCount = 10) override;
+    virtual void receivesRequest(se::RequestIF& request, size_t resultCount = 10) override;
     virtual se::Result returnResult() override;
 
 public:

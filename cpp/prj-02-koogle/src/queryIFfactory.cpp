@@ -1,7 +1,7 @@
 #include <iostream>
-#include "queryIFfactory.hpp"
+#include "queryBuilderFactory.hpp"
 
-se::QueryBuilder& se::QueryIFfactory::getIF()
+se::QueryBuilder& se::QueryBuilderFactory::getQueryBuildre()
 {
     m_query = nullptr;
     while(true)

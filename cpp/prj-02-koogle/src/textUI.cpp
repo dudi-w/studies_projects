@@ -7,14 +7,14 @@ se::TextUI::TextUI()
 : m_checkInput("(?=[^_])\\b(?:\\w+){3,}\\b(?:\\b|\\s)")
 {}
 
-std::unique_ptr<se::Request> se::TextUI::makeRequest()
+std::unique_ptr<se::RequestIF> se::TextUI::makeRequest()
 {
     m_request.clear();
     std::cout<<"\033[1;36mEnter your requirement "<<std::ends;
     std::cout<<"\U000027A1 \U000027A1 \U000027A1\n\033[3;37mor Q to exit\033[0m\n"<<std::endl;
     std::getline(std::cin, m_request);//check of the input is required
     if(m_request == "Q" || m_request == "q" ){return nullptr;}
-    return std::make_unique<se::SimpleRequest>(m_request);
+    return std::make_unique<se::Request>(m_request);
 }
 
 void se::TextUI::recieveResult(se::Result& result) const

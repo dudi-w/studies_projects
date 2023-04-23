@@ -54,29 +54,37 @@ public:
     using se::CommunicationError::CommunicationError;
 };
 
-class listenError : public se::CommunicationError
+class ListenError : public se::CommunicationError
 {
 public:
     using se::CommunicationError::CommunicationError;
 };
 
-class acceptError : public se::CommunicationError
+class AcceptError : public se::CommunicationError
 {
 public:
     using se::CommunicationError::CommunicationError;
 };
 
-class readError : public se::CommunicationError
+class ReadError : public se::CommunicationError
 {
 public:
     using se::CommunicationError::CommunicationError;
 };
 
-class writeError : public se::CommunicationError
+class WriteError : public se::CommunicationError
 {
 public:
     using se::CommunicationError::CommunicationError;
 };
+
+class FileDiscreptorError : public se::CommunicationError
+{
+public:
+    using se::CommunicationError::CommunicationError;
+};
+
+
 
 }//namespace es
 

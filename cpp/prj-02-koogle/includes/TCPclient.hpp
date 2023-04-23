@@ -3,6 +3,8 @@
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <memory>
+
 #include "TCPsocketFile.hpp"
 
 namespace se{//Search Engine
@@ -23,7 +25,6 @@ private:
     void closeSocket() const;
 
 private:
-    // struct sockaddr_in m_address;
     int m_client_fd;
     int m_serverPort;
     std::string m_serverAddress;

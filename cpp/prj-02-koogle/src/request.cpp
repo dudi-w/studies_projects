@@ -1,8 +1,8 @@
-#include "simpleRequest.hpp"
+#include "request.hpp"
 #include "wordParser.hpp"
 #include "tools.hpp"
 
-se::SimpleRequest::SimpleRequest(std::string const& request)
+se::Request::Request(std::string const& request)
 {
     std::string new_request = request;
     makeLowercase(new_request);
@@ -14,11 +14,11 @@ se::SimpleRequest::SimpleRequest(std::string const& request)
     }
 }
 
-se::SimpleRequest::SimpleRequest(std::vector<std::string> const& request)
+se::Request::Request(std::vector<std::string> const& request)
 : m_request(request)
 {}
 
-std::vector<std::string> const& se::SimpleRequest::getRequest() const
+std::vector<std::string> const& se::Request::getRequest() const
 {
     return m_request;
 }

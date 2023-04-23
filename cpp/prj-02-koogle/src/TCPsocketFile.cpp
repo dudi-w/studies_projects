@@ -27,7 +27,7 @@ std::string se::TCPsocketFile::read()
         std::string buffer(m_buffSize, 0);
         ssize_t bytesReceived = recv(m_fileDescriptor, buffer.data(), m_buffSize ,0);
         if(bytesReceived < 0){
-            throw se::readError("Cannot read from file descriptor number " + m_fileDescriptor);
+            throw se::ReadError("Cannot read from file descriptor number " + m_fileDescriptor);
         }
         message.append(buffer ,0 ,bytesReceived);
         if(bytesReceived < m_buffSize && bytesReceived){
@@ -40,14 +40,14 @@ std::string se::TCPsocketFile::read()
 void se::TCPsocketFile::write(std::string const& text) const
 {
     if(ssize_t bytesSent = send(m_fileDescriptor, text.c_str(), text.size(), 0); bytesSent < 0){
-        throw se::writeError("Cannot write to file descriptor number " + m_fileDescriptor);
+        throw se::WriteError("Cannot write to file descriptor number " + m_fileDescriptor);
     }
 }
 
 void se::TCPsocketFile::colseSocket() const
 {
     close(m_fileDescriptor);
-    std::cout << "\033[1;31mSocket colsed = \033[0m"<<m_fileDescriptor<<std::endl;//?
+    std::clog << "\033[1;31mSocket closed = \033[0m"<<m_fileDescriptor<<std::endl;//TODO delete
 }
 
 int se::TCPsocketFile::fileDescriptorNum() const noexcept

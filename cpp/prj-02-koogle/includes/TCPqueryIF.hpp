@@ -1,11 +1,7 @@
 #ifndef TCP_QUERY_IF_HPP
 #define TCP_QUERY_IF_HPP
 
-// #include <iostream>
-// #include <memory>
-// #include <regex>
-
-#include "QueryUI.hpp"
+#include "QueryBuilderIF.hpp"
 #include "TCPserver.hpp"
 #include "TCPsocketFile.hpp"
 
@@ -19,7 +15,7 @@ public:
     TCPquerysIF& operator=(TCPquerysIF const& other) = default;
     ~TCPquerysIF() = default;
 
-    virtual std::unique_ptr<se::Request> makeRequest() override;
+    virtual std::unique_ptr<se::RequestIF> makeRequest() override;
     virtual void recieveResult(se::Result& result) const override;
 
 private:

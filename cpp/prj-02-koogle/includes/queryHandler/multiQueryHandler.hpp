@@ -14,7 +14,7 @@ public:
     MultiQueryHandler& operator=(MultiQueryHandler const& other) = default;
     virtual ~MultiQueryHandler() = default;
 
-    virtual void receivesRequest(se::Request& request, size_t resultCount) override;
+    virtual void receivesRequest(se::RequestIF& request, size_t resultCount) override;
     void receivesRequest(std::vector<std::string> const& requests, size_t resultCount);
     virtual se::Result returnResult() override;
 

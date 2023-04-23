@@ -18,7 +18,6 @@ se::TCPclient::~TCPclient()
 
 void se::TCPclient::createSocket()
 {
-    // int status, valread;
     if((m_client_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
         throw se::CreateSocketError("failed to create socket");
     }
@@ -33,7 +32,7 @@ std::unique_ptr<se::TCPsocketFile> se::TCPclient::connectToServer()
     
     if(inet_pton(AF_INET, m_serverAddress.c_str(), &serverAddr.sin_addr) <= 0){
         close(m_client_fd);
-        throw se::CommunicationError("");//TODO
+        throw se::CommunicationError("");//TODO text
     }
     if(int status = connect(m_client_fd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) ; status < 0){
         closeSocket();

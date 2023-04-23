@@ -20,7 +20,10 @@ void se::PageFetcher::startDownlaod()
                 std::cout<<"\033[3;31mERROR: can't laod url \033[0m"<<url<<std::endl;
                 continue;
             }
+            /*catch(...)*/
         }else{
+            /*if !allThreadFinshed()*/
+            /*else*/
             break;
         }
     }

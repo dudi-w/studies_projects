@@ -15,7 +15,7 @@ void se::SearchQueryFacilita::strart() const
             break;
         }
         if(request->getRequest()[0] == "1234"){
-            m_queryHandler.receivesRequest(*request,1);;//?
+            m_queryHandler.receivesRequest(*request,0);;
             break;
         }
         m_queryHandler.receivesRequest(*request,10);

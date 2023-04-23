@@ -3,8 +3,7 @@
 
 #include <nlohmann/json.hpp>
 
-#include "smartRequest.hpp"
-#include "simpleRequest.hpp"
+#include "request.hpp"
 #include "result.hpp"
 
 void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded);
@@ -12,10 +11,10 @@ void from_json(const nlohmann::json& j, std::vector<std::string>& query);
 void from_json(const nlohmann::json& j, std::vector<std::pair<std::string, size_t>>& result);
 void isNetworkConnected();
 void makeLowercase(std::string& word);
-se::SimpleRequest convertToRequest(std::string const& message);//? convert
+se::Request convertToRequest(std::string const& message);//? convert
 se::Result convertToResult(std::string const& message);//? convert
 std::string convertToString(se::Result const& result);//? convert
-std::string convertToString(se::SmartRequest const& request);//? convert
+std::string convertToString(se::Request const& request);//? convert
 
 
 #endif

@@ -1,4 +1,5 @@
 #include "TCPqueryIF.hpp"
+#include "myExceptions.hpp"
 #include "tools.hpp"
 
 se::TCPquerysIF::TCPquerysIF(uint16_t port)
@@ -10,10 +11,8 @@ se::TCPquerysIF::TCPquerysIF(uint16_t port)
     m_server.listenForClient();
 }
 
-#include <iostream>//!
-std::unique_ptr<se::Request> se::TCPquerysIF::makeRequest()
+std::unique_ptr<se::RequestIF> se::TCPquerysIF::makeRequest()
 {
-    std::cout<<"makeRequest"<<std::endl;
     m_fileDescription = m_server.acceptTorecieve();
     std::string message = m_fileDescription->read();
     
@@ -21,17 +20,17 @@ std::unique_ptr<se::Request> se::TCPquerysIF::makeRequest()
     if(request.getRequest().at(0) == "1234"){
         return nullptr;
     }
-    return std::make_unique<se::SimpleRequest>(request);
+    return std::make_unique<se::Request>(request);
 }
 
 void se::TCPquerysIF::recieveResult(se::Result& result) const
 {
-    if(m_fileDescription->fileDescriptorNum() < 3){
-        throw 1;//TODO
-        return;
+    
+    if(int fileDescriptorNum = m_fileDescription->fileDescriptorNum(); fileDescriptorNum < 3){
+        throw se::FileDiscreptorError("invalid file discreptor number " + fileDescriptorNum);
     }
     auto message = convertToString(result);
     m_fileDescription->write(message);
-    
+    // m_fileDescription = nullptr;//? not alwaed
 }
 
