@@ -21,6 +21,7 @@ private:
     void searchForLinks(GumboNode* node);
     void fixLinks(std::string const& srcUrl);
     std::string relToAbsLink(std::string const &baseUrl, std::string const &relUrl) const;
+    void reset();
 
 private:
     std::string m_srcPrefix;
@@ -30,7 +31,5 @@ private:
 
 }//namespace se
 
-void extractHTTP(std::string const& srcPage, std::string& result);
-void extractPrefix(std::string const& srcPage, std::string& result);
 
 #endif

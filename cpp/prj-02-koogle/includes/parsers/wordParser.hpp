@@ -22,6 +22,7 @@ private:
     void searchForWords(GumboNode* node);
     void splitWords(std::string const& text);
     void cleanText();
+    void reset();
 
 private:
     std::regex m_cleanTextRegex;

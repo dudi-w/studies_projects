@@ -52,8 +52,7 @@ void se::WordParser::cleanText()
 
 se::AnalyzPage se::WordParser::pars(std::unique_ptr<se::Page> const page)
 {
-    m_clwanWords.clear();
-    m_rowWords.clear();
+    reset();
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());
     searchForWords(output->root);
     cleanText();
@@ -61,4 +60,10 @@ se::AnalyzPage se::WordParser::pars(std::unique_ptr<se::Page> const page)
     analyzPage.setWords(m_clwanWords);
     gumbo_destroy_output(&kGumboDefaultOptions, output);
     return analyzPage;
+}
+
+void se::WordParser::reset()
+{
+    m_clwanWords.clear();
+    m_rowWords.clear();
 }

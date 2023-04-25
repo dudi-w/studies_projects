@@ -1,4 +1,5 @@
 #include <regex>
+#include <tools.hpp>
 
 #include "linkParser.hpp"
 #include "analyzPage.hpp"
@@ -30,6 +31,7 @@ void se::LinkParser::fixLinks(std::string const& srcUrl)
 
 se::AnalyzPage se::LinkParser::pars(std::unique_ptr<se::Page> const page)
 {
+    reset();
     extractHTTP(page->getSrc(), m_srcHTTP);
     extractPrefix(page->getSrc(), m_srcPrefix);
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());
@@ -61,22 +63,10 @@ std::string se::LinkParser::relToAbsLink(std::string const &srcUrl, std::string 
     }
 }
 
-void extractHTTP(std::string const& srcPage, std::string& result)
+void se::LinkParser::reset()
 {
-    std::regex txt_regex("https?:");
-    std::smatch HTTPmatch;
-    if(std::regex_search(srcPage, HTTPmatch, txt_regex)){
-        result = static_cast<std::string>(HTTPmatch[0]);
-    }
+    m_links.clear();
+    m_srcHTTP.clear();
+    m_srcPrefix.clear();
 }
 
-void extractPrefix(std::string const& srcPage, std::string& result)
-{
-    std::regex preRegex("^https?:\\/\\/(?:[a-zA-Z0-9]+)(?:\\.[a-zA-Z0-9]+)+");
-    std::smatch preMatch;
-    if(std::regex_search(srcPage, preMatch, preRegex)){
-        result = preMatch[0];
-    }else{
-        result = "";
-    }
-}
