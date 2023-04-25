@@ -17,7 +17,7 @@ void se::PageFetcher::startDownlaod()
             }
             catch(const curlpp::LibcurlRuntimeError& e)
             {
-                std::cout<<"\033[3;31mERROR: can't laod url \033[0m"<<url<<std::endl;
+                std::clog<<"\033[3;31mERROR: can't laod url \033[0m"<<url<<std::endl;
                 continue;
             }
             /*catch(...)*/

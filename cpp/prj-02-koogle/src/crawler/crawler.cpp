@@ -38,5 +38,5 @@ std::string se::Crawler::getURLtoDownlaod()
 {
     /* lock */
     return m_queue.deQueue();
-    /* lock */
+    /* unlock */
 }

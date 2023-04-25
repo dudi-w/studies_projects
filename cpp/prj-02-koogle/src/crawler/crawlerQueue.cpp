@@ -20,7 +20,7 @@ se::CrawlerQueue::CrawlerQueue(se::Configuration const& configuration)
 void se::CrawlerQueue::markURLAsSearched(std::string const& link)
 {
     if(!m_searchedLinks.count(link)){
-        std::cout<<"\U0001F525 \033[1;33m"<<link<<"\033[0m; \U0001F525\n"<<std::endl;
+        std::clog<<"\U0001F525 \033[1;33m"<<link<<"\033[0m. \U0001F525\n"<<std::endl;
         m_searchedLinks.insert(link);
     }else{
         throw se::SearchError("duplecat Searched " + link);
@@ -29,17 +29,29 @@ void se::CrawlerQueue::markURLAsSearched(std::string const& link)
 
 std::string se::CrawlerQueue::deQueue()
 {
-    if(!m_queue.empty() && !(m_searchedLinks.size() >= m_configuration.maxPages)){
-        std::string link = m_queue.front();
-        m_queue.pop();
-        if(!m_searchedLinks.count(link)){
-            return link;
+    while(true){
+        if(!m_queue.empty() && !(m_searchedLinks.size() >= m_configuration.maxPages)){
+            std::string link = m_queue.front();
+            m_queue.pop();
+            if(!m_searchedLinks.count(link)){
+                return link;
+            }
         }else{
-            return deQueue();
+            return "";
         }
-    }else{
-        return "";
     }
+    
+    // if(!m_queue.empty() && !(m_searchedLinks.size() >= m_configuration.maxPages)){
+    //     std::string link = m_queue.front();
+    //     m_queue.pop();
+    //     if(!m_searchedLinks.count(link)){
+    //         return link;
+    //     }else{
+    //         return deQueue();
+    //     }
+    // }else if(1){
+    //     return "";
+    // }
 }
 
 void se::CrawlerQueue::inQueue(std::string const& link)
