@@ -10,4 +10,6 @@ cpp/prj-02-koogle/mainClient
 *.txt
 *.gi
 cpp/prj-02-koogle-test
+cpp/prj-02-koogle-withoutThreads
+cpp/prj-02-koogle-threads
 
