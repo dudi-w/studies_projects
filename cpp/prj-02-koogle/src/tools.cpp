@@ -1,6 +1,7 @@
+#include <regex>
+#include <iostream>
 #include "tools.hpp"
 #include "myExceptions.hpp"
-#include <iostream>
 
 void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded)
 {
@@ -63,4 +64,24 @@ std::string convertToString(se::Request const& request)
     nlohmann::json data;
     data["request"] = request.getRequest();
     return data.dump();
+}
+
+void extractHTTP(std::string const& srcPage, std::string& result)
+{
+    std::regex txt_regex("https?:");
+    std::smatch HTTPmatch;
+    if(std::regex_search(srcPage, HTTPmatch, txt_regex)){
+        result = static_cast<std::string>(HTTPmatch[0]);
+    }
+}
+
+void extractPrefix(std::string const& srcPage, std::string& result)
+{
+    std::regex preRegex("^https?:\\/\\/(?:[a-zA-Z0-9]+)(?:\\.[a-zA-Z0-9]+)+");
+    std::smatch preMatch;
+    if(std::regex_search(srcPage, preMatch, preRegex)){
+        result = preMatch[0];
+    }else{
+        result = "";
+    }
 }

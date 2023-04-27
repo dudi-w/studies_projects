@@ -15,6 +15,7 @@ se::Request convertToRequest(std::string const& message);//? convert
 se::Result convertToResult(std::string const& message);//? convert
 std::string convertToString(se::Result const& result);//? convert
 std::string convertToString(se::Request const& request);//? convert
-
+void extractHTTP(std::string const& srcPage, std::string& result);
+void extractPrefix(std::string const& srcPage, std::string& result);
 
 #endif
