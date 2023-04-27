@@ -41,17 +41,6 @@ std::string se::CrawlerQueue::deQueue()
         }
     }
     
-    // if(!m_queue.empty() && !(m_searchedLinks.size() >= m_configuration.maxPages)){
-    //     std::string link = m_queue.front();
-    //     m_queue.pop();
-    //     if(!m_searchedLinks.count(link)){
-    //         return link;
-    //     }else{
-    //         return deQueue();
-    //     }
-    // }else if(1){
-    //     return "";
-    // }
 }
 
 void se::CrawlerQueue::inQueue(std::string const& link)
