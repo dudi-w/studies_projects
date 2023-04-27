@@ -11,12 +11,13 @@
 #include "pageFetcher.hpp"
 #include "crawlerQueue.hpp"
 
+
 namespace se{//Search Engine
 
 class Crawler : public CrawlerIF
 {
 public:
-    explicit Crawler(std::string const& configurationFilePath, se::SetDB& searchDatabase);
+    explicit Crawler(se::SetDB& searchDatabase);
     Crawler(Crawler const& other) = default;
     Crawler& operator=(Crawler const& other) = default;
     ~Crawler() = default;
@@ -24,6 +25,7 @@ public:
     void startCrawling();
     virtual void updatePage(AnalyzPage const& page) override;
     virtual std::string getURLtoDownlaod() override;
+    
 
 private:
     se::SetDB& m_mataDatabase;

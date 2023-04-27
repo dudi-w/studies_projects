@@ -1,9 +1,22 @@
 #include <iostream>
+
 #include "crawlerQueue.hpp"
 #include "myExceptions.hpp"
 #include "getHTTP.hpp"
 #include "linkParser.hpp"
 #include "tools.hpp"
+
+se::CrawlerQueue::CrawlerQueue(std::vector<std::string> const& srcURL, size_t maxPages, bool bounded)
+{
+    m_configuration.srcURL = srcURL;
+    m_configuration.maxPages = maxPages;
+    m_configuration.bounded = bounded;
+    srcURLValidation();
+    if(m_configuration.bounded){
+        extractSrcPrefix();
+    }
+    inQueue(m_configuration.srcURL);
+}
 
 se::CrawlerQueue::CrawlerQueue(se::Configuration const& configuration)
 {
@@ -19,6 +32,7 @@ se::CrawlerQueue::CrawlerQueue(se::Configuration const& configuration)
 
 void se::CrawlerQueue::markURLAsSearched(std::string const& link)
 {
+    std::unique_lock lock(m_mutexMode);
     if(!m_searchedLinks.count(link)){
         std::clog<<"\U0001F525 \033[1;33m"<<link<<"\033[0m. \U0001F525\n"<<std::endl;
         m_searchedLinks.insert(link);
@@ -29,6 +43,8 @@ void se::CrawlerQueue::markURLAsSearched(std::string const& link)
 
 std::string se::CrawlerQueue::deQueue()
 {
+    std::unique_lock lock(m_mutexMode);
+    std::cout<<"deQueue m_queue.size() = "<<m_queue.size()<<std::endl;
     while(true){
         if(!m_queue.empty() && !(m_searchedLinks.size() >= m_configuration.maxPages)){
             std::string link = m_queue.front();
@@ -40,12 +56,13 @@ std::string se::CrawlerQueue::deQueue()
             return "";
         }
     }
-    
 }
 
 void se::CrawlerQueue::inQueue(std::string const& link)
 {
+    std::unique_lock lock(m_mutexMode);
     if(!m_searchedLinks.count(link) && ifBounded(link)){
+        std::cout<<link<<" inQueue m_queue.size() = "<<m_queue.size()<<std::endl;
         m_queue.push(link);
     }
 }
@@ -74,7 +91,7 @@ void se::CrawlerQueue::srcURLValidation()
 void se::CrawlerQueue::extractSrcPrefix()
 {
     std::string prefix;
-    for(size_t i =0 ; i < m_configuration.srcURL.size(); ++i){
+    for(size_t i = 0 ; i < m_configuration.srcURL.size(); ++i){
         m_homeAddress.reserve(m_configuration.srcURL.size());
         extractPrefix(m_configuration.srcURL[i], prefix);
         m_homeAddress.push_back(prefix);

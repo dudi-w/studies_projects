@@ -1,6 +1,8 @@
 #ifndef LINK_WORD_PARSER_HPP
 #define LINK_WORD_PARSER_HPP
 
+#include <mutex>
+
 #include "parser.hpp"
 #include "wordParser.hpp"
 #include "linkParser.hpp"
@@ -20,6 +22,8 @@ public:
 private:
     Parser& m_linkParser;
     Parser& m_wordParser;
+    std::mutex m_mutex;
+
 };
 
 }//namespace se

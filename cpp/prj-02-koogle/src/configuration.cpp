@@ -8,24 +8,29 @@ se::Configuration::Configuration(std::string const& configurationFilePath)
     laodConfiguration(configurationFilePath);
 }
 
-std::vector<std::string> const& se::Configuration::getSrcURLs() const
+std::vector<std::string> const& se::Configuration::getSrcURLs()
 {
-    return m_srcURL;
+    return getInstance().m_srcURL;
 }
 
-size_t se::Configuration::maxPages() const
+size_t se::Configuration::maxPages()
 {
-    return m_maxPages;
+    return getInstance().m_maxPages;
 }
 
-bool se::Configuration::isBounded() const
+bool se::Configuration::isBounded()
 {
-    return m_bounded;
+    return getInstance().m_bounded;
 }
 
-se::Configuration& se::Configuration::getInstance(std::string const& configurationFilePath)
+size_t se::Configuration::maxThreads()
 {
-    static se::Configuration configuration(configurationFilePath);
+    return getInstance().m_maxThreads;
+}
+
+se::Configuration& se::Configuration::getInstance()
+{
+    static se::Configuration configuration("config.json");
     return configuration;
 }
 
@@ -35,7 +40,7 @@ void se::Configuration::laodConfiguration(std::string const& configurationFilePa
         std::ifstream input_file(configurationFilePath);
         nlohmann::json j;
         input_file >> j;
-        from_json(j, m_srcURL, m_maxPages, m_bounded);
+        from_json(j, m_srcURL, m_maxPages, m_bounded , m_maxThreads);
     }
     catch(const nlohmann::json::exception& e)
     {

@@ -3,9 +3,11 @@
 
 #include <unordered_set>
 #include <queue>
+#include <atomic>
 
 #include "crawlerIF.hpp"
 #include "analyzPage.hpp"
+
 
 namespace se{//Search Engine
 
@@ -18,9 +20,15 @@ public:
     virtual ~PageFetcher() = default;
 
     void startDownlaod();
+    void notificationForNewUrls();
+
+private:
+    bool sleepRoom();
 
 private:
     se::CrawlerIF& m_crawler;
+    std::atomic_bool m_newUrlInQueue;
+    std::atomic_int m_activesTreads;
 };
 
 }//namespace se

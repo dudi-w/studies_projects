@@ -3,11 +3,12 @@
 #include "tools.hpp"
 #include "myExceptions.hpp"
 
-void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded)
+void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded, size_t& maxTreads)
 {
     j.at("srcURL").get_to(srcURL);
     j.at("maxPages").get_to(maxPages);
     j.at("bounded").get_to(bounded);
+    j.at("maxThreads").get_to(maxTreads);
 }
 
 void from_json(const nlohmann::json& j, std::vector<std::string>& request)

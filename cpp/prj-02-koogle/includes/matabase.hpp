@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <mutex>
+#include <shared_mutex>
 
 #include "setDatabase.hpp"
 #include "getDatabase.hpp"
@@ -32,6 +34,7 @@ public:
 private:
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_wordsIndex;
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_linksMap;
+    mutable std::shared_mutex m_mutex;
 };
 
 }//namespace se

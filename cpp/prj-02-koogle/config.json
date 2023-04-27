@@ -1,5 +1,6 @@
 {
-    "srcURL": ["https://harrypotter.fandom.com/wiki/Main_Page", "https://godzilla.fandom.com/wiki/Main_Page"], 
-    "maxPages": 1,
-    "bounded": true
+    "srcURL": ["https://harrypotter.fandom.com/wiki/Harry_Potter", "https://godzilla.fandom.com/wiki/Main_Page"], 
+    "maxPages": 10,
+    "bounded": true,
+    "maxThreads" : 10
 }

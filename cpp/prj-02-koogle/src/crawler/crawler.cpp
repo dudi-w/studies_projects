@@ -1,42 +1,63 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <thread>
+#include <vector>
 
 #include "crawler.hpp"
+#include "myExceptions.hpp"
 
-se::Crawler::Crawler(std::string const& configurationFilePath, se::SetDB& searchDatabase)
+se::Crawler::Crawler(se::SetDB& searchDatabase)
 : m_mataDatabase(searchDatabase)
 , m_parser(m_linkParser, m_wordParser)
+, m_queue(se::Configuration::getSrcURLs(), se::Configuration::maxPages(), se::Configuration::isBounded())
 , m_pageFetcher(*this)
-{
-    auto& configuration = se::Configuration::getInstance(configurationFilePath);
-    m_queue = se::CrawlerQueue(configuration);
-}
+{}
 
+#include <iostream>
 void se::Crawler::startCrawling()
 {
-    m_pageFetcher.startDownlaod();
+    std::cout<<se::Configuration::maxThreads()<<std::endl;
+    std::vector<std::thread> threads(se::Configuration::maxThreads()); 
+    for(size_t i = 0; i < se::Configuration::maxThreads(); ++i){
+        threads[i] = std::thread([&](){ m_pageFetcher.startDownlaod(); });
+    }
+    for(size_t i = 0; i < se::Configuration::maxThreads(); ++i){
+        threads[i].join();
+    }
     m_mataDatabase.log();
 }
 
 void se::Crawler::updatePage(AnalyzPage const& page)
 {
-    /*lock*/
     auto parsPage = m_parser.pars(std::make_unique<se::BasePage>(page));
-    /*unlock*/
     auto srcPage = parsPage.getSrc();
     auto links = parsPage.getLinks();
     auto words = parsPage.getWords();
     m_mataDatabase.insertLinks(srcPage, links);
     m_mataDatabase.insertWords(srcPage, words);
-    /*lock*/
-    m_queue.markURLAsSearched(page.getSrc());
+    // m_queue.markURLAsSearched(page.getSrc());
     m_queue.inQueue(links);
-    /*unlock*/
+    m_pageFetcher.notificationForNewUrls();
 }
+
+// std::string se::Crawler::getURLtoDownlaod()
+// {
+//     return m_queue.deQueue();
+// }
 
 std::string se::Crawler::getURLtoDownlaod()
 {
-    /* lock */
-    return m_queue.deQueue();
-    /* unlock */
+    auto url = m_queue.deQueue();
+    if(!url.empty()){
+        try{
+            m_queue.markURLAsSearched(url);
+        }
+        catch(const se::SearchError& e)
+        {
+            std::cerr << e.what() << '\n';
+            return getURLtoDownlaod();
+        }
+        
+    }
+    return url;
 }

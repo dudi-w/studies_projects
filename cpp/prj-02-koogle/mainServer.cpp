@@ -4,11 +4,13 @@
 #include "searchQueryFacilita.hpp"
 #include "queryBuilderFactory.hpp"
 
+#include <chrono>
+
 int main()
 {
     se::Matabase matabase;
     {
-    se::Crawler crawler("config.json", matabase);
+    se::Crawler crawler(matabase);
     crawler.startCrawling();
     }
 

@@ -6,7 +6,7 @@
 #include "request.hpp"
 #include "result.hpp"
 
-void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded);
+void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded, size_t& maxTreads);
 void from_json(const nlohmann::json& j, std::vector<std::string>& query);
 void from_json(const nlohmann::json& j, std::vector<std::pair<std::string, size_t>>& result);
 void isNetworkConnected();

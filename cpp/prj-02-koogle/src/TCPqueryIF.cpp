@@ -31,6 +31,5 @@ void se::TCPquerysIF::recieveResult(se::Result& result) const
     }
     auto message = convertToString(result);
     m_fileDescription->write(message);
-    // m_fileDescription = nullptr;//? not alwaed
 }
 
