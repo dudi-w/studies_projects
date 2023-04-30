@@ -44,7 +44,6 @@ void se::CrawlerQueue::markURLAsSearched(std::string const& link)
 std::string se::CrawlerQueue::deQueue()
 {
     std::unique_lock lock(m_mutexMode);
-    std::cout<<"deQueue m_queue.size() = "<<m_queue.size()<<std::endl;
     while(true){
         if(!m_queue.empty() && !(m_searchedLinks.size() >= m_configuration.maxPages)){
             std::string link = m_queue.front();
@@ -62,7 +61,7 @@ void se::CrawlerQueue::inQueue(std::string const& link)
 {
     std::unique_lock lock(m_mutexMode);
     if(!m_searchedLinks.count(link) && ifBounded(link)){
-        std::cout<<link<<" inQueue m_queue.size() = "<<m_queue.size()<<std::endl;
+        // std::cout<<link<<" inQueue m_queue.size() = "<<m_queue.size()<<std::endl;
         m_queue.push(link);
     }
 }

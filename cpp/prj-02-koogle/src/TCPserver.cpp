@@ -56,7 +56,6 @@ std::unique_ptr<se::TCPsocketFile> se::TCPserver::acceptTorecieve() const
 void se::TCPserver::closeSocket() const
 {
     close(m_server_fd);
-    std::clog << "\033[1;31mSocket closed = \033[0m" <<m_server_fd<<std::endl;//TODO delete
 }
 
 void se::TCPserver::logConnect(struct sockaddr_in& clientAddress) const
