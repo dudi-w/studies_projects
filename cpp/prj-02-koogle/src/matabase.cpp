@@ -6,18 +6,18 @@
 
 void se::Matabase::log() const
 {
-    std::cout<<"\033[3;32mEnd of storage\033[0m\n"<<std::endl;
-    std::cout<<"\tNumber of words: "<<m_wordsIndex.size()<<std::endl;
-    std::cout<<"\tThe number of links: "<<m_linksMap.size()<<std::endl;
+    std::clog<<"\033[3;32mEnd of storage\033[0m\n"<<std::endl;
+    std::clog<<"\tNumber of words: "<<m_wordsIndex.size()<<std::endl;
+    std::clog<<"\tThe number of links: "<<m_linksMap.size()<<std::endl;
 }
 
 std::unordered_map<std::string ,size_t> const se::Matabase::getLinkOfWord(std::string const& word) const
 {
     std::shared_lock lock(m_mutex);
-    return m_wordsIndex.at(word);//exception
+    return m_wordsIndex.at(word);
 }
 
-
+size_t i = 0 ;
 void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::string> const& links)
 {
     std::unique_lock lock(m_mutex);
@@ -33,7 +33,6 @@ void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::stri
 
 void se::Matabase::insertLink(std::string const& srcLink, std::string const& link)
 {
-    // std::unique_lock lock(m_mutex);
     if(!m_linksMap[srcLink].count(link)){
         m_linksMap[srcLink][link] = 1;
     }else{

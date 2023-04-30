@@ -7,7 +7,7 @@ se::SearchQueryFacilita::SearchQueryFacilita(se::SearchQueryHandler& queryHandle
 , m_queryIF(queryIF)
 {}
 
-void se::SearchQueryFacilita::strart() const
+void se::SearchQueryFacilita::start() const
 {
     while(true){
         auto request = m_queryIF.makeRequest();

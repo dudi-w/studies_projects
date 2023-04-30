@@ -1,24 +1,25 @@
+#include <thread>
+
 #include "matabase.hpp"
 #include "crawler.hpp"
 #include "smartQueryHandler.hpp"
 #include "searchQueryFacilita.hpp"
 #include "queryBuilderFactory.hpp"
 
-#include <chrono>
-
 int main()
 {
     se::Matabase matabase;
-    {
+    
     se::Crawler crawler(matabase);
-    crawler.startCrawling();
-    }
+    std::thread tr([&](){return crawler.startCrawling();});
+    
 
     se::SmartQueryHandler queryHandler(matabase);
     se::QueryBuilderFactory querysIFfactory;
     se::QueryBuilder& queryIF = querysIFfactory.getQueryBuildre();
     se::SearchQueryFacilita queryFacilitator(queryHandler, queryIF);
-    queryFacilitator.strart();
+    queryFacilitator.start();
+    tr.join();
 
     return EXIT_SUCCESS;
 }

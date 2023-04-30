@@ -24,7 +24,6 @@ public:
     virtual std::unordered_map<std::string ,size_t> const getLinkOfWord(strC word) const override;
     virtual size_t getLinkOccurrenceCount(strC link1, strC link2) const override;
     virtual void insertLinks(strC srclink, std::vector<std::string> const& links) override;
-    virtual void insertLink(strC srcLink, strC link) override;
     virtual void insertWords(strC srcLink, std::vector<std::string> const& words) override;
     virtual void log() const override;
     
@@ -32,6 +31,7 @@ public:
     bool wordAndLinkExis(strC word, strC link) const;
 
 private:
+    virtual void insertLink(strC srcLink, strC link) override;
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_wordsIndex;
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_linksMap;
     mutable std::shared_mutex m_mutex;

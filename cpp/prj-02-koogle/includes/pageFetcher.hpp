@@ -20,10 +20,6 @@ public:
     virtual ~PageFetcher() = default;
 
     void startDownlaod();
-    void notificationForNewUrls();
-
-private:
-    bool sleepRoom();
 
 private:
     se::CrawlerIF& m_crawler;

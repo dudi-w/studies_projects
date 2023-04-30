@@ -14,7 +14,7 @@ public:
     SearchQueryFacilita& operator=(SearchQueryFacilita const& other) = default;
     ~SearchQueryFacilita() = default;
 
-    void strart() const;
+    void start() const;
 
 private:
     se::SearchQueryHandler& m_queryHandler;

@@ -32,11 +32,11 @@ std::unique_ptr<se::TCPsocketFile> se::TCPclient::connectToServer()
     
     if(inet_pton(AF_INET, m_serverAddress.c_str(), &serverAddr.sin_addr) <= 0){
         close(m_client_fd);
-        throw se::CommunicationError("");//TODO text
+        throw se::CommunicationError("Error converting server address");
     }
     if(int status = connect(m_client_fd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) ; status < 0){
         closeSocket();
-        throw se::CommunicationError("Connection Failed");//TODO
+        throw se::CommunicationError("Error connecting to server");
     }
     return std::make_unique<se::TCPsocketFile>(m_client_fd);
 }
