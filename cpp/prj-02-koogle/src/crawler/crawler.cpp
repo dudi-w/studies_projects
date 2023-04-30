@@ -1,10 +1,11 @@
-#include <fstream>
+#include <iostream>
+// #include <fstream>
 #include <nlohmann/json.hpp>
 #include <thread>
 #include <vector>
 
-#include "crawler.hpp"
 #include "myExceptions.hpp"
+#include "crawler.hpp"
 
 se::Crawler::Crawler(se::SetDB& searchDatabase)
 : m_mataDatabase(searchDatabase)
@@ -13,15 +14,15 @@ se::Crawler::Crawler(se::SetDB& searchDatabase)
 , m_pageFetcher(*this)
 {}
 
-#include <iostream>
 void se::Crawler::startCrawling()
 {
-    std::cout<<se::Configuration::maxThreads()<<std::endl;
-    std::vector<std::thread> threads(se::Configuration::maxThreads()); 
-    for(size_t i = 0; i < se::Configuration::maxThreads(); ++i){
+    // std::cout<<se::Configuration::maxThreads()<<std::endl;
+    auto maxThreads = se::Configuration::maxThreads();
+    std::vector<std::thread> threads(maxThreads);
+    for(size_t i = 0; i < maxThreads; ++i){
         threads[i] = std::thread([&](){ m_pageFetcher.startDownlaod(); });
     }
-    for(size_t i = 0; i < se::Configuration::maxThreads(); ++i){
+    for(size_t i = 0; i < maxThreads; ++i){
         threads[i].join();
     }
     m_mataDatabase.log();

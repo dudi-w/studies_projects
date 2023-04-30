@@ -25,7 +25,6 @@ public:
     void startCrawling();
     virtual void updatePage(AnalyzPage const& page) override;
     virtual std::string getURLtoDownlaod() override;
-    
 
 private:
     se::SetDB& m_mataDatabase;
