@@ -1,7 +1,7 @@
 #include <iostream>
 #include "queryBuilderFactory.hpp"
 
-se::QueryBuilder& se::QueryBuilderFactory::getQueryBuildre()
+se::QueryBuilder& se::QueryBuilderFactory::getQueryBuilder()
 {
     m_query = nullptr;
     while(true)

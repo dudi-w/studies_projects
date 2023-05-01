@@ -16,7 +16,7 @@ int main()
 
     se::SmartQueryHandler queryHandler(matabase);
     se::QueryBuilderFactory querysIFfactory;
-    se::QueryBuilder& queryIF = querysIFfactory.getQueryBuildre();
+    se::QueryBuilder& queryIF = querysIFfactory.getQueryBuilder();
     se::SearchQueryFacilita queryFacilitator(queryHandler, queryIF);
     queryFacilitator.start();
     tr.join();
