@@ -5,7 +5,9 @@
 
 #include "request.hpp"
 #include "result.hpp"
-void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded, size_t& maxTreads);
+#include "configuration.hpp"
+
+void from_json(const nlohmann::json& j, se::CrawlConfig& crawlConfig,se::CommunicatConfig& communicatConfig,se::ThreadsConfig& threadsConfig);
 void from_json(const nlohmann::json& j, std::vector<std::string>& query);
 void from_json(const nlohmann::json& j, std::vector<std::pair<std::string, size_t>>& result);
 void isNetworkConnected();

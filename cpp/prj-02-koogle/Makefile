@@ -37,7 +37,7 @@ src/request.o : src/request.cpp includes/request.hpp includes/requestIF.hpp
 src/analyzPage.o : src/analyzPage.cpp includes/analyzPage.hpp includes/basePage.hpp
 src/basePage.o :  src/basePage.cpp includes/basePage.hpp includes/basePage.hpp
 
-src/tools.o : src/tools.cpp includes/tools.hpp
+src/tools.o : src/tools.cpp includes/tools.hpp includes/myExceptions.hpp includes/request.hpp includes/result.hpp includes/configuration.hpp
 src/configuration.o : src/configuration.cpp includes/configuration.hpp includes/tools.hpp
 src/crawler/crawler.o : src/crawler/crawler.cpp includes/crawler/crawler.hpp includes/crawler/crawlerIF.hpp\
 	includes/analyzPage.hpp includes/setDatabase.hpp includes/configuration.hpp\
@@ -55,7 +55,7 @@ src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setData
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryBuilderIF.hpp
 src/queryIFfactory.o : includes/queryBuilderFactory.hpp src/queryIFfactory.cpp\
-	includes/QueryBuilderIF.hpp includes/textUI.hpp
+	includes/QueryBuilderIF.hpp includes/textUI.hpp includes/configuration.hpp
 src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp\
 	includes/queryHandler/searchQueryHandler.hpp includes/QueryBuilderIF.hpp
 src/queryHandler/simpleQueryHandler.o : includes/queryHandler/simpleQueryHandler.hpp\

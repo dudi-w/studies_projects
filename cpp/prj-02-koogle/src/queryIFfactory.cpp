@@ -1,5 +1,7 @@
 #include <iostream>
+
 #include "queryBuilderFactory.hpp"
+#include "configuration.hpp"
 
 se::QueryBuilder& se::QueryBuilderFactory::getQueryBuilder()
 {
@@ -13,7 +15,7 @@ se::QueryBuilder& se::QueryBuilderFactory::getQueryBuilder()
             m_query = std::make_unique<se::TextUI>();
             return *m_query;
         }else if(request == "e"){
-            m_query = std::make_unique<se::TCPquerysIF>(8080);
+            m_query = std::make_unique<se::TCPquerysIF>(se::Configuration::portNum());
             return *m_query;
         }
         else{

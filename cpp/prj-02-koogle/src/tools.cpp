@@ -1,14 +1,19 @@
 #include <regex>
 #include <iostream>
+
 #include "tools.hpp"
 #include "myExceptions.hpp"
 
-void from_json(const nlohmann::json& j, std::vector<std::string>& srcURL, size_t& maxPages, bool& bounded, size_t& maxTreads)
+void from_json(const nlohmann::json& j, se::CrawlConfig& crawlConfig,se::CommunicatConfig& communicatConfig,se::ThreadsConfig& threadsConfig)
 {
-    j.at("srcURL").get_to(srcURL);
-    j.at("maxPages").get_to(maxPages);
-    j.at("bounded").get_to(bounded);
-    j.at("maxThreads").get_to(maxTreads);
+    j.at("srcURL").get_to(crawlConfig.m_srcURL);
+    j.at("maxPages").get_to(crawlConfig.m_maxPages);
+    j.at("bounded").get_to(crawlConfig.m_bounded);
+
+    j.at("serverAddress").get_to(communicatConfig.m_serverAddress);
+    j.at("potrNum").get_to(communicatConfig.m_portNum);
+
+    j.at("maxThreads").get_to(threadsConfig.m_maxThreads);
 }
 
 void from_json(const nlohmann::json& j, std::vector<std::string>& request)
