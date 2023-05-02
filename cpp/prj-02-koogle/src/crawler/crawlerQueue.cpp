@@ -7,9 +7,9 @@
 #include "linkParser.hpp"
 #include "tools.hpp"
 
+// , m_condition([&](){return !(m_searchedLinks.size() < se::Configuration::maxPages() && (m_waiting < se::Configuration::maxThreads()) && m_queue.empty());})
 se::CrawlerQueue::CrawlerQueue()
 : m_waiting(0)
-, m_condition([&](){return !(m_searchedLinks.size() < se::Configuration::maxPages() && (m_waiting < se::Configuration::maxThreads()) && m_queue.empty());})
 {
     srcURLValidation();
     if(se::Configuration::isBounded()){
@@ -18,7 +18,7 @@ se::CrawlerQueue::CrawlerQueue()
     inQueue(se::Configuration::getSrcURLs());
 }
 
-void se::CrawlerQueue::MarkURLAsActive(std::string const& link)
+void se::CrawlerQueue::markURLAsActive(std::string const& link)
 {
     if(!m_searchedLinks.count(link)){
         std::clog<<"\U0001F525 \033[1;33m"<<link<<"\033[0m. \U0001F525\n"<<std::endl;
@@ -35,8 +35,8 @@ std::string se::CrawlerQueue::deQueue()
         if(!m_queue.empty() && !(m_searchedLinks.size() >= se::Configuration::maxPages())){
             std::string link = m_queue.front();
             m_queue.pop();
-            if(!m_searchedLinks.count(link)){
-                MarkURLAsActive(link);
+            if(link.empty() || !m_searchedLinks.count(link)){
+                markURLAsActive(link);
                 return link;
             }else{
                 continue;
@@ -47,7 +47,7 @@ std::string se::CrawlerQueue::deQueue()
                 m_cv.notify_all();
                 return "";
             }
-            m_cv.wait(lock ,m_condition);
+            m_cv.wait(lock ,[this](){return waitCondition();});
         }
     }
 }
@@ -104,3 +104,9 @@ bool se::CrawlerQueue::ifBounded(std::string const& link) const
     }
 }
 
+bool se::CrawlerQueue::waitCondition()
+{
+    return !(m_searchedLinks.size() < se::Configuration::maxPages() &&\
+        (m_waiting < se::Configuration::maxThreads()) &&\
+        m_queue.empty());
+}

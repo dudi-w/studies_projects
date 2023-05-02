@@ -17,8 +17,8 @@ class Matabase : public SetDB , public GetDB
 {
 public:
     Matabase() = default;
-    Matabase(Matabase const& other) = default;
-    Matabase& operator=(Matabase const& other) = default;
+    Matabase(Matabase const& other) = delete;
+    Matabase& operator=(Matabase const& other) = delete;
     virtual ~Matabase() = default;
 
     virtual std::unordered_map<std::string ,size_t> const getLinkOfWord(strC word) const override;
@@ -29,9 +29,10 @@ public:
     
     virtual bool wordExis(strC word) const override;
     bool wordAndLinkExis(strC word, strC link) const;
-
 private:
     virtual void insertLink(strC srcLink, strC link) override;
+
+private:
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_wordsIndex;
     std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>> m_linksMap;
     mutable std::shared_mutex m_mutex;

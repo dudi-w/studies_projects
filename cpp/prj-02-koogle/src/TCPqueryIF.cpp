@@ -14,8 +14,11 @@ se::TCPquerysIF::TCPquerysIF(uint16_t port)
 std::unique_ptr<se::RequestIF> se::TCPquerysIF::makeRequest()
 {
     m_fileDescription = m_server.acceptTorecieve();
-    std::string message = m_fileDescription->read();
-    
+    if(m_fileDescription == nullptr){
+        throw 1;//TODO
+    }
+
+    std::string message = m_fileDescription->read();//? why not check the file discriptor number?
     auto request = convertToRequest(message);
     if(request.getRequest().at(0) == "1234"){
         return nullptr;
@@ -25,11 +28,13 @@ std::unique_ptr<se::RequestIF> se::TCPquerysIF::makeRequest()
 
 void se::TCPquerysIF::recieveResult(se::Result& result) const
 {
-    
+    if(m_fileDescription == nullptr){
+        throw 1;//TODO
+    }
+
     if(int fileDescriptorNum = m_fileDescription->fileDescriptorNum(); fileDescriptorNum < 3){
         throw se::FileDiscreptorError("invalid file discreptor number " + fileDescriptorNum);
     }
     auto message = convertToString(result);
     m_fileDescription->write(message);
 }
-

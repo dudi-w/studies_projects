@@ -31,6 +31,9 @@ void se::LinkParser::fixLinks(std::string const& srcUrl)
 
 se::AnalyzPage se::LinkParser::pars(std::unique_ptr<se::Page> const page)
 {
+    if(page == nullptr){
+        throw 1;//TODO
+    }
     reset();
     extractHTTP(page->getSrc(), m_srcHTTP);
     extractPrefix(page->getSrc(), m_srcPrefix);

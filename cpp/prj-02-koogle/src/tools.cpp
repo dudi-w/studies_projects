@@ -11,7 +11,7 @@ void from_json(const nlohmann::json& j, se::CrawlConfig& crawlConfig,se::Communi
     j.at("bounded").get_to(crawlConfig.m_bounded);
 
     j.at("serverAddress").get_to(communicatConfig.m_serverAddress);
-    j.at("potrNum").get_to(communicatConfig.m_portNum);
+    j.at("portNum").get_to(communicatConfig.m_portNum);
 
     j.at("maxThreads").get_to(threadsConfig.m_maxThreads);
 }

@@ -15,11 +15,12 @@ se::Crawler::Crawler(se::SetDB& searchDatabase)
 void se::Crawler::startCrawling()
 {
     std::vector<std::thread> threads(se::Configuration::maxThreads()); 
-    for(size_t i = 0; i < se::Configuration::maxThreads(); ++i){
-        threads[i] = std::thread([&](){ m_pageFetcher.startDownlaod(); });
+
+    for(auto & tr : threads){
+        tr = std::thread([&](){ m_pageFetcher.startDownlaod(); });
     }
-    for(size_t i = 0; i < se::Configuration::maxThreads(); ++i){
-        threads[i].join();
+    for(auto & tr : threads){
+        tr.join();
     }
     m_mataDatabase.log();
 }

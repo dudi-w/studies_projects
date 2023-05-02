@@ -10,6 +10,9 @@ se::ClientQueryHandler::ClientQueryHandler(std::string const& serverAddress, uin
 
 void se::ClientQueryHandler::receivesRequest(se::RequestIF& request, [[maybe_unused]] size_t resultCount)
 {
+    if(m_fileDescription == nullptr){
+        throw 1;//TODO
+    }
     auto requestList = request.getRequest();
     std::string message = convertToString(se::Request(requestList));
     m_fileDescription = m_TCPclient.connectToServer();
@@ -18,6 +21,10 @@ void se::ClientQueryHandler::receivesRequest(se::RequestIF& request, [[maybe_unu
 
 se::Result se::ClientQueryHandler::returnResult()
 {
+    if(m_fileDescription == nullptr){
+        throw 1;//TODO
+    }
+    
     if(int fileDescriptorNum = m_fileDescription->fileDescriptorNum(); fileDescriptorNum < 3){
         throw se::FileDiscreptorError("invalid file discreptor number " + fileDescriptorNum);
     }

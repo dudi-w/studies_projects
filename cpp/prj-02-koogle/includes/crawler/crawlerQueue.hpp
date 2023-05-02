@@ -34,14 +34,14 @@ private:
     void srcURLValidation();
     bool ifBounded(std::string const& link) const;
     void extractSrcPrefix();
-    void MarkURLAsActive(std::string const& link);
+    void markURLAsActive(std::string const& link);
+    bool waitCondition();
 
 private:
     std::unordered_set<std::string> m_searchedLinks;
     std::queue<std::string> m_queue;
     std::vector<std::string> m_homeAddress;
     std::atomic<size_t> m_waiting;
-    std::function<bool(void)> m_condition;
     std::condition_variable m_cv;
     /*mutable*/ std::mutex m_mutexMode;
 };

@@ -13,12 +13,12 @@ int main()
     se::Crawler crawler(matabase);
     std::thread tr([&](){return crawler.startCrawling();});
     
-
     se::SmartQueryHandler queryHandler(matabase);
     se::QueryBuilderFactory querysIFfactory;
-    se::QueryBuilder& queryIF = querysIFfactory.getQueryBuilder();
-    se::SearchQueryFacilita queryFacilitator(queryHandler, queryIF);
+    se::QueryBuilder& queryBuilder = querysIFfactory.getQueryBuilder();
+    se::SearchQueryFacilita queryFacilitator(queryHandler, queryBuilder);
     queryFacilitator.start();
+
     tr.join();
 
     return EXIT_SUCCESS;

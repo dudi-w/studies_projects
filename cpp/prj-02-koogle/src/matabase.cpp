@@ -17,10 +17,10 @@ std::unordered_map<std::string ,size_t> const se::Matabase::getLinkOfWord(std::s
     return m_wordsIndex.at(word);
 }
 
-size_t i = 0 ;
 void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::string> const& links)
 {
-    std::unique_lock lock(m_mutex);
+    /*links-lock*/
+    // std::unique_lock lock(m_mutex);
     if(!m_linksMap.count(srcLink)){
         m_linksMap[srcLink];
         for(auto const& link : links){
@@ -33,6 +33,7 @@ void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::stri
 
 void se::Matabase::insertLink(std::string const& srcLink, std::string const& link)
 {
+    /*links-lock*/
     if(!m_linksMap[srcLink].count(link)){
         m_linksMap[srcLink][link] = 1;
     }else{
@@ -54,6 +55,7 @@ void se::Matabase::insertWords(std::string const& srcLink, std::vector<std::stri
 
 size_t se::Matabase::getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const
 {
+    /*links lock*/
     std::shared_lock lock(m_mutex);
     try{
         return m_linksMap.at(link1).at(link2);

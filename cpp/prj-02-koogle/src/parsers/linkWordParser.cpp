@@ -9,6 +9,9 @@ se::LinkWordParser::LinkWordParser(LinkParser& linkParser, WordParser& wordParse
 
 se::AnalyzPage se::LinkWordParser::pars(std::unique_ptr<se::Page> page)
 {
+    if(page == nullptr){
+        throw 1;//TODO
+    }
     std::unique_lock lock(m_mutex);
     se::AnalyzPage words = m_wordParser.pars(std::make_unique<se::BasePage>(*page));
     se::AnalyzPage links = m_linkParser.pars(std::make_unique<se::BasePage>(*page));

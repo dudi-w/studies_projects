@@ -49,9 +49,11 @@ void se::WordParser::cleanText()
     }
 }
 
-
 se::AnalyzPage se::WordParser::pars(std::unique_ptr<se::Page> const page)
 {
+    if(page == nullptr){
+        throw 1;//TODO
+    }
     reset();
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());
     searchForWords(output->root);

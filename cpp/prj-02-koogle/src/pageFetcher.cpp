@@ -13,7 +13,6 @@ se::PageFetcher::PageFetcher(se::CrawlerIF& crawler)
 , m_activesTreads(static_cast<int>(se::Configuration::maxThreads()))
 {}
 
-
 void se::PageFetcher::startDownlaod()
 {
     while(true){
