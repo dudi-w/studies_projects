@@ -20,7 +20,7 @@ public:
 
 private:
     se::GetDB const& m_SearchDB;
-    linkVec m_VecResult;
+    LinkVec m_VecResult;
     se::Result m_result;
 };
 

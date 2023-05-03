@@ -76,7 +76,7 @@ void se::MultiQueryHandler::makeForPositive()
 
 void se::MultiQueryHandler::sortResult(size_t resultCount)
 {
-    linkVec vecResult;
+    LinkVec vecResult;
     for(auto const& pair : m_result.getResult()){
         vecResult.push_back(pair);
     }

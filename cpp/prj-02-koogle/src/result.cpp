@@ -3,23 +3,23 @@
 #include "result.hpp"
 
 
-se::Result::Result(linkVec result)
+se::Result::Result(LinkVec result)
 : m_result(result)
 {}
 
-se::Result::Result(linkVec::iterator begin, linkVec::iterator end)
+se::Result::Result(LinkVec::iterator begin, LinkVec::iterator end)
 : m_result(begin, end)
 {}
 
-linkVec se::Result::getResult() const
+LinkVec se::Result::getResult() const
 {
     return m_result;
 }
 
 se::Result se::Result::operator-(Result const& other) const
 {
-    linkVec this_result = getResult();
-    linkVec other_result = other.getResult();
+    LinkVec this_result = getResult();
+    LinkVec other_result = other.getResult();
 
     auto it = other_result.begin();
     while(it != other_result.end()){
@@ -34,8 +34,8 @@ se::Result se::Result::operator-(Result const& other) const
 
 se::Result se::Result::operator|(Result const& other) const
 {
-    linkVec result = getResult();
-    linkVec other_result = other.getResult();
+    LinkVec result = getResult();
+    LinkVec other_result = other.getResult();
 
     auto it = other_result.begin();
     while(it != other_result.end()){
@@ -52,9 +52,9 @@ se::Result se::Result::operator|(Result const& other) const
 
 se::Result se::Result::operator&(Result const& other) const
 {
-    linkVec result;
-    linkVec this_result = getResult();
-    linkVec other_result = other.getResult();
+    LinkVec result;
+    LinkVec this_result = getResult();
+    LinkVec other_result = other.getResult();
 
     auto it = other_result.begin();
     while(it != other_result.end()){
@@ -67,7 +67,7 @@ se::Result se::Result::operator&(Result const& other) const
     return se::Result(result);
 }
 
-linkVec::iterator findLink(linkVec::iterator first, linkVec::iterator last, std::string const& val)
+LinkVec::iterator findLink(LinkVec::iterator first, LinkVec::iterator last, std::string const& val)
 {
     while(first != last){
         if(first->first == val){

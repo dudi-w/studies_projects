@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-using linkVec = std::vector<std::pair<std::string, size_t>>;
+using LinkVec = std::vector<std::pair<std::string, size_t>>;
 
 namespace se
 {
@@ -13,7 +13,7 @@ class ResultIF
 public:
     virtual ~ResultIF() = default;
 
-    virtual linkVec getResult() const = 0;
+    virtual LinkVec getResult() const = 0;
 };
 
 }//namespace se

@@ -51,7 +51,7 @@ se::Request convertToRequest(std::string const& message)
 se::Result convertToResult(std::string const& message)
 {
     std::stringstream strs(message);
-    linkVec result;
+    LinkVec result;
     nlohmann::json j;
     strs >> j;
     from_json(j, result);

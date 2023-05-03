@@ -28,7 +28,7 @@ private:
     se::MultiQueryHandler m_multiQueryHandler;
     std::vector<std::string> m_requests;
     std::vector<std::string> m_negativeRequests;
-    linkVec m_vetResult;
+    LinkVec m_vetResult;
     se::Result m_result;
 };
 

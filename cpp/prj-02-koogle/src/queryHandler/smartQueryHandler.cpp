@@ -57,7 +57,7 @@ void se::SmartQueryHandler::receivesRequest(se::RequestIF& request, size_t resul
 
 void se::SmartQueryHandler::sortResult(size_t resultCount)
 {
-    linkVec vecResult;
+    LinkVec vecResult;
     for(auto const& pair : m_result.getResult()){
         vecResult.push_back(pair);
     }
