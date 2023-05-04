@@ -35,7 +35,7 @@ std::string se::CrawlerQueue::deQueue()
         if(!m_queue.empty() && !(m_searchedLinks.size() >= se::Configuration::maxPages())){
             std::string link = m_queue.front();
             m_queue.pop();
-            if(link.empty() || !m_searchedLinks.count(link)){
+            if(!link.empty() || !m_searchedLinks.count(link)){
                 markURLAsActive(link);
                 return link;
             }else{
