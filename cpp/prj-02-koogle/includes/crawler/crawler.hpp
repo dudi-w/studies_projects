@@ -2,6 +2,9 @@
 #define CRAWLER_HPP
 
 #include <string>
+#include <thread>
+#include <vector>
+
 
 #include "analyzPage.hpp"
 #include "linkWordParser.hpp"
@@ -18,11 +21,10 @@ class Crawler : public CrawlerIF
 {
 public:
     explicit Crawler(se::SetDB& searchDatabase);
-    Crawler(Crawler const& other) = default;
-    Crawler& operator=(Crawler const& other) = default;
-    ~Crawler() = default;
+    Crawler(Crawler const& other) = delete;
+    Crawler& operator=(Crawler const& other) = delete;
+    ~Crawler();
 
-    void startCrawling();
     virtual void updatePage(AnalyzPage const& page) override;
     virtual std::string getURLtoDownlaod() override;
     
@@ -33,6 +35,7 @@ private:
     se::LinkWordParser m_parser;
     se::CrawlerQueue m_queue;
     se::PageFetcher m_pageFetcher;
+    std::vector<std::thread> m_threads;
 };
 
 }//namespace se

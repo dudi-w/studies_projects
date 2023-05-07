@@ -23,8 +23,6 @@ public:
 
 private:
     se::CrawlerIF& m_crawler;
-    std::atomic_bool m_newUrlInQueue;
-    std::atomic_int m_activesTreads;
 };
 
 }//namespace se

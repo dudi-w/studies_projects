@@ -1,8 +1,6 @@
+// #include <chrono>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <thread>
-#include <vector>
-#include <iostream>
 
 #include "crawler.hpp"
 
@@ -10,19 +8,22 @@ se::Crawler::Crawler(se::SetDB& searchDatabase)
 : m_mataDatabase(searchDatabase)
 , m_parser(m_linkParser, m_wordParser)
 , m_pageFetcher(*this)
-{}
-
-void se::Crawler::startCrawling()
 {
-    std::vector<std::thread> threads(se::Configuration::maxThreads()); 
+    for(size_t i = 0 ; i < se::Configuration::maxThreads() ; ++i){
+        m_threads.emplace_back([this](){ m_pageFetcher.startDownlaod();});
+    }
+    // auto start_time = std::chrono::high_resolution_clock::now();
+    // auto end_time = std::chrono::high_resolution_clock::now();
+    // auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+    // std::cout << "Execution time: " << duration.count() << " microseconds\n";
+    // m_mataDatabase.log();
+}
 
-    for(auto & tr : threads){
-        tr = std::thread([&](){ m_pageFetcher.startDownlaod(); });
+se::Crawler::~Crawler()
+{
+    for(auto & tread : m_threads){
+        tread.join();
     }
-    for(auto & tr : threads){
-        tr.join();
-    }
-    m_mataDatabase.log();
 }
 
 void se::Crawler::updatePage(AnalyzPage const& page)

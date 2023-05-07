@@ -1,18 +1,12 @@
 #ifndef CRAWLER_QUEUE_HPP
 #define CRAWLER_QUEUE_HPP
-// #pragma once
 
 #include <string>
-#include <unordered_set>
-#include <queue>
-#include <shared_mutex>
-#include <mutex>
-#include <condition_variable>
-#include <atomic>
-#include <functional>
 
 #include "configuration.hpp"
 #include "analyzPage.hpp"
+#include "safeQueue.hpp"
+#include "safeUnorderedSet.hpp"
 
 namespace se{//Search Engine
 
@@ -28,22 +22,19 @@ public:
 
     void inQueue(std::vector<std::string> const& links);
     void inQueue(std::string const& links);
+    void inQueue(std::string && link);
     std::string deQueue();
 
 private:
     void srcURLValidation();
     bool ifBounded(std::string const& link) const;
     void extractSrcPrefix();
-    void markURLAsActive(std::string const& link);
-    bool waitCondition();
+    void logAsActive(std::string const& link);
 
 private:
-    std::unordered_set<std::string> m_searchedLinks;
-    std::queue<std::string> m_queue;
+    se::SafeQueue<std::string> m_safeQueue;
+    se::SafeUnorderedSet<std::string> m_activedLinks;
     std::vector<std::string> m_homeAddress;
-    std::atomic<size_t> m_waiting;
-    std::condition_variable m_cv;
-    /*mutable*/ std::mutex m_mutexMode;
 };
 
 }//namespace se
