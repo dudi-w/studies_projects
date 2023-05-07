@@ -15,7 +15,7 @@ se::QueryBuilder& se::QueryBuilderFactory::getQueryBuilder()
             m_query = std::make_unique<se::TextUI>();
             return *m_query;
         }else if(request == "e"){
-            m_query = std::make_unique<se::TCPquerysIF>(se::Configuration::portNum());
+            m_query = std::make_unique<se::TCPquerys>(se::Configuration::portNum());
             return *m_query;
         }
         else{

@@ -2,7 +2,7 @@
 #include "myExceptions.hpp"
 #include "tools.hpp"
 
-se::TCPquerysIF::TCPquerysIF(uint16_t port)
+se::TCPquerys::TCPquerys(uint16_t port)
 : m_server(port)
 , m_fileDescription(nullptr)
 {
@@ -11,14 +11,14 @@ se::TCPquerysIF::TCPquerysIF(uint16_t port)
     m_server.listenForClient();
 }
 
-std::unique_ptr<se::RequestIF> se::TCPquerysIF::makeRequest()
+std::unique_ptr<se::RequestIF> se::TCPquerys::makeRequest()
 {
     m_fileDescription = m_server.acceptTorecieve();
     if(m_fileDescription == nullptr){
         throw 1;//TODO
     }
 
-    std::string message = m_fileDescription->read();//? why not check the file discriptor number?
+    std::string message = m_fileDescription->read();
     auto request = convertToRequest(message);
     if(request.getRequest().at(0) == "1234"){
         return nullptr;
@@ -26,7 +26,7 @@ std::unique_ptr<se::RequestIF> se::TCPquerysIF::makeRequest()
     return std::make_unique<se::Request>(request);
 }
 
-void se::TCPquerysIF::recieveResult(se::Result& result) const
+void se::TCPquerys::recieveResult(se::Result& result) const
 {
     if(m_fileDescription == nullptr){
         throw 1;//TODO

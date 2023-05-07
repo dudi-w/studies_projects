@@ -1,5 +1,5 @@
-#ifndef TCP_QUERY_IF_HPP
-#define TCP_QUERY_IF_HPP
+#ifndef TCP_QUERY_HPP
+#define TCP_QUERY_HPP
 
 #include "QueryBuilderIF.hpp"
 #include "TCPserver.hpp"
@@ -7,13 +7,13 @@
 
 namespace se{//Search Engin
 
-class TCPquerysIF : public QueryBuilder
+class TCPquerys : public QueryBuilder
 {
 public:
-    explicit TCPquerysIF(uint16_t port = -1);
-    TCPquerysIF(TCPquerysIF const& other) = default;
-    TCPquerysIF& operator=(TCPquerysIF const& other) = default;
-    ~TCPquerysIF() = default;
+    explicit TCPquerys(uint16_t port = -1);
+    TCPquerys(TCPquerys const& other) = default;
+    TCPquerys& operator=(TCPquerys const& other) = default;
+    ~TCPquerys() = default;
 
     virtual std::unique_ptr<se::RequestIF> makeRequest() override;
     virtual void recieveResult(se::Result& result) const override;
