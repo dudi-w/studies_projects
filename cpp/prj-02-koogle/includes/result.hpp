@@ -14,6 +14,7 @@ public:
     explicit Result(LinkVec::iterator begin, LinkVec::iterator end);
     Result(Result const& other) = default;
     Result& operator=(Result const& other) = default;
+    Result& operator=(Result && other) = default;
     virtual ~Result() = default;
 
     Result operator-(Result const& other) const;
