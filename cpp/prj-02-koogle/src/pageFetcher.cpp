@@ -1,5 +1,5 @@
 #include <thread>
-#include <chrono>
+#include <chrono>//!
 
 #include "pageFetcher.hpp"
 #include "getHTTP.hpp"
@@ -9,8 +9,6 @@
 
 se::PageFetcher::PageFetcher(se::CrawlerIF& crawler)
 : m_crawler(crawler)
-, m_newUrlInQueue(false)
-, m_activesTreads(static_cast<int>(se::Configuration::maxThreads()))
 {}
 
 void se::PageFetcher::startDownlaod()
@@ -27,7 +25,7 @@ void se::PageFetcher::startDownlaod()
             }
         }
         else{
-            break;;
+            break;
         }
     }
 }
