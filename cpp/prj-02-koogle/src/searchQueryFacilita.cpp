@@ -15,10 +15,10 @@ void se::SearchQueryFacilita::start() const
             break;
         }
         if(request->getRequest()[0] == "1234"){
-            m_queryHandler.receivesRequest(*request,0);;
+            m_queryHandler.receivesRequest(*request);
             break;
         }
-        m_queryHandler.receivesRequest(*request,10);
+        m_queryHandler.receivesRequest(*request);   
         auto result = m_queryHandler.returnResult();
         m_queryIF.recieveResult(result);
     }

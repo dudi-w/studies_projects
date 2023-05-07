@@ -14,8 +14,8 @@ public:
     SimpleQueryHandler& operator=(SimpleQueryHandler const& other) = default;
     virtual ~SimpleQueryHandler() = default;
 
-    virtual void receivesRequest(se::RequestIF& request, size_t resultCount = 10) override;
-    void receivesRequest(std::string const& requests, size_t resultCount = 10);
+    virtual void receivesRequest(se::RequestIF& request) override;
+    void receivesRequest(std::string const& requests);
     virtual se::Result returnResult() override;
 
 private:

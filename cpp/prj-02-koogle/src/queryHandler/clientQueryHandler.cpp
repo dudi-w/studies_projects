@@ -5,10 +5,9 @@
 se::ClientQueryHandler::ClientQueryHandler(std::string const& serverAddress, uint16_t port)
 : m_TCPclient(serverAddress, port)
 , m_fileDescription(nullptr)
-{
-}
+{}
 
-void se::ClientQueryHandler::receivesRequest(se::RequestIF& request, [[maybe_unused]] size_t resultCount)
+void se::ClientQueryHandler::receivesRequest(se::RequestIF& request)
 {
     if(m_fileDescription == nullptr){
         throw 1;//TODO

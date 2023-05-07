@@ -21,9 +21,8 @@ void se::TextUI::recieveResult(se::Result& result) const
 {
     if(result.getResult().size() > 0){
         std::cout<<"The results for the word search \033[1;34m"<<m_request<<"\033[0m :"<<std::endl;
-        auto vecResult = result.getResult();
-        for(auto& res : vecResult){
-            std::cout<<std::left <<" "<<std::setw(90) << res.first<<std::right << std::setw(10) << res.second << std::endl;
+        for(size_t i = 0; i < 10/*???*/ ; ++i){
+            std::cout<<std::left <<" "<<std::setw(90) << result.getResult()[i].first<<std::right << std::setw(10) << result.getResult()[i].second << std::endl;
         }
     }else{
         std::cout<<"  No results were found for your request :\033[1;34m"<<m_request<<"\033[0m \U0001F629"<<std::endl;

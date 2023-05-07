@@ -12,12 +12,12 @@ se::MultiQueryHandler::MultiQueryHandler(se::GetDB const& searchDB)
 , m_result({})
 {}
 
-void se::MultiQueryHandler::receivesRequest(se::RequestIF& request, size_t resultCount = 10)
+void se::MultiQueryHandler::receivesRequest(se::RequestIF& request)
 {
-    receivesRequest(request.getRequest(), resultCount);
+    receivesRequest(request.getRequest());
 }
 
-void se::MultiQueryHandler::receivesRequest(std::vector<std::string> const& requests, size_t resultCount = 10)
+void se::MultiQueryHandler::receivesRequest(std::vector<std::string> const& requests)
 {
     reset();
     m_requests = requests;
@@ -33,7 +33,7 @@ void se::MultiQueryHandler::receivesRequest(std::vector<std::string> const& requ
     }else{
         throw se::InValidArg("Mixed arguments!");
     }
-    sortResult(resultCount);
+    sortResult();
 }
 
 void se::MultiQueryHandler::reset()
@@ -45,7 +45,7 @@ void se::MultiQueryHandler::reset()
 void se::MultiQueryHandler::makeForNegative()
 {
     for(size_t i = 0; i < m_requests.size(); ++i){
-        m_simpleQueryHandler.receivesRequest(m_requests[i].substr(1), std::numeric_limits<int>::max());
+        m_simpleQueryHandler.receivesRequest(m_requests[i].substr(1));
         auto result = m_simpleQueryHandler.returnResult();
         if(result.getResult().size() != 0){
             m_result = m_result | result;
@@ -55,7 +55,7 @@ void se::MultiQueryHandler::makeForNegative()
 
 void se::MultiQueryHandler::makeForPositive()
 {
-    m_simpleQueryHandler.receivesRequest(m_requests[0], std::numeric_limits<int>::max());
+    m_simpleQueryHandler.receivesRequest(m_requests[0]);
     auto result = m_simpleQueryHandler.returnResult();
     if(result.getResult().size() == 0){
         return;
@@ -64,7 +64,7 @@ void se::MultiQueryHandler::makeForPositive()
     m_result = se::Result(result.getResult());
 
     for(size_t i = 1; i < m_requests.size(); ++i){
-        m_simpleQueryHandler.receivesRequest(m_requests[i],std::numeric_limits<int>::max());
+        m_simpleQueryHandler.receivesRequest(m_requests[i]);
         result = m_simpleQueryHandler.returnResult();
         if(result.getResult().size() == 0){
             m_result = se::Result({});
@@ -74,7 +74,7 @@ void se::MultiQueryHandler::makeForPositive()
     }
 }
 
-void se::MultiQueryHandler::sortResult(size_t resultCount)
+void se::MultiQueryHandler::sortResult()
 {
     LinkVec vecResult;
     for(auto const& pair : m_result.getResult()){
@@ -82,12 +82,7 @@ void se::MultiQueryHandler::sortResult(size_t resultCount)
     }
     auto lambda = [](auto pair1 ,auto pair2){return pair1.second > pair2.second;};
     std::sort(vecResult.begin(), vecResult.end(), lambda);
-
-    auto it = vecResult.begin();
-    for(size_t i = 0 ; i < resultCount && it != vecResult.end(); ++i){
-        ++it;
-    }
-    m_result = se::Result(vecResult.begin(), it);
+    m_result = std::move(se::Result(vecResult));
 }
 
 se::Result se::MultiQueryHandler::returnResult()

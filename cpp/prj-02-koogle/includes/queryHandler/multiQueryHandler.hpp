@@ -14,15 +14,15 @@ public:
     MultiQueryHandler& operator=(MultiQueryHandler const& other) = default;
     virtual ~MultiQueryHandler() = default;
 
-    virtual void receivesRequest(se::RequestIF& request, size_t resultCount) override;
-    void receivesRequest(std::vector<std::string> const& requests, size_t resultCount);
+    virtual void receivesRequest(se::RequestIF& request) override;
+    void receivesRequest(std::vector<std::string> const& requests);
     virtual se::Result returnResult() override;
 
 private:
     void makeForNegative();
     void makeForPositive();
     void reset();
-    void sortResult(size_t resultCount = 10);
+    void sortResult();
 
 private:
     se::SimpleQueryHandler m_simpleQueryHandler;

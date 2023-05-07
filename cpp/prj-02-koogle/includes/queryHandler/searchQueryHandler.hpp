@@ -13,7 +13,7 @@ class SearchQueryHandler
 public:
     virtual ~SearchQueryHandler() = default;
 
-    virtual void receivesRequest(se::RequestIF& request, size_t resultCount) = 0;
+    virtual void receivesRequest(se::RequestIF& request) = 0;
     virtual se::Result returnResult() = 0;
 };
 

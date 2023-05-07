@@ -17,12 +17,12 @@ public:
     SmartQueryHandler& operator=(SmartQueryHandler const& other) = default;
     virtual ~SmartQueryHandler() = default;
 
-    virtual void receivesRequest(se::RequestIF& request, size_t resultCount = 10) override;
+    virtual void receivesRequest(se::RequestIF& request) override;
     virtual se::Result returnResult() override;
 
 private:
     void reset();
-    void sortResult(size_t resultCount = 10);
+    void sortResult();
 
 private:
     se::MultiQueryHandler m_multiQueryHandler;

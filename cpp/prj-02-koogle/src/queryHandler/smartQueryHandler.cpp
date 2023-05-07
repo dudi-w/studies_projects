@@ -17,7 +17,7 @@ void se::SmartQueryHandler::reset()
     m_result = se::Result({});
 }
 
-void se::SmartQueryHandler::receivesRequest(se::RequestIF& request, size_t resultCount)
+void se::SmartQueryHandler::receivesRequest(se::RequestIF& request)
 {
     reset();
     std::vector<std::string> new_requests = request.getRequest();
@@ -37,14 +37,14 @@ void se::SmartQueryHandler::receivesRequest(se::RequestIF& request, size_t resul
         return;
     }
 
-    m_multiQueryHandler.receivesRequest(m_requests ,std::numeric_limits<int>::max());
+    m_multiQueryHandler.receivesRequest(m_requests);
     auto P_Result = m_multiQueryHandler.returnResult();
     if(P_Result.getResult().size() == 0){
         return;
     }
     m_result = se::Result(P_Result);
 
-    m_multiQueryHandler.receivesRequest(m_negativeRequests, std::numeric_limits<int>::max());
+    m_multiQueryHandler.receivesRequest(m_negativeRequests);
     auto N_Result = m_multiQueryHandler.returnResult();
     if(N_Result.getResult().size() != 0){
         m_result = m_result - N_Result;
@@ -52,10 +52,10 @@ void se::SmartQueryHandler::receivesRequest(se::RequestIF& request, size_t resul
     if(m_result.getResult().size() == 0){
         return;
     }
-    sortResult(resultCount);
+    sortResult();
 }
 
-void se::SmartQueryHandler::sortResult(size_t resultCount)
+void se::SmartQueryHandler::sortResult()
 {
     LinkVec vecResult;
     for(auto const& pair : m_result.getResult()){
@@ -63,12 +63,7 @@ void se::SmartQueryHandler::sortResult(size_t resultCount)
     }
     auto lambda = [](auto pair1 ,auto pair2){return pair1.second > pair2.second;};
     std::sort(vecResult.begin(), vecResult.end(), lambda);
-
-    auto it = vecResult.begin();
-    for(size_t i = 0 ; i < resultCount && it != vecResult.end(); ++i){
-        ++it;
-    }
-    m_result = se::Result(vecResult.begin(), it);
+    m_result = std::move(se::Result(vecResult));
 }
 
 se::Result se::SmartQueryHandler::returnResult()
