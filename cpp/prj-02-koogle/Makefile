@@ -7,7 +7,7 @@ CXXFLAGS += -Werror
 CXXFLAGS += -Wextra
 CXXFLAGS += -g3
 
-CPPFLAGS = -I ./includes -I ./includes/crawler -I ./includes/parsers -I ./includes/queryHandler -I ./src -I ./src/crawler -I ./src/parsers -I ./src/queryHandler
+CPPFLAGS = -I ./includes -I ./includes/crawler -I ./includes/parsers -I ./includes/queryHandler -I ./includes/safeDataStructures -I ./src -I ./src/crawler -I ./src/parsers -I ./src/queryHandler -I ./src/safeDataStructures
 
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
@@ -22,23 +22,35 @@ OBJECTS_CLIENT = mainClient.o src/queryHandler/clientQueryHandler.o src/textUI.o
 	src/result.o src/searchQueryFacilita.o src/request.o\
 	src/tools.o src/TCPsocketFile.o src/TCPclient.o
 
-RUNFILES = mainServer mainClient
+# test
+OBJECTS_TEST = mainTest.o src/pageRank.o
+# test
+RUNFILES = mainServer mainClient mainTest
 
 all : $(RUNFILES)
 
+# test
+mainTest : $(OBJECTS_TEST)
 mainServer : $(OBJECTS)
 mainClient : $(OBJECTS_CLIENT)
 
 mainServer.o : mainServer.cpp
 mainClient.o : mainClient.cpp
+# test
+mainTest.o : mainTest.cpp
 
 src/request.o : src/request.cpp includes/request.hpp includes/requestIF.hpp
 
 src/analyzPage.o : src/analyzPage.cpp includes/analyzPage.hpp includes/basePage.hpp
 src/basePage.o :  src/basePage.cpp includes/basePage.hpp includes/basePage.hpp
 
-src/tools.o : src/tools.cpp includes/tools.hpp includes/myExceptions.hpp includes/request.hpp includes/result.hpp includes/configuration.hpp
+src/tools.o : src/tools.cpp includes/tools.hpp includes/myExceptions.hpp\
+	includes/request.hpp includes/result.hpp includes/configuration.hpp
 src/configuration.o : src/configuration.cpp includes/configuration.hpp includes/tools.hpp
+src/crawler/crawlerQueue.o : includes/crawler/crawlerQueue.hpp src/crawler/crawlerQueue.cpp\
+	includes/configuration.hpp includes/safeDataStructures/safeQueue.hpp src/safeDataStructures/safeQueue.inl\
+	includes/safeDataStructures/safeUnorderedSet.hpp src/safeDataStructures/safeUnorderedSet.inl\
+	includes/analyzPage.hpp includes/myExceptions.hpp includes/getHTTP.hpp includes/parsers/linkParser.hpp
 src/crawler/crawler.o : src/crawler/crawler.cpp includes/crawler/crawler.hpp includes/crawler/crawlerIF.hpp\
 	includes/analyzPage.hpp includes/setDatabase.hpp includes/configuration.hpp\
 	includes/analyzPage.hpp includes/parsers/linkWordParser.hpp
@@ -48,10 +60,9 @@ src/parsers/linkParser.o : includes/parsers/linkParser.hpp includes/crawler/craw
 src/parsers/wordParser.o : includes/parsers/wordParser.hpp src/parsers/wordParser.cpp includes/crawler/crawlerQueue.hpp
 src/parsers/linkWordParser.o : includes/parsers/linkWordParser.hpp src/parsers/linkWordParser.cpp includes/crawler/crawlerQueue.hpp
 src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
-src/crawler/crawlerQueue.o : includes/crawler/crawlerQueue.hpp src/crawler/crawlerQueue.cpp includes/configuration.hpp\
-	includes/analyzPage.hpp includes/myExceptions.hpp includes/getHTTP.hpp includes/parsers/linkParser.hpp
-src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp 
-
+src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp\
+	includes/safeDataStructures/safeUnorderedTable.hpp src/safeDataStructures/safeUnorderedTable.inl
+src/pageRank.o : includes/pageRank.hpp src/pageRank.cpp
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryBuilderIF.hpp
 src/queryIFfactory.o : includes/queryBuilderFactory.hpp src/queryIFfactory.cpp\
