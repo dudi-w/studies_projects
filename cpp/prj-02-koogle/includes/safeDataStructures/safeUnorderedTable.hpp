@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <mutex>
 #include <shared_mutex>
+#include <functional>
 
 namespace se{
 
@@ -17,7 +18,7 @@ public:
     ~SafeUnorderedTable() = default;
 
 public:
-    void insert(K1 const& key1 , K2 const& key2 , V const & sumValue);
+    void insert(K1 const& key1 , K2 const& key2 , V const & value , std::function<void(V& value)> funcIfExis);
     bool exis(K1 const& element) const;
     std::unordered_map<K2 ,V> at(K1 const& key1) const;
     size_t size() const;
