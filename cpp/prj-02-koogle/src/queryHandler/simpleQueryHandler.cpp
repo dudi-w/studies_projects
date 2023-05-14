@@ -16,6 +16,7 @@ void se::SimpleQueryHandler::receivesRequest(se::RequestIF& request)
     }
     receivesRequest(request.getRequest()[0]);
 }
+using LinkVec = std::vector<std::pair<std::string, size_t>>;
 
 void se::SimpleQueryHandler::receivesRequest(std::string const& request)
 {
@@ -26,9 +27,7 @@ void se::SimpleQueryHandler::receivesRequest(std::string const& request)
 
     if(m_SearchDB.wordExis(word)){
         auto mapResult = m_SearchDB.getLinkOfWord(word);
-        for(auto const& pair : mapResult){
-            m_VecResult.push_back(pair);
-        }
+        m_VecResult = LinkVec(mapResult.cbegin(), mapResult.cend());
         std::sort(m_VecResult.begin(), m_VecResult.end(), [](auto pair1 ,auto pair2){return pair1.second > pair2.second;});
         m_result = std::move(se::Result(m_VecResult));
     }
