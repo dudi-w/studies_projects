@@ -25,23 +25,42 @@ void se::CrawlerQueue::logAsActive(std::string const& link)
 std::string se::CrawlerQueue::deQueue()
 {
     while(true){
-        if((m_activedLinks.size() < se::Configuration::maxPages())){
-            auto link = m_safeQueue.deQueue();
-            if(!link){
-                break;
-            }
-            if(m_activedLinks.insert(link.value())){
-                logAsActive(link.value());///optionel
-                return link.value();
-            }else{
-                continue;
-            }
-        }else{
+		std::string link;
+		if(!m_safeQueue.deQueue(link)){
+			break;
+		}
+		if(!m_activedLinks.insert(link)){
+			continue;
+		}
+		if(!(m_activedLinks.size() < se::Configuration::maxPages())){
             break;
-        }
+		}
+    	logAsActive(link);//?optionel
+		return link;
     }
     return "";
 }
+
+//! std::string se::CrawlerQueue::deQueue()
+//! {
+//!     while(true){
+//!         if((m_activedLinks.size() < se::Configuration::maxPages())){
+//!             std::string link;
+//!             if(!m_safeQueue.deQueue(link)){
+//!                 break;
+//!         	}
+//!             if(m_activedLinks.insert(link)){
+//!                 logAsActive(link);///optionel
+//!                 return link;
+//!             }else{
+//!                 continue;
+//!             }
+//!         }else{
+//!             break;
+//!         }
+//!     }
+//!     return "";
+//! }
 
 void se::CrawlerQueue::inQueue(std::string const& link)
 {
