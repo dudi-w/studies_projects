@@ -29,13 +29,13 @@ void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::stri
 
 void se::Matabase::insertLink(std::string const& srcLink, std::string const& link)
 {
-    m_safeLinksMap.insert(srcLink, link, 1);
+    m_safeLinksMap.insert(srcLink, link, 1, [](size_t& count){ ++count;});
 }
 
 void se::Matabase::insertWords(std::string const& srcLink, std::vector<std::string> const& words)
 {
     for(auto const & word : words){
-        m_safeWordsIndex.insert(word ,srcLink, 1);
+        m_safeWordsIndex.insert(word ,srcLink, 1, [](size_t& count){ ++count;});
     }
 }
 
