@@ -29,13 +29,13 @@ class Configuration
 {
 public:
     ~Configuration() = default;
+    
     std::vector<std::string> static const& getSrcURLs();
     size_t static maxPages();
     bool static isBounded();
     uint16_t static portNum();
     std::string static serverAddress();
     size_t static maxThreads();
-
 
 private:
     explicit Configuration(std::string const& configurationFilePath);
