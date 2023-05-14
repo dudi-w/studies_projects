@@ -5,24 +5,24 @@
 
 template<typename T>
 se::SafeQueue<T>::SafeQueue(size_t maxThreads)
-: m_waiting(0)
+: m_waiting{0}
 , m_maxThreads(maxThreads)
 {}
 
 template<typename T>
-std::optional<T> se::SafeQueue<T>::deQueue()
+bool se::SafeQueue<T>::deQueue(T& element)
 {
     std::unique_lock<std::mutex> lock(m_mutex);
     while(true){
         if(!m_queue.empty()){
-            T element = m_queue.front();
+            element = m_queue.front();
             m_queue.pop();
-            return element;
+            return true;
         }else{
             ++m_waiting;
             if(m_waiting >= se::Configuration::maxThreads()){
                 m_cv.notify_all();
-                return std::nullopt;
+                return false;
             }
             m_cv.wait(lock);
             --m_waiting;

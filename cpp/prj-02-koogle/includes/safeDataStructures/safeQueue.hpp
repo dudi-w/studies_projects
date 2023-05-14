@@ -18,8 +18,8 @@ public:
     ~SafeQueue() = default;
 
 public:
-    std::optional<T> deQueue();
-    void inQueue(const T&);
+    bool deQueue(T& element);
+    void inQueue(const T& elements);
     void inQueue(std::vector<T> const& elements);
 
 private:
