@@ -6,13 +6,14 @@
 #include <unordered_map>
 
 namespace se{//Search Engine
+using LinkVec = std::vector<std::pair<std::string, float>>;
 
 class GetDB 
 {
 public:
     virtual ~GetDB() = default;
 
-    virtual std::unordered_map<std::string ,size_t>  getLinkOfWord(std::string const& word) const = 0;
+    virtual se::LinkVec getLinkOfWord(std::string const& word) const = 0;
     virtual size_t getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const = 0;
     virtual bool wordExis(std::string const& word) const = 0;
 };
