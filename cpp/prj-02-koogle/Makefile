@@ -12,7 +12,7 @@ CPPFLAGS = -I ./includes -I ./includes/crawler -I ./includes/parsers -I ./includ
 LDLIBS += -lcurlpp -lcurl -lgumbo
 
 OBJECTS = mainServer.o src/configuration.o src/tools.o src/request.o\
-		src/parsers/linkParser.o src/parsers/wordParser.o src/parsers/linkWordParser.o src/matabase.o src/getHTTP.o\
+		src/parsers/linkParser.o src/parsers/wordParser.o src/parsers/linkWordParser.o src/matabase.o src/pageRank.o src/getHTTP.o\
 		src/pageFetcher.o src/crawler/crawlerQueue.o src/crawler/crawler.o src/basePage.o\
 		src/analyzPage.o src/result.o src/queryIFfactory.o src/textUI.o src/queryHandler/multiQueryHandler.o\
 		src/queryHandler/simpleQueryHandler.o src/queryHandler/smartQueryHandler.o src/searchQueryFacilita.o src/TCPqueryIF.o\
@@ -23,21 +23,21 @@ OBJECTS_CLIENT = mainClient.o src/queryHandler/clientQueryHandler.o src/textUI.o
 	src/tools.o src/TCPsocketFile.o src/TCPclient.o
 
 # test
-OBJECTS_TEST = mainTest.o src/pageRank.o
+# OBJECTS_TEST = mainTest.o src/pageRank.o
 # test
-RUNFILES = mainServer mainClient mainTest
+RUNFILES = mainServer mainClient #mainTest
 
 all : $(RUNFILES)
 
 # test
-mainTest : $(OBJECTS_TEST)
+# mainTest : $(OBJECTS_TEST)
 mainServer : $(OBJECTS)
 mainClient : $(OBJECTS_CLIENT)
 
 mainServer.o : mainServer.cpp
 mainClient.o : mainClient.cpp
 # test
-mainTest.o : mainTest.cpp
+# mainTest.o : mainTest.cpp
 
 src/request.o : src/request.cpp includes/request.hpp includes/requestIF.hpp
 
@@ -61,8 +61,8 @@ src/parsers/wordParser.o : includes/parsers/wordParser.hpp src/parsers/wordParse
 src/parsers/linkWordParser.o : includes/parsers/linkWordParser.hpp src/parsers/linkWordParser.cpp includes/crawler/crawlerQueue.hpp
 src/getHTTP.o : includes/getHTTP.hpp src/getHTTP.cpp
 src/matabase.o : includes/matabase.hpp includes/getDatabase.hpp includes/setDatabase.hpp src/matabase.cpp\
-	includes/safeDataStructures/safeUnorderedTable.hpp src/safeDataStructures/safeUnorderedTable.inl
-src/pageRank.o : includes/pageRank.hpp src/pageRank.cpp
+	includes/safeDataStructures/safeUnorderedTable.hpp src/safeDataStructures/safeUnorderedTable.inl includes/pageRank.hpp
+src/pageRank.o : includes/pageRank.hpp src/pageRank.cpp includes/safeDataStructures/safeUnorderedMap.hpp src/safeDataStructures/safeUnorderedMap.inl
 
 src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/QueryBuilderIF.hpp
 src/queryIFfactory.o : includes/queryBuilderFactory.hpp src/queryIFfactory.cpp\
