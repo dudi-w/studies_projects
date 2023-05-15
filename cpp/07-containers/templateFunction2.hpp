@@ -24,6 +24,9 @@ typename Iterator::value_type sumRange(Iterator begin ,Iterator end, std::functi
 template<typename Container>
 typename Container::const_iterator getFirstDuplicates(Container const& container);
 
+template <typename Iterator>
+Iterator tf::find(Iterator begin ,Iterator end, typename Iterator::value_type v)
+
 }//namespace tm
 
 #include "templateFunction2.inl"

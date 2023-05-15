@@ -40,6 +40,18 @@ bool tf::isSorted(const T* arr ,size_t  size)
     return (checkSortRev || checkSort);
 }
 
+template <typename Iterator>
+Iterator tf::find(Iterator begin ,Iterator end, typename Iterator::value_type v)
+{
+    while(begin != end){
+        if(*begin == v){
+            return v;
+        }
+        ++begin;
+    }
+    return end;
+}
+
 template<typename Container>
 typename Container::const_iterator  tf::getFirstUniq(Container const& container)
 {
