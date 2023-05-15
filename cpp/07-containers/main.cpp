@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "templateFunction2.hpp"
 
 
@@ -14,6 +15,10 @@ void test1(){
 
     int arr2[]={500,512,217,127,52,20,1};
     std::cout<<"\033[3;33mis sorted ? "<<std::boolalpha<<tf::isSorted(arr2, 7)<<"\033[0m\n";
+
+    std::vector<int> vec = {500,500};
+    // std::vector<int>::const_iterator::value_type;
+    std::cout<<"\033[3;33msum = "<<tf::sumRange<std::vector<int>::const_iterator>(vec.cbegin(), vec.cend(), [](auto& it){return *it;})<<"\033[0m\n";
 }
 
 
