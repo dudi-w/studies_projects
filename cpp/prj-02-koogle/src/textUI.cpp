@@ -21,7 +21,7 @@ void se::TextUI::recieveResult(se::Result& result) const
 {
     if(result.getResult().size() > 0){
         std::cout<<"The results for the word search \033[1;34m"<<m_request<<"\033[0m :"<<std::endl;
-        for(size_t i = 0; i < 10/*???*/ ; ++i){
+        for(size_t i = 0; i < 10/*???*/ && i < result.getResult().size() ; ++i){
             std::cout<<std::left <<" "<<std::setw(90) << result.getResult()[i].first<<std::right << std::setw(10) << result.getResult()[i].second << std::endl;
         }
     }else{
