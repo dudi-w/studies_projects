@@ -3,15 +3,16 @@
 
 #include <string>
 
-using LinkVec = std::vector<std::pair<std::string, size_t>>;
 
 namespace se{
+    
+using LinkVec = std::vector<std::pair<std::string, float>>;
 
 class Result
 {
 public:
-    explicit Result(LinkVec result);
-    explicit Result(LinkVec::iterator begin, LinkVec::iterator end);
+    explicit Result(se::LinkVec result);
+    explicit Result(se::LinkVec::iterator begin, se::LinkVec::iterator end);
     Result(Result const& other) = default;
     Result& operator=(Result const& other) = default;
     Result& operator=(Result && other) = default;
@@ -21,14 +22,12 @@ public:
     Result operator|(Result const& other) const;
     Result operator&(Result const& other) const;
 
-    virtual LinkVec getResult() const;
+    virtual se::LinkVec getResult() const;
 
 private:
-    LinkVec m_result;
+    se::LinkVec m_result;
 };
 
 }
-
-LinkVec::iterator findLink(LinkVec::iterator first, LinkVec::iterator last, std::string const& val);
 
 #endif
