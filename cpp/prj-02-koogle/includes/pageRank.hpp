@@ -3,24 +3,30 @@
 
 #include <string>
 #include <unordered_map>
+#include <atomic>
+
+#include "safeUnorderedMap.hpp"
+#include "safeUnorderedTable.hpp"
 
 namespace se{
 
-using MyMap = std::unordered_map<std::string ,std::unordered_map<std::string ,size_t>>;
+using MyMap = se::SafeUnorderedTable<std::string, std::string, size_t>;
 
 class PageRank
 {
 public:
-    PageRank() = default;
+    PageRank();
     PageRank(PageRank const& other) = default;
     PageRank& operator=(PageRank const& other) = default;
     ~PageRank() = default;
 
-    void reCalculatePageRank(se::MyMap linksMap);
-    float getRank(std::string const& link) const;
+    void reCalculatePageRank(se::MyMap const& linksMap);
+    float getRank(std::string const &link) const;
+    size_t lestUpCount() const;
 
 private:
-    std::unordered_map<std::string, float> m_scoreMap;
+    se::SafeUnorderedMap<std::string, float> m_scoreMap;
+    std::atomic_size_t m_lestUp;
 };
 
 }// namespace se
