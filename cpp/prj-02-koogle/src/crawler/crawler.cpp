@@ -1,7 +1,7 @@
-// #include <chrono>
 #include <fstream>
 #include <nlohmann/json.hpp>
 
+#include "systemMonitor.hpp"
 #include "crawler.hpp"
 
 se::Crawler::Crawler(se::SetDB& searchDatabase)
@@ -9,14 +9,10 @@ se::Crawler::Crawler(se::SetDB& searchDatabase)
 , m_parser(m_linkParser, m_wordParser)
 , m_pageFetcher(*this)
 {
+    se::SystemMonitor::start();
     for(size_t i = 0 ; i < se::Configuration::maxThreads() ; ++i){
         m_threads.emplace_back([this](){ m_pageFetcher.startDownlaod();});
     }
-    // auto start_time = std::chrono::high_resolution_clock::now();
-    // auto end_time = std::chrono::high_resolution_clock::now();
-    // auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-    // std::cout << "Execution time: " << duration.count() << " microseconds\n";
-    // m_mataDatabase.log();
 }
 
 se::Crawler::~Crawler()
