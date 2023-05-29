@@ -1,8 +1,9 @@
-#include <fstream>
+// #include <fstream>
 #include <nlohmann/json.hpp>
 
-#include "systemMonitor.hpp"
 #include "crawler.hpp"
+#include "systemMonitor.hpp"
+#include "configuration.hpp"
 
 se::Crawler::Crawler(se::SetDB& searchDatabase)
 : m_mataDatabase(searchDatabase)
@@ -28,6 +29,7 @@ void se::Crawler::updatePage(AnalyzPage const& page)
     auto srcPage = parsPage.getSrc();
     auto links = parsPage.getLinks();
     auto words = parsPage.getWords();
+    std::cout<<words.size()<<" updatePage\n";
     m_mataDatabase.insertLinks(srcPage, links);
     m_mataDatabase.insertWords(srcPage, words);
     m_queue.inQueue(links);

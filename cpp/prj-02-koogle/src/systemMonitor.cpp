@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "systemMonitor.hpp"
 
 se::SystemMonitor& se::SystemMonitor::getInstance()

@@ -18,7 +18,7 @@ void se::ClientQueryHandler::receivesRequest(se::RequestIF& request)
     m_fileDescription->write(message);
 }
 
-se::Result se::ClientQueryHandler::returnResult()
+se::Result se::ClientQueryHandler::returnResult()//? mybe deleted
 {
     if(m_fileDescription == nullptr){
         throw 1;//TODO
@@ -27,7 +27,7 @@ se::Result se::ClientQueryHandler::returnResult()
     if(int fileDescriptorNum = m_fileDescription->fileDescriptorNum(); fileDescriptorNum < 3){
         throw se::FileDiscreptorError("invalid file discreptor number " + fileDescriptorNum);
     }
-    std::string message = m_fileDescription->read();
+    std::string message = m_fileDescription->read();//move
     m_fileDescription = nullptr;
     return convertToResult(message);
 }

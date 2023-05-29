@@ -1,8 +1,8 @@
 #include "matabase.hpp"
 #include "crawler.hpp"
 #include "smartQueryHandler.hpp"
-#include "searchQueryFacilita.hpp"
 #include "queryBuilderFactory.hpp"
+#include "searchQueryFacilita.hpp"
 
 int main()
 {
@@ -10,10 +10,10 @@ int main()
     
     se::Crawler crawler(matabase);
 
-    se::SmartQueryHandler queryHandler(matabase);
+    se::SmartQueryHandler searcher(matabase);
     se::QueryBuilderFactory querysIFfactory;
     se::QueryBuilder& queryBuilder = querysIFfactory.getQueryBuilder();
-    se::SearchQueryFacilita queryFacilitator(queryHandler, queryBuilder);
+    se::SearchQueryFacilita queryFacilitator(searcher, queryBuilder);
     queryFacilitator.start();
 
     return EXIT_SUCCESS;

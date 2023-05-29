@@ -21,7 +21,7 @@ public:
     ~PageRank() = default;
 
     void reCalculatePageRank(se::MyMap const& linksMap);
-    float getRank(std::string const &link) const;
+    float getRank(std::string const& link) const;
     size_t lestUpCount() const;
 
 private:

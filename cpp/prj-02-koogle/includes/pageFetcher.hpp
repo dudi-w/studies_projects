@@ -1,8 +1,6 @@
 #ifndef PAGE_FETCHER
 #define PAGE_FETCHER
 
-#include <unordered_set>
-#include <queue>
 #include <atomic>
 
 #include "crawlerIF.hpp"
@@ -23,6 +21,7 @@ public:
 
 private:
     se::CrawlerIF& m_crawler;
+    std::atomic<size_t> m_lest;
 };
 
 }//namespace se

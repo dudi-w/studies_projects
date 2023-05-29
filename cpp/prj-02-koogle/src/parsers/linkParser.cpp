@@ -1,9 +1,7 @@
 #include <regex>
-#include <tools.hpp>
 
 #include "linkParser.hpp"
-#include "analyzPage.hpp"
-
+#include "tools.hpp"
 
 void se::LinkParser::searchForLinks(GumboNode* node)
 {

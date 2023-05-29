@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "QueryBuilderIF.hpp"
+#include "queryBuilderIF.hpp"
 #include "textUI.hpp"
 #include "TCPqueryIF.hpp"
 

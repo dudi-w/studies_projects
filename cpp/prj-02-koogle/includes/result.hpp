@@ -3,12 +3,13 @@
 
 #include <string>
 
+#include "resultIF.hpp"
 
 namespace se{
     
-using LinkVec = std::vector<std::pair<std::string, float>>;
+using LinkVec = std::vector<std::pair<std::string, size_t>>;
 
-class Result
+class Result : public ResultIF
 {
 public:
     explicit Result(se::LinkVec result);

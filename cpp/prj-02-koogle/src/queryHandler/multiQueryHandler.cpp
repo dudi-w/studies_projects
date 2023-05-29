@@ -1,10 +1,6 @@
 #include <algorithm>
-#include <limits>
 
 #include "multiQueryHandler.hpp"
-#include "request.hpp"
-#include "result.hpp"
-#include "wordParser.hpp"
 #include "myExceptions.hpp"
 
 se::MultiQueryHandler::MultiQueryHandler(se::GetDB const& searchDB)
@@ -33,7 +29,6 @@ void se::MultiQueryHandler::receivesRequest(std::vector<std::string> const& requ
     }else{
         throw se::InValidArg("Mixed arguments!");
     }
-    sortResult();
 }
 
 void se::MultiQueryHandler::reset()
@@ -72,17 +67,6 @@ void se::MultiQueryHandler::makeForPositive()
         }
         m_result = m_result & result;
     }
-}
-
-void se::MultiQueryHandler::sortResult()
-{
-    LinkVec vecResult;
-    for(auto const& pair : m_result.getResult()){
-        vecResult.push_back(pair);
-    }
-    auto lambda = [](auto pair1 ,auto pair2){return pair1.second > pair2.second;};
-    std::sort(vecResult.begin(), vecResult.end(), lambda);
-    m_result = std::move(se::Result(vecResult));
 }
 
 se::Result se::MultiQueryHandler::returnResult()

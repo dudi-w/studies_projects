@@ -1,5 +1,4 @@
 #include "request.hpp"
-#include "wordParser.hpp"
 #include "tools.hpp"
 
 se::Request::Request(std::string const& request)

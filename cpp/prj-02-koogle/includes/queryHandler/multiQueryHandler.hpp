@@ -1,7 +1,6 @@
 #ifndef P_MULTI_QUERY_HANDLER
 #define P_MULTI_QUERY_HANDLER
 
-#include "searchQueryHandler.hpp"
 #include "simpleQueryHandler.hpp"
 
 namespace se{//Search Engine
@@ -22,7 +21,6 @@ private:
     void makeForNegative();
     void makeForPositive();
     void reset();
-    void sortResult();
 
 private:
     se::SimpleQueryHandler m_simpleQueryHandler;

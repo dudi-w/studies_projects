@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-using LinkVec = std::vector<std::pair<std::string, float>>;
+using LinkVec = std::vector<std::pair<std::string, size_t>>;
 
 namespace se
 {

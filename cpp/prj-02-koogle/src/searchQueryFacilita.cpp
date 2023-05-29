@@ -1,6 +1,6 @@
-#include "searchQueryFacilita.hpp"
-
 #include <iostream>
+
+#include "searchQueryFacilita.hpp"
 
 se::SearchQueryFacilita::SearchQueryFacilita(se::SearchQueryHandler& queryHandler, se::QueryBuilder& queryIF )
 : m_queryHandler(queryHandler)
@@ -14,7 +14,7 @@ void se::SearchQueryFacilita::start() const
         if(request == nullptr){
             break;
         }
-        if(request->getRequest()[0] == "1234"){
+        if(request->getRequest().size() && request->getRequest().front() == "1234"){
             m_queryHandler.receivesRequest(*request);
             break;
         }

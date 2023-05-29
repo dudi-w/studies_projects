@@ -4,8 +4,6 @@
 #include <chrono>
 #include <functional>
 
-#include "getDatabase.hpp"
-
 namespace se{
 
 class SystemMonitor

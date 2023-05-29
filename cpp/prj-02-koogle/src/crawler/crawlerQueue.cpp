@@ -1,14 +1,12 @@
 #include <iostream>
-#include <thread>
 
 #include "crawlerQueue.hpp"
 #include "myExceptions.hpp"
 #include "getHTTP.hpp"
-#include "linkParser.hpp"
 #include "tools.hpp"
 
 se::CrawlerQueue::CrawlerQueue()
-: m_safeQueue(se::Configuration::maxThreads())
+: m_safeQueueHandler{}
 {
     srcURLValidation();
     if(se::Configuration::isBounded()){
@@ -26,7 +24,7 @@ std::string se::CrawlerQueue::deQueue()
 {
     while(true){
 		std::string link;
-		if(!m_safeQueue.deQueue(link)){
+		if(!m_safeQueueHandler.deQueue(link)){// || link.empty()){
 			break;
 		}
 		if(!m_activedLinks.insert(link)){
@@ -35,18 +33,18 @@ std::string se::CrawlerQueue::deQueue()
 		if(!(m_activedLinks.size() < se::Configuration::maxPages())){
             break;
 		}
-    	logAsActive(link);//?optionel
+    	logAsActive(link);//*optionel
 		return link;
     }
     return "";
 }
 
-//! std::string se::CrawlerQueue::deQueue()
+// ! std::string se::CrawlerQueue::deQueue()
 //! {
 //!     while(true){
 //!         if((m_activedLinks.size() < se::Configuration::maxPages())){
 //!             std::string link;
-//!             if(!m_safeQueue.deQueue(link)){
+//!             if(!m_safeQueueHandler.deQueue(link)){
 //!                 break;
 //!         	}
 //!             if(m_activedLinks.insert(link)){
@@ -65,20 +63,20 @@ std::string se::CrawlerQueue::deQueue()
 void se::CrawlerQueue::inQueue(std::string const& link)
 {
     if(!m_activedLinks.count(link) && ifBounded(link)){
-        m_safeQueue.inQueue(link);
+        m_safeQueueHandler.inQueue(link);
     }
 }
 
 void se::CrawlerQueue::inQueue(std::string && link)
 {
     if(!m_activedLinks.count(link) && ifBounded(link)){
-        
-        m_safeQueue.inQueue(std::move(link));
+        m_safeQueueHandler.inQueue(link);
     }
 }
 
 void se::CrawlerQueue::inQueue(std::vector<std::string> const& links)
 {
+    std::cout<<"CrawlerQueue links.size() "<<links.size()<<std::endl;
     for(auto const& link : links){
         inQueue(link);
     }

@@ -14,6 +14,13 @@ void se::SafeUnorderedTable<K1 ,K2 ,V>::insert(K1 const& key1 , K2 const& key2 ,
     }
 }
 
+template<typename K1 ,typename K2 ,typename V>
+std::unordered_map<K1 ,std::unordered_map<K2 ,V>> se::SafeUnorderedTable<K1 ,K2 ,V>::getTable() const
+{
+    std::shared_lock lock(m_mutex);
+    return m_unorderedTable;
+}
+
 template<typename K1 , typename K2 , typename V>
 bool se::SafeUnorderedTable<K1 ,K2 ,V>::exis(K1 const& key1) const
 {
@@ -36,4 +43,3 @@ size_t se::SafeUnorderedTable<K1 ,K2 ,V>::size() const
 }
 
 #endif
-

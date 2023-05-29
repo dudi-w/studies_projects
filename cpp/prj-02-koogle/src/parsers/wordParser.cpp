@@ -2,7 +2,6 @@
 #include <sstream>
 
 #include "wordParser.hpp"
-#include "analyzPage.hpp"
 #include "tools.hpp"
 
 se::WordParser::WordParser()

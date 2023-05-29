@@ -1,7 +1,7 @@
 #ifndef TCP_QUERY_HPP
 #define TCP_QUERY_HPP
 
-#include "QueryBuilderIF.hpp"
+#include "queryBuilderIF.hpp"
 #include "TCPserver.hpp"
 #include "TCPsocketFile.hpp"
 

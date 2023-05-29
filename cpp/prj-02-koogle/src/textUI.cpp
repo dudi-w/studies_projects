@@ -1,5 +1,6 @@
 #include <iomanip>
-#include <locale>
+#include <iostream>
+// #include <locale>
 
 #include "textUI.hpp"
 

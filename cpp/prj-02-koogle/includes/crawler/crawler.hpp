@@ -1,16 +1,14 @@
 #ifndef CRAWLER_HPP
 #define CRAWLER_HPP
 
+#include <vector>
 #include <string>
 #include <thread>
-#include <vector>
 
-
+#include "crawlerIF.hpp"
 #include "analyzPage.hpp"
 #include "linkWordParser.hpp"
-#include "crawlerIF.hpp"
 #include "setDatabase.hpp"
-#include "configuration.hpp"
 #include "pageFetcher.hpp"
 #include "crawlerQueue.hpp"
 
