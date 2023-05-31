@@ -28,7 +28,6 @@ private:
     se::SafeQueue<std::string> m_safeQueue;
     std::mutex m_mutex;
     std::atomic<size_t> m_waiting;
-    const size_t m_maxThreads;
 };
 
 }// namespace se

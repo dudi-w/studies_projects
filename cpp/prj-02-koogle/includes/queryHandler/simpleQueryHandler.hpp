@@ -22,7 +22,6 @@ public:
 
 private:
     se::GetDB const& m_SearchDB;
-    LinkVec m_VecResult;
     se::Result m_result;
 };
 
