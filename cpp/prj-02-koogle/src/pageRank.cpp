@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <iostream>//?
 #include <numeric>
 
 #include "pageRank.hpp"
@@ -14,7 +13,6 @@ void se::PageRank::reCalculatePageRank(se::MyMap const& linksMap)//? maybe pase 
 {
     m_lestUp = linksMap.size();
     m_scoreMap = calculatePageRank(linksMap);
-    std::cout<<"reCalculatePageRank\n";
 }
 
 float se::PageRank::getRank(std::string const& link) const
