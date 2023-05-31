@@ -28,8 +28,6 @@ public:
     virtual void insertWords(StrC srcLink, std::vector<std::string> const& words) override;
     virtual void log() const override;
     virtual bool wordExis(StrC word) const override;
-    bool wordAndLinkExis(StrC word, StrC link) const;
-
 
 private:
     virtual void insertLink(StrC srcLink, StrC link) override;
