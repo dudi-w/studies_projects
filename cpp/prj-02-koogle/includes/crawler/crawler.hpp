@@ -21,10 +21,10 @@ public:
     explicit Crawler(se::SetDB& searchDatabase);
     Crawler(Crawler const& other) = delete;
     Crawler& operator=(Crawler const& other) = delete;
-    ~Crawler();
+    virtual ~Crawler();
 
     virtual void updatePage(AnalyzPage const& page) override;
-    virtual std::string getURLtoDownlaod() override;
+    virtual std::string getURLtoDownload() override;
     
 private:
     se::SetDB& m_mataDatabase;
