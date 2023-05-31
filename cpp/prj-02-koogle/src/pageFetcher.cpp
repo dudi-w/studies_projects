@@ -11,10 +11,11 @@ se::PageFetcher::PageFetcher(se::CrawlerIF& crawler)
 , m_lest{0}
 {}
 
-void se::PageFetcher::startDownlaod()
+void se::PageFetcher::startDownload()
 {
     while(true){
-        if(std::string url = m_crawler.getURLtoDownlaod() ; !url.empty()){
+        std::cerr<<"\033[3;31mse::PageFetcher::startDownload while loop \033[0m"<<std::endl;
+        if(std::string url = m_crawler.getURLtoDownload() ; !url.empty()){
             try{
                 auto page = getHTTPpage(url);
                 m_crawler.updatePage(page);
@@ -28,7 +29,7 @@ void se::PageFetcher::startDownlaod()
             break;
         }
     }
-
+    
     if((++m_lest) == se::Configuration::maxThreads()){
         se::SystemMonitor::end();
     }
