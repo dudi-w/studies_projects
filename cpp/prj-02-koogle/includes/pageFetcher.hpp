@@ -17,7 +17,7 @@ public:
     PageFetcher& operator=(PageFetcher const& other) = default;
     virtual ~PageFetcher() = default;
 
-    void startDownlaod();
+    void startDownload();
 
 private:
     se::CrawlerIF& m_crawler;
