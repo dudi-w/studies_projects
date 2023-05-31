@@ -15,11 +15,11 @@ OBJECTS = mainServer.o src/configuration.o src/tools.o src/request.o\
 		src/parsers/linkParser.o src/parsers/wordParser.o src/parsers/linkWordParser.o src/matabase.o src/pageRank.o src/getHTTP.o\
 		src/pageFetcher.o src/crawler/crawlerQueue.o src/crawler/safeCrawlerQueueHandler.o src/crawler/crawler.o src/systemMonitor.o src/basePage.o\
 		src/analyzPage.o src/result.o src/queryBuilderFactory.o src/textUI.o src/queryHandler/multiQueryHandler.o\
-		src/queryHandler/simpleQueryHandler.o src/queryHandler/smartQueryHandler.o src/searchQueryFacilita.o src/TCPqueryIF.o\
+		src/queryHandler/simpleQueryHandler.o src/queryHandler/smartQueryHandler.o src/queryProcessor.o src/TCPquery.o\
 		src/TCPsocketFile.o src/TCPserver.o
 
 OBJECTS_CLIENT = mainClient.o src/queryHandler/clientQueryHandler.o src/textUI.o\
-	src/result.o src/searchQueryFacilita.o src/request.o\
+	src/result.o src/queryProcessor.o src/request.o\
 	src/tools.o src/TCPsocketFile.o src/TCPclient.o
 
 RUNFILES = mainServer mainClient
@@ -29,8 +29,8 @@ all : $(RUNFILES)
 mainServer : $(OBJECTS)
 mainClient : $(OBJECTS_CLIENT)
 
-mainServer.o : mainServer.cpp includes/matabase.hpp includes/crawler/crawler.hpp includes/queryHandler/smartQueryHandler.hpp includes/searchQueryFacilita.hpp
-mainClient.o : mainClient.cpp includes/queryHandler/clientQueryHandler.hpp includes/searchQueryFacilita.hpp includes/textUI.hpp
+mainServer.o : mainServer.cpp includes/matabase.hpp includes/crawler/crawler.hpp includes/queryHandler/smartQueryHandler.hpp includes/queryProcessor.hpp
+mainClient.o : mainClient.cpp includes/queryHandler/clientQueryHandler.hpp includes/queryProcessor.hpp includes/textUI.hpp
 
 src/request.o : src/request.cpp includes/request.hpp includes/requestIF.hpp includes/tools.hpp
 
@@ -67,7 +67,7 @@ src/pageRank.o : includes/pageRank.hpp src/pageRank.cpp includes/safeDataStructu
 src/textUI.o : includes/textUI.hpp src/textUI.cpp includes/queryBuilderIF.hpp
 src/queryBuilderFactory.o : includes/queryBuilderFactory.hpp src/queryBuilderFactory.cpp\
 	includes/queryBuilderIF.hpp includes/textUI.hpp includes/configuration.hpp
-src/searchQueryFacilita.o : includes/searchQueryFacilita.hpp src/searchQueryFacilita.cpp\
+src/queryProcessor.o : includes/queryProcessor.hpp src/queryProcessor.cpp\
 	includes/queryHandler/searchQueryHandler.hpp includes/queryBuilderIF.hpp
 src/queryHandler/simpleQueryHandler.o : includes/queryHandler/simpleQueryHandler.hpp\
 	src/queryHandler/simpleQueryHandler.cpp includes/queryHandler/searchQueryHandler.hpp\
@@ -86,7 +86,7 @@ src/result.o : includes/result.hpp src/result.cpp includes/requestIF.hpp
 src/TCPsocketFile.o : includes/TCPsocketFile.hpp src/TCPsocketFile.cpp includes/tools.hpp includes/myExceptions.hpp
 src/TCPserver.o : includes/TCPserver.hpp src/TCPserver.cpp includes/TCPsocketFile.hpp includes/myExceptions.hpp 
 src/TCPclient.o : includes/TCPclient.hpp src/TCPclient.cpp includes/TCPsocketFile.hpp includes/myExceptions.hpp
-src/TCPqueryIF.o : includes/TCPqueryIF.hpp src/TCPqueryIF.cpp includes/TCPsocketFile.hpp includes/TCPserver.hpp\
+src/TCPquery.o : includes/TCPquery.hpp src/TCPquery.cpp includes/TCPsocketFile.hpp includes/TCPserver.hpp\
 	includes/queryBuilderIF.hpp includes/myExceptions.hpp includes/tools.hpp
 
 clean :
