@@ -13,7 +13,7 @@ class CrawlerIF
 public:
     virtual ~CrawlerIF() = default;
 
-    virtual std::string getURLtoDownlaod() = 0;
+    virtual std::string getURLtoDownload() = 0;
     virtual void updatePage(AnalyzPage const& page) = 0;
 };
 
