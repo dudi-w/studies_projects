@@ -20,7 +20,7 @@ public:
     void createSocket();
     void bindSocket();
     void listenForClient() const;
-    std::unique_ptr<se::TCPsocketFile> acceptTorecieve() const;
+    std::unique_ptr<se::TCPsocketFile> acceptToRecieve() const;
 
 private:
     void closeSocket() const;
