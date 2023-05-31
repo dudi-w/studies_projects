@@ -44,7 +44,7 @@ void se::SmartQueryHandler::receivesRequest(se::RequestIF& request)
     m_multiQueryHandler.receivesRequest(m_negativeRequests);
     auto N_Result = m_multiQueryHandler.returnResult();
     if(N_Result.getResult().size() != 0){
-        m_result = m_result - N_Result;///???bug = and -and
+        m_result = m_result - N_Result;
     }
     if(m_result.getResult().size() == 0){
         return;

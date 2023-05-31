@@ -1,6 +1,3 @@
-// #include <fstream>
-#include <nlohmann/json.hpp>
-
 #include "crawler.hpp"
 #include "systemMonitor.hpp"
 #include "configuration.hpp"
@@ -12,10 +9,9 @@ se::Crawler::Crawler(se::SetDB& searchDatabase)
 {
     se::SystemMonitor::start();
     for(size_t i = 0 ; i < se::Configuration::maxThreads() ; ++i){
-        m_threads.emplace_back([this](){ m_pageFetcher.startDownlaod();});
+        m_threads.emplace_back([this](){ m_pageFetcher.startDownload();});
     }
 }
-
 se::Crawler::~Crawler()
 {
     for(auto & tread : m_threads){
@@ -29,13 +25,12 @@ void se::Crawler::updatePage(AnalyzPage const& page)
     auto srcPage = parsPage.getSrc();
     auto links = parsPage.getLinks();
     auto words = parsPage.getWords();
-    std::cout<<words.size()<<" updatePage\n";
     m_mataDatabase.insertLinks(srcPage, links);
     m_mataDatabase.insertWords(srcPage, words);
     m_queue.inQueue(links);
 }
 
-std::string se::Crawler::getURLtoDownlaod()
+std::string se::Crawler::getURLtoDownload()
 {
     return m_queue.deQueue();
 }

@@ -4,7 +4,7 @@
 se::Request::Request(std::string const& request)
 {
     std::string new_request = request;
-    makeLowercase(new_request);
+    tool::makeLowercase(new_request);
 
     std::istringstream iss(new_request);
     std::string word;

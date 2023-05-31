@@ -47,7 +47,6 @@ void se::TCPsocketFile::write(std::string const& text) const
 void se::TCPsocketFile::colseSocket() const
 {
     close(m_fileDescriptor);
-    std::clog << "\033[1;31mSocket closed = \033[0m"<<m_fileDescriptor<<std::endl;//TODO delete
 }
 
 int se::TCPsocketFile::fileDescriptorNum() const noexcept

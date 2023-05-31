@@ -10,10 +10,10 @@ se::ClientQueryHandler::ClientQueryHandler(std::string const& serverAddress, uin
 void se::ClientQueryHandler::receivesRequest(se::RequestIF& request)
 {
     if(m_fileDescription == nullptr){
-        throw 1;//TODO
+        throw se::FileDiscreptorError("invalid filediscreptor number");
     }
     auto requestList = request.getRequest();
-    std::string message = convertToString(se::Request(requestList));
+    std::string message = tool::convertToString(se::Request(requestList));
     m_fileDescription = m_TCPclient.connectToServer();
     m_fileDescription->write(message);
 }
@@ -21,13 +21,13 @@ void se::ClientQueryHandler::receivesRequest(se::RequestIF& request)
 se::Result se::ClientQueryHandler::returnResult()//? mybe deleted
 {
     if(m_fileDescription == nullptr){
-        throw 1;//TODO
+        throw se::FileDiscreptorError("invalid filediscreptor number");
     }
     
     if(int fileDescriptorNum = m_fileDescription->fileDescriptorNum(); fileDescriptorNum < 3){
         throw se::FileDiscreptorError("invalid file discreptor number " + fileDescriptorNum);
     }
-    std::string message = m_fileDescription->read();//move
+    std::string message = std::move(m_fileDescription->read());
     m_fileDescription = nullptr;
-    return convertToResult(message);
+    return tool::convertToResult(message);
 }

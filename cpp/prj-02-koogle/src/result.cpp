@@ -17,49 +17,46 @@ se::LinkVec se::Result::getResult() const
 
 se::Result se::Result::operator-(Result const& other) const
 {
-    LinkVec this_result = getResult();
-    LinkVec other_result = other.getResult();
-    auto it = other_result.begin();
-    while(it != other_result.end()){
-        auto find = std::find_if(this_result.cbegin() ,this_result.cend(),[it](std::pair<std::string, float> const& pair){return pair.second == it->second;});
-        if(find != this_result.cend()){
-            it = this_result.erase(find);
-        }else{
-            ++it;
+    LinkVec this_result = this->getResult();
+    LinkVec otherResult = other.getResult();
+    auto it = otherResult.cbegin();
+    while(it != otherResult.cend()){
+        auto find = std::find_if(this_result.cbegin() ,this_result.cend(),[it](std::pair<std::string, float> const& pair){return pair.first == it->first;});
+        if(find != otherResult.cend()){
+            this_result.erase(find);
         }
+        ++it;
     }
     return se::Result(this_result);
 }
 
-se::Result se::Result::operator|(Result const& other) const
+se::Result se::Result::operator|(Result const& other) const //Union operator
 {
-    LinkVec result = getResult();
-    LinkVec other_result = other.getResult();
-
-    auto it = other_result.begin();
-    while(it != other_result.cend()){
-        auto res = std::find_if(result.begin() ,result.end(), [it](std::pair<std::string, float>const& pair){return pair.second == it->second;});
-        if(res == result.cend()){
-            result.push_back(*it);
+    LinkVec thisResult = this->getResult();
+    LinkVec otherResult = other.getResult();
+    auto it = otherResult.cbegin();
+    while(it != otherResult.cend()){
+        auto res = std::find_if(thisResult.begin() ,thisResult.end(), [it](std::pair<std::string, float>const& pair){return pair.first == it->first;});
+        if(res == thisResult.cend()){
+            thisResult.push_back(*it);
         }else{
             res->second = std::min(res->second ,it->second );
         }
         ++it;
     }
-    return se::Result(result);
+    return se::Result(thisResult);
 }
 
-se::Result se::Result::operator&(Result const& other) const
+se::Result se::Result::operator&(Result const& other) const //Intersection operator
 {
     LinkVec result;
     LinkVec this_result = getResult();
-    LinkVec other_result = other.getResult();
-
-    auto it = other_result.cbegin();
-    while(it != other_result.cend()){
-        auto find = std::find_if(this_result.cbegin() ,this_result.cend(), [it](std::pair<std::string, float>const& pair){return pair.second == it->second;});
+    LinkVec otherResult = other.getResult();
+    auto it = otherResult.cbegin();
+    while(it != otherResult.cend()){
+        auto find = std::find_if(this_result.cbegin() ,this_result.cend(), [it](std::pair<std::string, float>const& pair){return pair.first == it->first;});
         if(find != this_result.cend()){
-            result.push_back(std::pair(find->first, std::min(find->second ,it->second)));
+            result.push_back({find->first, std::min(find->second ,it->second)});
         }
         ++it;
     }

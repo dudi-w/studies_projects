@@ -14,7 +14,6 @@ se::PageFetcher::PageFetcher(se::CrawlerIF& crawler)
 void se::PageFetcher::startDownload()
 {
     while(true){
-        std::cerr<<"\033[3;31mse::PageFetcher::startDownload while loop \033[0m"<<std::endl;
         if(std::string url = m_crawler.getURLtoDownload() ; !url.empty()){
             try{
                 auto page = getHTTPpage(url);

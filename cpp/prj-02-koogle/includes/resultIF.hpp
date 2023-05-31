@@ -8,7 +8,7 @@ using LinkVec = std::vector<std::pair<std::string, size_t>>;
 
 namespace se
 {
-class ResultIF
+class ResultIF//?
 {
 public:
     virtual ~ResultIF() = default;
