@@ -2,7 +2,7 @@
 #include "crawler.hpp"
 #include "smartQueryHandler.hpp"
 #include "queryBuilderFactory.hpp"
-#include "searchQueryFacilita.hpp"
+#include "queryProcessor.hpp"
 
 int main()
 {
@@ -13,8 +13,7 @@ int main()
     se::SmartQueryHandler searcher(matabase);
     se::QueryBuilderFactory querysIFfactory;
     se::QueryBuilder& queryBuilder = querysIFfactory.getQueryBuilder();
-    se::SearchQueryFacilita queryFacilitator(searcher, queryBuilder);
+    se::QueryProcessor queryFacilitator(searcher, queryBuilder);
     queryFacilitator.start();
-
     return EXIT_SUCCESS;
 }
