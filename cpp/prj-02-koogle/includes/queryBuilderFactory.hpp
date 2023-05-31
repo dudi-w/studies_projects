@@ -5,7 +5,7 @@
 
 #include "queryBuilderIF.hpp"
 #include "textUI.hpp"
-#include "TCPqueryIF.hpp"
+#include "TCPquery.hpp"
 
 namespace se{//Search Engine
 
