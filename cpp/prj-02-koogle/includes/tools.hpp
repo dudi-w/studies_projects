@@ -7,6 +7,8 @@
 #include "result.hpp"
 #include "configuration.hpp"
 
+namespace tool{ 
+
 void from_json(const nlohmann::json& j, se::CrawlConfig& crawlConfig,se::CommunicatConfig& communicatConfig,se::ThreadsConfig& threadsConfig);
 void from_json(const nlohmann::json& j, std::vector<std::string>& query);
 void from_json(const nlohmann::json& j, std::vector<std::pair<std::string, size_t>>& result);
@@ -20,5 +22,7 @@ se::Request convertToRequest(std::string const& message);
 se::Result convertToResult(std::string const& message);
 std::string convertToString(se::Result const& result);
 std::string convertToString(se::Request const& request);
+
+}//namespace tool
 
 #endif
