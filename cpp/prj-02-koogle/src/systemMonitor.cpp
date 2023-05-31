@@ -17,7 +17,7 @@ void se::SystemMonitor::end()
 {
     auto end_time = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - se::SystemMonitor::getInstance().m_start_time);
-    std::cout << "Execution time: " << duration.count() << " microseconds\n";
+    std::clog << "Execution time: " << duration.count() << " microseconds\n";
     se::SystemMonitor::getInstance().m_logFunc();
 }
 
