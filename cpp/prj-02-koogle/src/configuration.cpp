@@ -50,7 +50,7 @@ void se::Configuration::laodConfiguration(std::string const& configurationFilePa
         std::ifstream input_file(configurationFilePath);
         nlohmann::json j;
         input_file >> j;
-        from_json(j, m_crawlConfig, m_communicatConfigConfig, m_ThreadsConfig);
+        tool::from_json(j, m_crawlConfig, m_communicatConfigConfig, m_ThreadsConfig);
     }
     catch(const nlohmann::json::exception& e)
     {

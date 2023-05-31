@@ -36,9 +36,8 @@ void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::stri
 void se::Matabase::insertLink(std::string const& srcLink, std::string const& link)
 {
     m_safeLinksMap.insert(srcLink, link, 1, [](size_t& count){ ++count;});
-    if( m_safeLinksMap.size() - m_pageRank.lestUpCount() > 10){
+    if(m_safeLinksMap.size() - m_pageRank.lestUpCount() > 10){
         m_pageRank.reCalculatePageRank(m_safeLinksMap);
-        //למזג בין הלינקס מאפ
     }
 }
 
@@ -54,14 +53,7 @@ float se::Matabase::getRank(std::string const& link) const
     return m_pageRank.getRank(link);
 }
 
-//@?
 bool se::Matabase::wordExis(std::string const& word) const
 {
     return m_safeWordsIndex.exis(word);
-}
-
-//@?
-bool se::Matabase::wordAndLinkExis(std::string const& word, std::string const& link) const
-{
-    return !wordExis(word) ? false : m_safeWordsIndex.at(word).count(link);
 }
