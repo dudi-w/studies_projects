@@ -17,10 +17,7 @@ public:
     QueryBuilderFactory& operator=(QueryBuilderFactory const& other) = default;
     ~QueryBuilderFactory() = default;
 
-    se::QueryBuilder& getQueryBuilder();
-
-private:
-    std::unique_ptr<se::QueryBuilder> m_query;
+    std::unique_ptr<se::QueryBuilder> getQueryBuilder();
 };
 
 }//namespace se

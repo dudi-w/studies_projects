@@ -12,8 +12,8 @@ int main()
 
     se::SmartQueryHandler searcher(matabase);
     se::QueryBuilderFactory querysIFfactory;
-    se::QueryBuilder& queryBuilder = querysIFfactory.getQueryBuilder();
-    se::QueryProcessor queryFacilitator(searcher, queryBuilder);
+    std::unique_ptr<se::QueryBuilder> queryBuilder(std::move(querysIFfactory.getQueryBuilder()));
+    se::QueryProcessor queryFacilitator(searcher, *queryBuilder);
     queryFacilitator.start();
     return EXIT_SUCCESS;
 }
