@@ -20,7 +20,7 @@ namespace se{//Search Engine
 class Crawler : public CrawlerIF
 {
 public:
-    explicit Crawler(se::SetDB& searchDatabase);
+    explicit Crawler(se::SetDB& matabase);
     Crawler(Crawler const& other) = delete;
     Crawler& operator=(Crawler const& other) = delete;
     ~Crawler();

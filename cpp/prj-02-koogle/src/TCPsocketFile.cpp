@@ -54,4 +54,3 @@ int se::TCPsocketFile::fileDescriptorNum() const noexcept
 {
     return m_fileDescriptor;
 }
-

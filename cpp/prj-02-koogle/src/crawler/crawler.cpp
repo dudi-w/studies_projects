@@ -4,13 +4,14 @@
 
 #include "crawler.hpp"
 
-se::Crawler::Crawler(se::SetDB& searchDatabase)
-: m_mataDatabase(searchDatabase)
+se::Crawler::Crawler(se::SetDB& matabase)
+: m_mataDatabase(matabase)
 , m_parser(m_linkParser, m_wordParser)
 , m_pageFetcher(*this)
 {
     for(size_t i = 0 ; i < se::Configuration::maxThreads() ; ++i){
         m_threads.emplace_back([this](){ m_pageFetcher.startDownlaod();});
+        m_threads[0].
     }
     // auto start_time = std::chrono::high_resolution_clock::now();
     // auto end_time = std::chrono::high_resolution_clock::now();
