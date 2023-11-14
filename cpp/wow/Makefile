@@ -5,7 +5,7 @@ CC=g++
 
 main: dublePointers.o
 
-	$(CC)  dublePointers.o -o main
+	$(CC) dublePointers.o -o main
 
 dublePointers.o: dublePointers.cpp
 
