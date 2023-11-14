@@ -2,8 +2,7 @@ CC = g++
 
 CXX = $(CC)
 
-GXXFLAGS = -Wall -pedantic -Werror -g -std=c++17
-
+GXXFLAGS = -Wall -pedantic -g3 -std=c++17
 GXXFLAGS+= -Werror
 
 main: main.o 

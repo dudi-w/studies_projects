@@ -1,7 +1,6 @@
+#include <algorithm>
+
 #include "simpleQueryHandler.hpp"
-#include "request.hpp"
-#include "result.hpp"
-#include "wordParser.hpp"
 #include "myExceptions.hpp"
 
 se::SimpleQueryHandler::SimpleQueryHandler(se::GetDB const& searchDB)
@@ -20,17 +19,20 @@ void se::SimpleQueryHandler::receivesRequest(se::RequestIF& request)
 void se::SimpleQueryHandler::receivesRequest(std::string const& request)
 {
     m_result = se::Result({});
-    m_VecResult.clear();
+    se::LinkVec vecResult;
 
-    std::string word = request;
-
-    if(m_SearchDB.wordExis(word)){
-        auto mapResult = m_SearchDB.getLinkOfWord(word);
-        for(auto const& pair : mapResult){
-            m_VecResult.push_back(pair);
+    if(m_SearchDB.wordExis(request)){
+        vecResult = std::move(m_SearchDB.getLinkOfWord(request));
+        auto it = vecResult.begin();
+        while(it != vecResult.end()){
+            if(!m_SearchDB.getRank(it->first)){
+                it = vecResult.erase(it);
+            }else{
+                ++it;
+            }
         }
-        std::sort(m_VecResult.begin(), m_VecResult.end(), [](auto pair1 ,auto pair2){return pair1.second > pair2.second;});
-        m_result = std::move(se::Result(m_VecResult));
+        std::sort(vecResult.begin(), vecResult.end(), [this](auto pair1 ,auto pair2){return pair1.second*m_SearchDB.getRank(pair1.first) > pair2.second*m_SearchDB.getRank(pair2.first);});
+        m_result = std::move(se::Result(vecResult));
     }
 }
 

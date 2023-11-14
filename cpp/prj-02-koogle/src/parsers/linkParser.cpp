@@ -1,9 +1,8 @@
 #include <regex>
-#include <tools.hpp>
 
 #include "linkParser.hpp"
-#include "analyzPage.hpp"
-
+#include "myExceptions.hpp"
+#include "tools.hpp"
 
 void se::LinkParser::searchForLinks(GumboNode* node)
 {
@@ -32,11 +31,11 @@ void se::LinkParser::fixLinks(std::string const& srcUrl)
 se::AnalyzPage se::LinkParser::pars(std::unique_ptr<se::Page> const page)
 {
     if(page == nullptr){
-        throw 1;//TODO
+        throw se::InValidArg("nothing to pars");
     }
     reset();
-    extractHTTP(page->getSrc(), m_srcHTTP);
-    extractPrefix(page->getSrc(), m_srcPrefix);
+    tool::extractHTTP(page->getSrc(), m_srcHTTP);
+    tool::extractPrefix(page->getSrc(), m_srcPrefix);
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());
     searchForLinks(output->root);
     fixLinks(page->getSrc());

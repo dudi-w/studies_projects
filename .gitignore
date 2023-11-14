@@ -11,4 +11,5 @@ cpp/prj-02-koogle/mainClient
 *.gi
 cpp/prj-02-koogle-v.02
 cpp/prj-02-koogle-test
-
+cpp/prj-02-koogle-tmp
+cpp/prj-02-koogle-sql

@@ -1,25 +1,17 @@
-// #include <chrono>
-#include <fstream>
-#include <nlohmann/json.hpp>
-
 #include "crawler.hpp"
+#include "systemMonitor.hpp"
+#include "configuration.hpp"
 
 se::Crawler::Crawler(se::SetDB& matabase)
 : m_mataDatabase(matabase)
 , m_parser(m_linkParser, m_wordParser)
 , m_pageFetcher(*this)
 {
+    se::SystemMonitor::start();
     for(size_t i = 0 ; i < se::Configuration::maxThreads() ; ++i){
         m_threads.emplace_back([this](){ m_pageFetcher.startDownlaod();});
-        m_threads[0].
     }
-    // auto start_time = std::chrono::high_resolution_clock::now();
-    // auto end_time = std::chrono::high_resolution_clock::now();
-    // auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-    // std::cout << "Execution time: " << duration.count() << " microseconds\n";
-    // m_mataDatabase.log();
 }
-
 se::Crawler::~Crawler()
 {
     for(auto & tread : m_threads){
@@ -38,7 +30,7 @@ void se::Crawler::updatePage(AnalyzPage const& page)
     m_queue.inQueue(links);
 }
 
-std::string se::Crawler::getURLtoDownlaod()
+std::string se::Crawler::getURLtoDownload()
 {
     return m_queue.deQueue();
 }

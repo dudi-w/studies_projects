@@ -24,7 +24,7 @@ protected:
 
 inline Light::Light(float x, float y)
 {
-    m_texture.loadFromFile("./light.png");
+    m_texture.loadFromFile("./resurces/light.png");
     m_light.setOrigin(m_texture.getSize().x/2,m_texture.getSize().y/2);
     m_light.setPosition(x,y);
     m_light.setTexture(m_texture);

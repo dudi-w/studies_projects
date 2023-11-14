@@ -7,7 +7,7 @@
 
 namespace se{//Search Engine
 
-class AnalyzPage : public BasePage
+class AnalyzPage : public BasePage//?
 {
 public:
     using BasePage::BasePage;

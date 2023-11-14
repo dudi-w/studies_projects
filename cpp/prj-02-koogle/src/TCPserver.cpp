@@ -41,7 +41,7 @@ void se::TCPserver::listenForClient() const
     }
 }
 
-std::unique_ptr<se::TCPsocketFile> se::TCPserver::acceptTorecieve() const
+std::unique_ptr<se::TCPsocketFile> se::TCPserver::acceptToRecieve() const
 {
     int clientFileDesciptor;
     struct sockaddr_in clientAddress;

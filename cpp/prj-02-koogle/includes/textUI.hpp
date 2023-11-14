@@ -1,11 +1,10 @@
 #ifndef TUI_HPP
 #define TUI_HPP
 
-#include <iostream>
 #include <memory>
 #include <regex>
 
-#include "QueryBuilderIF.hpp"
+#include "queryBuilderIF.hpp"
 
 namespace se{//Search Engin
 

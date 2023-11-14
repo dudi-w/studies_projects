@@ -19,7 +19,6 @@ public:
     virtual se::Result returnResult() override;
 
 public:
-
     se::TCPclient m_TCPclient;
     std::unique_ptr<se::TCPsocketFile> m_fileDescription;
 };

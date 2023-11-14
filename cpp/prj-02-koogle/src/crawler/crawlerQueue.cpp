@@ -1,14 +1,12 @@
 #include <iostream>
-#include <thread>
 
 #include "crawlerQueue.hpp"
 #include "myExceptions.hpp"
 #include "getHTTP.hpp"
-#include "linkParser.hpp"
 #include "tools.hpp"
 
 se::CrawlerQueue::CrawlerQueue()
-: m_safeQueue(se::Configuration::maxThreads())
+: m_safeQueueHandler{}
 {
     srcURLValidation();
     if(se::Configuration::isBounded()){
@@ -19,26 +17,24 @@ se::CrawlerQueue::CrawlerQueue()
 
 void se::CrawlerQueue::logAsActive(std::string const& link)
 {
-    std::clog<<"\U0001F525 \033[1;33m"<<link<<"\033[0m\U0001F525\n"<<std::endl;
+    std::clog<<"\U0001F525 \033[1;33m"<<link<<"\033[0m \U0001F525\n"<<std::endl;
 }
 
 std::string se::CrawlerQueue::deQueue()
 {
     while(true){
-        if((m_activedLinks.size() < se::Configuration::maxPages())){
-            auto link = m_safeQueue.deQueue();
-            if(!link){
-                break;
-            }
-            if(m_activedLinks.insert(link.value())){
-                logAsActive(link.value());///optionel
-                return link.value();
-            }else{
-                continue;
-            }
-        }else{
+		std::string link;
+		if(!m_safeQueueHandler.deQueue(link)){
+			break;
+		}
+		if(!m_activedLinks.insert(link)){
+			continue;
+		}
+		if(m_activedLinks.size() > se::Configuration::maxPages()){
             break;
-        }
+		}
+    	logAsActive(link);//optionel
+		return link;
     }
     return "";
 }
@@ -46,15 +42,14 @@ std::string se::CrawlerQueue::deQueue()
 void se::CrawlerQueue::inQueue(std::string const& link)
 {
     if(!m_activedLinks.count(link) && ifBounded(link)){
-        m_safeQueue.inQueue(link);
+        m_safeQueueHandler.inQueue(link);
     }
 }
 
 void se::CrawlerQueue::inQueue(std::string && link)
 {
     if(!m_activedLinks.count(link) && ifBounded(link)){
-        
-        m_safeQueue.inQueue(std::move(link));
+        m_safeQueueHandler.inQueue(link);
     }
 }
 
@@ -69,7 +64,7 @@ void se::CrawlerQueue::srcURLValidation()
 {
     for(auto const& url : se::Configuration::getSrcURLs()){
         try{
-            isNetworkConnected();
+            tool::isNetworkConnected();
             getHTTPpage(url);
         }
         catch(const curlpp::LibcurlRuntimeError & e)
@@ -84,7 +79,7 @@ void se::CrawlerQueue::extractSrcPrefix()
     std::string prefix;
     for(size_t i = 0 ; i < se::Configuration::getSrcURLs().size(); ++i){
         m_homeAddress.reserve(se::Configuration::getSrcURLs().size());
-        extractPrefix(se::Configuration::getSrcURLs()[i], prefix);
+        tool::extractPrefix(se::Configuration::getSrcURLs()[i], prefix);
         m_homeAddress.push_back(prefix);
     }
 }
@@ -95,7 +90,7 @@ bool se::CrawlerQueue::ifBounded(std::string const& link) const
         return true;
     }else{
         std::string currentHomeAddress;
-        extractPrefix(link, currentHomeAddress);
+        tool::extractPrefix(link, currentHomeAddress);
         auto lambda = [&currentHomeAddress](auto const& HomeAddress){return HomeAddress == currentHomeAddress;};
         return std::any_of(m_homeAddress.cbegin(), m_homeAddress.cend(), lambda);
     }

@@ -1,8 +1,5 @@
-#include <iostream>
-#include <sstream>
-
 #include "wordParser.hpp"
-#include "analyzPage.hpp"
+#include "myExceptions.hpp"
 #include "tools.hpp"
 
 se::WordParser::WordParser()
@@ -42,7 +39,7 @@ void se::WordParser::cleanText()
         std::smatch match;
         if(std::regex_search(*it, match, m_cleanTextRegex)){
             std::string word = static_cast<std::string>(match[0]);
-            makeLowercase(word);
+            tool::makeLowercase(word);
             m_clwanWords.push_back(word);
         }
         ++it;
@@ -52,7 +49,7 @@ void se::WordParser::cleanText()
 se::AnalyzPage se::WordParser::pars(std::unique_ptr<se::Page> const page)
 {
     if(page == nullptr){
-        throw 1;//TODO
+        throw se::InValidArg("nothing to pars");
     }
     reset();
     GumboOutput* output = gumbo_parse(page->getBaseData().c_str());

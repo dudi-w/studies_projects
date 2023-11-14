@@ -1,8 +1,8 @@
-#include "TCPqueryIF.hpp"
+#include "TCPquery.hpp"
 #include "myExceptions.hpp"
 #include "tools.hpp"
 
-se::TCPquerys::TCPquerys(uint16_t port)
+se::TCPqueryBuilder::TCPqueryBuilder(uint16_t port)
 : m_server(port)
 , m_fileDescription(nullptr)
 {
@@ -11,30 +11,30 @@ se::TCPquerys::TCPquerys(uint16_t port)
     m_server.listenForClient();
 }
 
-std::unique_ptr<se::RequestIF> se::TCPquerys::makeRequest()
+std::unique_ptr<se::RequestIF> se::TCPqueryBuilder::makeRequest()
 {
-    m_fileDescription = m_server.acceptTorecieve();
+    m_fileDescription = m_server.acceptToRecieve();
     if(m_fileDescription == nullptr){
-        throw 1;//TODO
+        throw se::FileDiscreptorError("invalid filediscreptor number");
     }
 
     std::string message = m_fileDescription->read();
-    auto request = convertToRequest(message);
+    auto request = tool::convertToRequest(message);
     if(request.getRequest().at(0) == "1234"){
         return nullptr;
     }
     return std::make_unique<se::Request>(request);
 }
 
-void se::TCPquerys::recieveResult(se::Result& result) const
+void se::TCPqueryBuilder::recieveResult(se::Result& result) const
 {
     if(m_fileDescription == nullptr){
-        throw 1;//TODO
+        throw se::FileDiscreptorError("invalid filediscreptor number");
     }
 
     if(int fileDescriptorNum = m_fileDescription->fileDescriptorNum(); fileDescriptorNum < 3){
         throw se::FileDiscreptorError("invalid file discreptor number " + fileDescriptorNum);
     }
-    auto message = convertToString(result);
+    auto message = tool::convertToString(result);
     m_fileDescription->write(message);
 }

@@ -1,20 +1,20 @@
-#include "searchQueryFacilita.hpp"
-
 #include <iostream>
 
-se::SearchQueryFacilita::SearchQueryFacilita(se::SearchQueryHandler& queryHandler, se::QueryBuilder& queryIF )
+#include "queryProcessor.hpp"
+
+se::QueryProcessor::QueryProcessor(se::SearchQueryHandler& queryHandler, se::QueryBuilder& queryIF )
 : m_queryHandler(queryHandler)
 , m_queryIF(queryIF)
 {}
 
-void se::SearchQueryFacilita::start() const
+void se::QueryProcessor::start() const
 {
     while(true){
         auto request = m_queryIF.makeRequest();
         if(request == nullptr){
             break;
         }
-        if(request->getRequest()[0] == "1234"){
+        if(request->getRequest().size() && request->getRequest().front() == "1234"){
             m_queryHandler.receivesRequest(*request);
             break;
         }

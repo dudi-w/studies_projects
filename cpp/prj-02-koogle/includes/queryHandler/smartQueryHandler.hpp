@@ -3,7 +3,6 @@
 
 #include <algorithm>
 
-#include "getDatabase.hpp"
 #include "searchQueryHandler.hpp"
 #include "multiQueryHandler.hpp"
 
@@ -22,13 +21,11 @@ public:
 
 private:
     void reset();
-    void sortResult();
 
 private:
     se::MultiQueryHandler m_multiQueryHandler;
     std::vector<std::string> m_requests;
     std::vector<std::string> m_negativeRequests;
-    LinkVec m_vetResult;
     se::Result m_result;
 };
 

@@ -1,9 +1,6 @@
 #include <limits>
 
 #include "smartQueryHandler.hpp"
-#include "request.hpp"
-#include "result.hpp"
-#include "wordParser.hpp"
 
 se::SmartQueryHandler::SmartQueryHandler(se::GetDB const& searchDB)
 : m_multiQueryHandler(searchDB)
@@ -52,18 +49,6 @@ void se::SmartQueryHandler::receivesRequest(se::RequestIF& request)
     if(m_result.getResult().size() == 0){
         return;
     }
-    sortResult();
-}
-
-void se::SmartQueryHandler::sortResult()
-{
-    LinkVec vecResult;
-    for(auto const& pair : m_result.getResult()){
-        vecResult.push_back(pair);
-    }
-    auto lambda = [](auto pair1 ,auto pair2){return pair1.second > pair2.second;};
-    std::sort(vecResult.begin(), vecResult.end(), lambda);
-    m_result = std::move(se::Result(vecResult));
 }
 
 se::Result se::SmartQueryHandler::returnResult()

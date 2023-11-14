@@ -25,7 +25,7 @@ private:
 inline TV::TV(float x, float y)
 {
     m_TV.setPosition(x,y);
-    m_texture.loadFromFile("./TV.png");
+    m_texture.loadFromFile("./resurces/TV.png");
     m_TV.setTexture(m_texture);
     stopPlay();
 }

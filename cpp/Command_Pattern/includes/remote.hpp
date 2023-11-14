@@ -14,6 +14,7 @@ public:
     ~RemoteControl() = default;
 
     void setCommand(std::shared_ptr<Command> command);
+    void setCommand(std::vector<std::shared_ptr<Command>> commands);
     void buttonWasPressed();
 
 private:
@@ -23,6 +24,13 @@ private:
 inline void RemoteControl::setCommand(std::shared_ptr<Command> command)
 {
     m_slot.push(command);
+}
+
+inline void setCommand(std::vector<std::shared_ptr<Command>> commands)
+{
+    for(auto command : commands){
+        m_slot.push(command);
+    }
 }
 
 inline void RemoteControl::buttonWasPressed()

@@ -3,8 +3,7 @@
 
 #include <queue>
 #include <condition_variable>
-#include <atomic>
-#include <optional>
+#include <functional>
 
 namespace se{
 
@@ -12,22 +11,25 @@ template<typename T>
 class SafeQueue
 {
 public:
-    explicit SafeQueue(size_t maxThreads);
+    SafeQueue();
+    explicit SafeQueue(std::function<void(void)> sleep, std::function<void(void)> waekup);
     SafeQueue(SafeQueue const& other) = delete;
     SafeQueue& operator=(SafeQueue const& other) = delete;
     ~SafeQueue() = default;
 
 public:
-    std::optional<T> deQueue();
-    void inQueue(const T&);
+    void deQueue(T& element);
+    void inQueue(const T& element);
     void inQueue(std::vector<T> const& elements);
+    void shutdown();
 
 private:
     std::queue<T> m_queue;
     std::mutex m_mutex;
-    std::atomic<size_t> m_waiting;
     std::condition_variable m_cv;
-    size_t m_maxThreads;
+    std::function<void(void)> m_sleep;
+    std::function<void(void)> m_waekup;
+    std::atomic<bool> m_shutdown;
 };
 
 }// namespace se

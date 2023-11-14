@@ -1,20 +1,20 @@
 #include <thread>
-#include <chrono>//!
 
 #include "pageFetcher.hpp"
 #include "getHTTP.hpp"
-#include "linkParser.hpp"
 #include "myExceptions.hpp"
 #include "configuration.hpp"
+#include "systemMonitor.hpp"
 
 se::PageFetcher::PageFetcher(se::CrawlerIF& crawler)
 : m_crawler(crawler)
+, m_lest{0}
 {}
 
-void se::PageFetcher::startDownlaod()
+void se::PageFetcher::startDownload()
 {
     while(true){
-        if(std::string url = m_crawler.getURLtoDownlaod() ; !url.empty()){
+        if(std::string url = m_crawler.getURLtoDownload() ; !url.empty()){
             try{
                 auto page = getHTTPpage(url);
                 m_crawler.updatePage(page);
@@ -27,5 +27,9 @@ void se::PageFetcher::startDownlaod()
         else{
             break;
         }
+    }
+    
+    if((++m_lest) == se::Configuration::maxThreads()){
+        se::SystemMonitor::end();
     }
 }

@@ -1,8 +1,6 @@
 #ifndef PAGE_FETCHER
 #define PAGE_FETCHER
 
-#include <unordered_set>
-#include <queue>
 #include <atomic>
 
 #include "crawlerIF.hpp"
@@ -19,10 +17,11 @@ public:
     PageFetcher& operator=(PageFetcher const& other) = default;
     virtual ~PageFetcher() = default;
 
-    void startDownlaod();
+    void startDownload();
 
 private:
     se::CrawlerIF& m_crawler;
+    std::atomic<size_t> m_lest;
 };
 
 }//namespace se

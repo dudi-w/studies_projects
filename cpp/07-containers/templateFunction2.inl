@@ -17,7 +17,7 @@ std::optional<size_t*> tf::getDuplicates(const std::array<T,7>& arr)
             return arrResulte;
         }
     }
-    return {};
+    return std::nullopt;
 }
 
 template <typename T>
@@ -38,6 +38,18 @@ bool tf::isSorted(const T* arr ,size_t  size)
         }
     }
     return (checkSortRev || checkSort);
+}
+
+template <typename Iterator>
+Iterator tf::find(Iterator begin ,Iterator end, typename Iterator::value_type v)
+{
+    while(begin != end){
+        if(*begin == v){
+            return v;
+        }
+        ++begin;
+    }
+    return end;
 }
 
 template<typename Container>
@@ -62,6 +74,17 @@ typename Container::const_iterator  tf::getFirstUniq(Container const& container)
     return end;
 }
 
+template<typename Iterator>
+typename Iterator::value_type tf::sumRange(Iterator begin ,Iterator end, std::function<typename Iterator::value_type(Iterator&)> fun)
+{
+    typename Iterator::value_type sum;
+    while(begin != end){
+        sum += fun(begin);
+        ++begin;
+    }
+    return sum;
+}
+
 template<typename Container>
 typename Container::const_iterator  tf::getFirstDuplicates(Container const& container)
 {
@@ -69,16 +92,16 @@ typename Container::const_iterator  tf::getFirstDuplicates(Container const& cont
     iter it = container.cbegin();
     iter end = container.cend();
     std::unordered_map <typename Container::value_type, iter > map;
-        while(it != end){
-            
-            if(map.count(*it)==0){
-                map[*it]=it;
-                ++it;
-            }
-            else{
-                it = map.at(*it);
-                return it;
-            }
+    while(it != end){
+        
+        if(map.count(*it)==0){
+            map[*it]=it;
+            ++it;
         }
-        return end;
+        else{
+            it = map.at(*it);
+            return it;
+        }
+    }
+    return end;
 }

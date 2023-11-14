@@ -17,7 +17,6 @@ public:
     TCPclient& operator=(TCPclient const& other) = default;
     ~TCPclient();
 
-public:
     std::unique_ptr<se::TCPsocketFile> connectToServer();
 
 private:

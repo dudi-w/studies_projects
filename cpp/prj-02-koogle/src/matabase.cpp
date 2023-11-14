@@ -2,7 +2,12 @@
 
 #include "matabase.hpp"
 #include "myExceptions.hpp"
+#include "systemMonitor.hpp"
 
+se::Matabase::Matabase()
+{
+    se::SystemMonitor::setLogFunc([&](){log();});
+}
 
 void se::Matabase::log() const
 {
@@ -11,9 +16,11 @@ void se::Matabase::log() const
     std::clog<<"\tThe number of links: "<<m_safeLinksMap.size()<<std::endl;
 }
 
-std::unordered_map<std::string ,size_t> se::Matabase::getLinkOfWord(std::string const& word) const
+se::LinkVec se::Matabase::getLinkOfWord(std::string const& word) const
 {
-    return m_safeWordsIndex.at(word);
+    auto mapResult = m_safeWordsIndex.at(word);
+    se::LinkVec vecResult(mapResult.cbegin(), mapResult.cend());
+    return vecResult;
 }
 
 void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::string> const& links)
@@ -26,35 +33,27 @@ void se::Matabase::insertLinks(std::string const& srcLink, std::vector<std::stri
         throw se::StorageError("Double storage of URL = " + srcLink);
     }
 }
-
 void se::Matabase::insertLink(std::string const& srcLink, std::string const& link)
 {
-    m_safeLinksMap.insert(srcLink, link, 1);
+    m_safeLinksMap.insert(srcLink, link, 1, [](size_t& count){ ++count;});
+    if(m_safeLinksMap.size() - m_pageRank.lestUpCount() > 10){
+        m_pageRank.reCalculatePageRank(m_safeLinksMap);
+    }
 }
 
 void se::Matabase::insertWords(std::string const& srcLink, std::vector<std::string> const& words)
 {
     for(auto const & word : words){
-        m_safeWordsIndex.insert(word ,srcLink, 1);
+        m_safeWordsIndex.insert(word ,srcLink, 1, [](auto& count){ ++count;});
     }
 }
 
-size_t se::Matabase::getLinkOccurrenceCount(std::string const& link1, std::string const& link2) const
+float se::Matabase::getRank(std::string const& link) const
 {
-    try{
-        return m_safeLinksMap.at(link1).at(link2);
-    }
-    catch(std::out_of_range& e){
-        return 0;
-    }
+    return m_pageRank.getRank(link);
 }
 
 bool se::Matabase::wordExis(std::string const& word) const
 {
     return m_safeWordsIndex.exis(word);
-}
-
-bool se::Matabase::wordAndLinkExis(std::string const& word, std::string const& link) const
-{
-    return !wordExis(word) ? false : m_safeWordsIndex.at(word).count(link);
 }

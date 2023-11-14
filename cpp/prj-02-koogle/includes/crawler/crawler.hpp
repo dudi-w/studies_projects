@@ -1,16 +1,14 @@
 #ifndef CRAWLER_HPP
 #define CRAWLER_HPP
 
+#include <vector>
 #include <string>
 #include <thread>
-#include <vector>
 
-
+#include "crawlerIF.hpp"
 #include "analyzPage.hpp"
 #include "linkWordParser.hpp"
-#include "crawlerIF.hpp"
 #include "setDatabase.hpp"
-#include "configuration.hpp"
 #include "pageFetcher.hpp"
 #include "crawlerQueue.hpp"
 
@@ -23,10 +21,10 @@ public:
     explicit Crawler(se::SetDB& matabase);
     Crawler(Crawler const& other) = delete;
     Crawler& operator=(Crawler const& other) = delete;
-    ~Crawler();
+    virtual ~Crawler();
 
     virtual void updatePage(AnalyzPage const& page) override;
-    virtual std::string getURLtoDownlaod() override;
+    virtual std::string getURLtoDownload() override;
     
 private:
     se::SetDB& m_mataDatabase;
