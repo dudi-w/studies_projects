@@ -9,7 +9,7 @@ se::Crawler::Crawler(se::SetDB& matabase)
 {
     se::SystemMonitor::start();
     for(size_t i = 0 ; i < se::Configuration::maxThreads() ; ++i){
-        m_threads.emplace_back([this](){ m_pageFetcher.startDownlaod();});
+        m_threads.emplace_back([this](){ m_pageFetcher.startDownload();});
     }
 }
 se::Crawler::~Crawler()
