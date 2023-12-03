@@ -30,6 +30,7 @@ void se::TCPserver::bindSocket()
     m_address.sin_addr.s_addr = INADDR_ANY;
     m_address.sin_port = htons(m_port);
     if(bind(m_server_fd, (struct sockaddr*)&m_address, sizeof(m_address))< 0){
+        closeSocket();
         throw se::BindingSocketError("Bind failure");
     }
 }
